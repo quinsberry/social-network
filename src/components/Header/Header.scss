@@ -1,7 +1,24 @@
+$header-bg: #fff;
+
 .header {
   grid-area: h;
-  background-color: green;
-  img {
-    width: 20px;
+  background-color: $header-bg;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 3fr 10fr;
+  .logo {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    span {
+      font-size: 20px;
+      font-weight: bold;
+      opacity: .9;
+    }
+    img {
+      width: 40px;
+      margin-right: 5px;
+    }
   }
 }

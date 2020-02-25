@@ -1,0 +1,13 @@
+$main-clr: #252525;
+$dialog-active: lighten($main-clr, 30%);
+
+.dialogs__users-dialog {
+  padding: 8px 12px;
+
+  a {
+    text-decoration: none;
+    &.active {
+      color: $dialog-active;
+    }
+  }
+}

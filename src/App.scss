@@ -1,4 +1,12 @@
+$main-text-clr: #252525;
+$content-bg: #fff;
+
+a {
+  color: $main-text-clr;
+}
 .app-wrapper {
+  color: $main-text-clr;
+  overflow: hidden;
   margin: 0 auto;
   display: grid;
   width: 1200px;
@@ -7,14 +15,12 @@
   "h h"
   "n c";
 
-   grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
-    /* grid-gap: 10px; */
-
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
 }
 
 
 .content {
   grid-area: c;
-  background-color: cornflowerblue;
+  background-color: $content-bg;
 }

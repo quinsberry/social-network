@@ -1,6 +1,11 @@
+$nav-bg: #f5f5f5;
+$nav-clr: #252525;
+$nav-clr__active: lighten($nav-clr, 30%);
+
+
 .nav {
   grid-area: n;
-  background-color: burlywood;
+  background-color: $nav-bg;
 
   ul {
     padding: 0 20px;
@@ -8,15 +13,27 @@
 
   &__item {
     list-style-type: none;
-    padding: 5px 7px 5px 17px;
+    padding: 10px 7px 10px 17px;
 
     a {
-      color: white;
+      // color: white;
+      color: $nav-clr;
       text-decoration: none;
     }
 
     a.active {
-      color: darken(burlywood, 40%);
+      position: relative;
+      color: $nav-clr__active;
+      
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: 1px solid $nav-clr__active;
+        opacity: .3;
+      }
     }
   }
 }

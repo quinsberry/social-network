@@ -6,7 +6,7 @@ import './MyPosts.scss';
 
 const MyPosts = () => {
   return (
-    <div>
+    <div className="myposts">
       My posts
       <div>
         <textarea name="a" id="a" rows="3"></textarea>
