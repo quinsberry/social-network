@@ -5,11 +5,11 @@ import MyPosts from './MyPosts/MyPosts';
 
 import './Profile.scss';
 
-const Profile = () => {
+const Profile = ({ state }) => {
   return (
     <div>
       <ProfileInfo />
-      <MyPosts />
+      <MyPosts posts={state.posts} />
     </div>
   );
 }

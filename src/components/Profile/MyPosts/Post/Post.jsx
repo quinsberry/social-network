@@ -2,11 +2,11 @@ import React from 'react';
 
 import './Post.scss';
 
-const Post = ({ msg, likesCount }) => {
+const Post = ({ postMsg, likesCount }) => {
   return (
     <div className="post">
       <div className="post__message">
-        {msg}
+        {postMsg}
       </div>
       <div className="likes">
         Like <span>{likesCount}</span>

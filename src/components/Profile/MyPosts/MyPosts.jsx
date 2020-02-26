@@ -4,16 +4,24 @@ import Post from './Post/Post';
 
 import './MyPosts.scss';
 
-const MyPosts = () => {
+const MyPosts = ({ posts }) => {
+
   return (
     <div className="myposts">
-      My posts
-      <div>
-        <textarea name="a" id="a" rows="3"></textarea>
-        <button>Add Post</button>
+      <h3>My posts</h3>
+      <div className="myposts__new-post">
+        <div className="myposts__new-post-area">
+          <textarea name="a" id="a" rows="3"></textarea>
+        </div>
+        <div className="myposts__new-post-btn">
+          <button className="btn">Add Post</button>
+        </div>
       </div>
-      <Post msg={'Hey everyone!!'} likesCount='0' />
-      <Post msg={'Im newbee, Hello!'} likesCount='23' />
+      {posts && (
+        posts.map((post, index) => (
+          <Post key={index} postMsg={post.postMessage} id={post.id} likesCount={post.likes} />
+        ))
+      )}
     </div>
   );
 };

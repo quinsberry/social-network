@@ -1,3 +1,32 @@
+$texarea-brdr: lighten(#252525, 70%);
+$text-clr: #252525;
+
 .myposts {
   padding: 10px;
+
+  &__new-post {
+    padding-bottom: 10px;
+    &-area {
+      padding-bottom: 10px;
+      textarea {
+        border: 1px solid $texarea-brdr;
+        border-radius: 3px;
+        padding: 5px 10px;
+        margin: 0;
+        resize: none;
+        outline: none;
+        color: lighten($text-clr, 40%);
+  
+        &:focus {
+          border-color: darken($texarea-brdr, 20%);
+          color: $text-clr;
+        }
+      }
+    }
+    &-btn {
+      .btn {
+        cursor: pointer;
+      }
+    }
+  }
 }

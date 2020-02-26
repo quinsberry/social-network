@@ -5,23 +5,25 @@ import Message from './Message/Message';
 
 import './Dialogs.scss';
 
-const Dialogs = () => {
+const Dialogs = ({ state }) => {
+
+
+
   return (
     <div className="dialogs">
       <div className="dialogs__users">
-        <Dialog name='Alicja' id='1' />
-        <Dialog name='John' id='2' />
-        <Dialog name='Bill' id='3' />
-        <Dialog name='Evelyn' id='4' />
-        <Dialog name='Kaas' id='5' />
-
+        {state.dialogs && (
+          state.dialogs.map(user => (
+            <Dialog key={user.id} name={user.name} id={user.id} />
+          ))
+        )}
       </div>
       <div className="dialogs__messages">
-        <Message message='Hello!' />
-        <Message message='How are you? go to swim' />
-        <Message message='asdjwefnskdnv' />
-        <Message message='Lorem ipsum' />
-        <Message message='if you read this you are dumb' />
+        {state.messages && (
+          state.messages.map(message => (
+            <Message key={message.id} message={message.message} id={message.id} />
+          ))
+        )}
       </div>
     </div>
   );
