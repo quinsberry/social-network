@@ -5,7 +5,25 @@
     padding: 10px 20px;
   }
 
-  &__messages {
+  &__messages-area {
     padding: 10px 20px;
+    .messages {
+      margin-bottom: 20px;
+    }
+    .new-message {
+      display: grid;
+      grid-template-columns: 10fr 3fr;
+      .textarea {
+        padding: 8px 15px;
+        border-radius: 30px;
+      }
+      &__buttons {
+        display: flex;
+        align-items: center;
+        button {
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }

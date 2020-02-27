@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
@@ -9,21 +9,19 @@ import ErrorPage from './components/ErrorPage/ErrorPage';
 
 import './App.scss';
 
-const App = ({ state }) => {
+const App = ({ state, addPost, sendMessage }) => {
   return (
-    <Router>
-      <div className='app-wrapper'>
-        <Header />
-        <Navbar />
-        <div className="content">
-          <Switch>
-            <Route path='/profile' render={() => <Profile state={state.profilePage} />} />
-            <Route path='/dialogs' render={() => <Dialogs state={state.dialogsPage} />} />
-            <Route component={ErrorPage} />
-          </Switch>
-        </div>
+    <div className='app-wrapper'>
+      <Header />
+      <Navbar />
+      <div className="content">
+        <Switch>
+          <Route path='/profile' render={() => <Profile state={state.profilePage} addPost={addPost} />} />
+          <Route path='/dialogs' render={() => <Dialogs state={state.dialogsPage} sendMessage={sendMessage} />} />
+          <Route component={ErrorPage} />
+        </Switch>
       </div>
-    </Router>
+    </div>
   );
 }
 

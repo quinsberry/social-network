@@ -1,5 +1,7 @@
 $main-text-clr: #252525;
 $content-bg: #fff;
+$texarea-brdr: lighten(#252525, 70%);
+$text-clr: #252525;
 
 a {
   color: $main-text-clr;
@@ -23,4 +25,35 @@ a {
 .content {
   grid-area: c;
   background-color: $content-bg;
+  height: 100%;
+  overflow: auto;
+}
+
+.textarea {
+  border: 1px solid $texarea-brdr;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin: 0;
+  resize: none;
+  outline: none;
+  color: lighten($text-clr, 40%);
+  
+  &:focus {
+    border-color: darken($texarea-brdr, 20%);
+    color: $text-clr;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  &-track {
+    background: #f1f1f1;
+  }
+  &-thumb {
+    border-radius: 3px;
+    background: rgb(151, 151, 151);
+    &:hover {
+      background: #646464;
+    }
+  }
 }

@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Dialog from './Dialog/Dialog';
-import Message from './Message/Message';
+import Message from './MessagesArea/Message';
 
 import './Dialogs.scss';
 
-const Dialogs = ({ state }) => {
+const Dialogs = ({ state, sendMessage }) => {
 
 
+  const [newMessageText, setNewMessageText] = useState('');
+
+  const sendingMessage = () => {
+    if (newMessageText) {
+      sendMessage(newMessageText);
+      setNewMessageText('');
+    }
+  }
 
   return (
     <div className="dialogs">
@@ -18,12 +26,20 @@ const Dialogs = ({ state }) => {
           ))
         )}
       </div>
-      <div className="dialogs__messages">
-        {state.messages && (
-          state.messages.map(message => (
-            <Message key={message.id} message={message.message} id={message.id} />
-          ))
-        )}
+      <div className="dialogs__messages-area">
+        <div className="messages">
+          {state.messages && (
+            state.messages.map(message => (
+              <Message key={message.id} message={message.message} id={message.id} />
+            ))
+          )}
+        </div>
+        <div className="new-message">
+          <textarea rows="1" onChange={e => setNewMessageText(e.target.value)} placeholder="Tape a message.." className="textarea" value={newMessageText}></textarea>
+          <div className="new-message__buttons">
+            <button onClick={sendingMessage} className="btn">Send</button>
+          </div>
+        </div>
       </div>
     </div>
   );

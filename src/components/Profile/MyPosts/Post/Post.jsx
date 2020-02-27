@@ -1,15 +1,21 @@
 import React from 'react';
 
 import './Post.scss';
+import authorFace from '../../../../assets/face.jpg';
 
 const Post = ({ postMsg, likesCount }) => {
   return (
     <div className="post">
-      <div className="post__message">
-        {postMsg}
+      <div className="post__author">
+        <img src={authorFace} alt="author face img" />
       </div>
-      <div className="likes">
-        Like <span>{likesCount}</span>
+      <div className="post__description">
+        <div className="post__description-message">
+          {postMsg}
+        </div>
+        <div className="post__description-likes">
+          Like <span>{likesCount}</span>
+        </div>
       </div>
     </div>
   );
