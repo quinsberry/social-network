@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 
 import Post from './Post/Post';
+import { addPostActionCreactor } from '../../../redux/store';
 
 import './MyPosts.scss';
 
-const MyPosts = ({ posts, addPost }) => {
+const MyPosts = ({ posts, dispatch }) => {
+
+
 
   const [newPostText, setNewPostText] = useState('');
 
   let addPosts = () => {
     if (newPostText) {
-      addPost(newPostText);
+      dispatch(addPostActionCreactor(newPostText));
       setNewPostText('');
     }
   }

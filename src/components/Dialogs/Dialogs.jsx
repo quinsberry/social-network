@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 
 import Dialog from './Dialog/Dialog';
 import Message from './MessagesArea/Message';
+import { sendMessageActionCreactor } from '../../redux/store';
 
 import './Dialogs.scss';
 
-const Dialogs = ({ state, sendMessage }) => {
+const Dialogs = ({ state, dispatch }) => {
 
   const [newMessageText, setNewMessageText] = useState('');
 
   const sendingMessage = () => {
     if (newMessageText) {
-      sendMessage(newMessageText);
+      dispatch(sendMessageActionCreactor(newMessageText));
       setNewMessageText('');
     }
   }

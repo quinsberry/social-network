@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD-POST';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+
 const store = {
   _state: {
     profilePage: {
@@ -66,13 +69,10 @@ const store = {
       ]
     }
   },
-  getState() {
-    return this._state;
-  },
   _callSubscriber() {
     console.log('State changed');
   },
-  addPost(postMessage) {
+  _addPost(postMessage) {
     let newPost = {
       id: 5,
       postMessage: postMessage,
@@ -81,20 +81,52 @@ const store = {
     this._state.profilePage.posts.push(newPost);
     this._callSubscriber(this._state);
   },
-  sendMessage(message) {
-    let newPost = {
+  _sendMessage(message) {
+    let newMessage = {
       id: 5,
       message: message
     };
-    this._state.dialogsPage.messages.push(newPost);
+    this._state.dialogsPage.messages.push(newMessage);
     this._callSubscriber(this._state);
+  },
+
+
+  getState() {
+    return this._state;
   },
   subscribe(observer) {
     this._callSubscriber = observer;
+  },
+
+
+  dispatch(action) {
+    switch (action.type) {
+      case ADD_POST:
+        this._addPost(action.newPostText);
+        break;
+      case SEND_MESSAGE:
+        this._sendMessage(action.newMessageText);
+        break;
+      default:
+        return this._state;
+    }
   }
+
 
 }
 
+export const addPostActionCreactor = (newPostText) => {
+  return {
+    type: ADD_POST,
+    newPostText
+  }
+}
+export const sendMessageActionCreactor = (newMessageText) => {
+  return {
+    type: SEND_MESSAGE,
+    newMessageText
+  }
+}
 // store.sendMessage('hi');
 
 

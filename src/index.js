@@ -11,7 +11,7 @@ import './index.scss';
 const rerenderEntireTree = () => {
   ReactDOM.render(
     <Router>
-      <App state={store.getState()} addPost={store.addPost.bind(store)} sendMessage={store.sendMessage.bind(store)} />
+      <App state={store.getState()} dispatch={store.dispatch.bind(store)} />
     </Router>, document.getElementById('root'));
 }
 

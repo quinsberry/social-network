@@ -9,7 +9,7 @@ import ErrorPage from './components/ErrorPage/ErrorPage';
 
 import './App.scss';
 
-const App = ({ state, addPost, sendMessage }) => {
+const App = ({ state, dispatch }) => {
 
   return (
     <div className='app-wrapper'>
@@ -17,8 +17,8 @@ const App = ({ state, addPost, sendMessage }) => {
       <Navbar />
       <div className="content">
         <Switch>
-          <Route path='/profile' render={() => <Profile state={state.profilePage} addPost={addPost} />} />
-          <Route path='/dialogs' render={() => <Dialogs state={state.dialogsPage} sendMessage={sendMessage} />} />
+          <Route path='/profile' render={() => <Profile state={state.profilePage} dispatch={dispatch} />} />
+          <Route path='/dialogs' render={() => <Dialogs state={state.dialogsPage} dispatch={dispatch} />} />
           <Route component={ErrorPage} />
         </Switch>
       </div>
