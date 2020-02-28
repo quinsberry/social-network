@@ -10,6 +10,7 @@ import ErrorPage from './components/ErrorPage/ErrorPage';
 import './App.scss';
 
 const App = ({ state, addPost, sendMessage }) => {
+
   return (
     <div className='app-wrapper'>
       <Header />
@@ -24,5 +25,8 @@ const App = ({ state, addPost, sendMessage }) => {
     </div>
   );
 }
+
+
+
 
 export default App;

@@ -7,7 +7,6 @@ import './Dialogs.scss';
 
 const Dialogs = ({ state, sendMessage }) => {
 
-
   const [newMessageText, setNewMessageText] = useState('');
 
   const sendingMessage = () => {
