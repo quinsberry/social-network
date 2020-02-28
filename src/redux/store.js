@@ -1,5 +1,5 @@
-const ADD_POST = 'ADD-POST';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import profileReducer from './reducers/profileReducer';
+import dialogsReducer from './reducers/dialogsReducer';
 
 const store = {
   _state: {
@@ -72,23 +72,6 @@ const store = {
   _callSubscriber() {
     console.log('State changed');
   },
-  _addPost(postMessage) {
-    let newPost = {
-      id: 5,
-      postMessage: postMessage,
-      likes: 0
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._callSubscriber(this._state);
-  },
-  _sendMessage(message) {
-    let newMessage = {
-      id: 5,
-      message: message
-    };
-    this._state.dialogsPage.messages.push(newMessage);
-    this._callSubscriber(this._state);
-  },
 
 
   getState() {
@@ -100,34 +83,14 @@ const store = {
 
 
   dispatch(action) {
-    switch (action.type) {
-      case ADD_POST:
-        this._addPost(action.newPostText);
-        break;
-      case SEND_MESSAGE:
-        this._sendMessage(action.newMessageText);
-        break;
-      default:
-        return this._state;
-    }
-  }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
 
-
-}
-
-export const addPostActionCreactor = (newPostText) => {
-  return {
-    type: ADD_POST,
-    newPostText
+    this._callSubscriber(this._state);
   }
 }
-export const sendMessageActionCreactor = (newMessageText) => {
-  return {
-    type: SEND_MESSAGE,
-    newMessageText
-  }
-}
-// store.sendMessage('hi');
+
+
 
 
 window.state = store.getState();

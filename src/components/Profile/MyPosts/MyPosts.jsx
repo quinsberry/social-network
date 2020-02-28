@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Post from './Post/Post';
-import { addPostActionCreactor } from '../../../redux/store';
+import { addPostActionCreactor } from '../../../redux/reducers/profileReducer';
 
 import './MyPosts.scss';
 

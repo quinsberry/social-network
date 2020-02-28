@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Dialog from './Dialog/Dialog';
 import Message from './MessagesArea/Message';
-import { sendMessageActionCreactor } from '../../redux/store';
+import { sendMessageActionCreactor } from '../../redux/reducers/dialogsReducer';
 
 import './Dialogs.scss';
 
