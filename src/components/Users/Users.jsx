@@ -23,7 +23,7 @@ const Users = ({ users, followToggle, setUsers }) => {
     <div className="users">
       {users &&
         users.map(user => (
-          <User key={user.id} id={user.id} photo={user.photoUrl} name={user.name} status={user.status} city={"user.location.city"} country={"user.location.country"} followed={user.followed} follow={followToggle} />
+          <User key={user.id} id={user.id} photo={user.photos.small} name={user.name} status={user.status} city={"user.location.city"} country={"user.location.country"} followed={user.followed} follow={followToggle} />
         ))
       }
     </div>
