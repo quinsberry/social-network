@@ -8,18 +8,18 @@ import store from './redux/redux-store';
 import './index.scss';
 
 
-const rerenderEntireTree = (state) => {
+const rerenderEntireTree = () => {
   ReactDOM.render(
     <Router>
-      <App state={state} dispatch={store.dispatch.bind(store)} />
+      <App store={store} />
     </Router>, document.getElementById('root'));
 }
 
 
 
-rerenderEntireTree(store.getState());
+rerenderEntireTree();
 store.subscribe(() => {
-  rerenderEntireTree(store.getState());
+  rerenderEntireTree();
 });
 
 

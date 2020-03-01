@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 
 import Post from './Post/Post';
-import { addPostActionCreactor } from '../../../redux/reducers/profileReducer';
 
 import './MyPosts.scss';
 
-const MyPosts = ({ posts, dispatch }) => {
-
-
+const MyPosts = ({ posts, addPost }) => {
 
   const [newPostText, setNewPostText] = useState('');
 
-  let addPosts = () => {
+  const addPosts = () => {
     if (newPostText) {
-      dispatch(addPostActionCreactor(newPostText));
+      addPost(newPostText);
       setNewPostText('');
     }
   }
