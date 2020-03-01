@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Dialog from './Dialog/Dialog';
-import Message from './MessagesArea/Message';
+import Message from './Messages/Message';
 
 import './Dialogs.scss';
 

@@ -9,21 +9,16 @@ import store from './redux/redux-store';
 import './index.scss';
 
 
-const rerenderEntireTree = () => {
-  ReactDOM.render(
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>, document.getElementById('root'));
-}
+ReactDOM.render(
+  <Router>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Router>, document.getElementById('root'));
 
 
 
-rerenderEntireTree();
-store.subscribe(() => {
-  rerenderEntireTree();
-});
+
 
 
 

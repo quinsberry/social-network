@@ -14,10 +14,10 @@ const Navbar = () => {
                     <NavLink to="/dialogs">Messages</NavLink>
                 </li>
                 <li className="nav__item">
-                    <NavLink to="/news">News</NavLink>
+                    <NavLink to="/users">Users</NavLink>
                 </li>
                 <li className="nav__item">
-                    <NavLink to="/music">Music</NavLink>
+                    <NavLink to="/news">News</NavLink>
                 </li>
                 <li className="nav__item">
                     <NavLink to="/settings">Settings</NavLink>
