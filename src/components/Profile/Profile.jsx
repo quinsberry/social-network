@@ -5,11 +5,11 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 import './Profile.scss';
 
-const Profile = ({ state, store, dispatch }) => {
+const Profile = () => {
   return (
     <div className="profile=page">
       <ProfileInfo />
-      <MyPostsContainer store={store} />
+      <MyPostsContainer />
     </div>
   );
 }
