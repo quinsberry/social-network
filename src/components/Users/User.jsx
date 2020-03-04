@@ -17,8 +17,8 @@ const User = ({ name, id, status, city, country, followed, photo, follow }) => {
           <span className={classnames('descr-leftside__status', { 'active': status })}>{status ? status : 'This user has no status'}</span>
         </div>
         <div className="descr-rightside">
-          <h3 className="descr-rightside__country">{country}, </h3>
-          <h3 className="descr-rightside__city">{city}</h3>
+          <h3 className="descr-rightside__country">Here must be a county, </h3>
+          <h3 className="descr-rightside__city">Here must be a city</h3>
         </div>
       </div>
     </div>
