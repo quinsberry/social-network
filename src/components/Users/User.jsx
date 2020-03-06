@@ -16,7 +16,9 @@ const User = ({ name, id, status, followed, photo, follow }) => {
       </div>
       <div className="users__user-description">
         <div className="descr-leftside">
-          <h3 className="descr-leftside__username">{name}</h3>
+          <NavLink to={`/profile/${id}`}>
+            <h3 className="descr-leftside__username">{name}</h3>
+          </NavLink>
           <span className={classnames('descr-leftside__status', { 'active': status })}>{status ? status : 'This user has no status'}</span>
         </div>
         <div className="descr-rightside">

@@ -12,9 +12,12 @@ class ProfileContainer extends Component {
 
   componentDidMount() {
     this.props.setIsFetchingToggle(true);
+    let userId = this.props.match.params.userId;
+    if (!userId) {
+      userId = 2;
+    }
     axios
-      // .get(`${this.API_PATH}${this.props.location.pathname}`)
-      .get(`${this.API_PATH}/profile/2`)
+      .get(`${this.API_PATH}/profile/${userId}`)
       .then(res => {
         this.props.setUserProfile(res.data);
         this.props.setIsFetchingToggle(false);

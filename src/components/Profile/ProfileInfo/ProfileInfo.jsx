@@ -1,12 +1,12 @@
 import React from 'react';
 
-import githubSvg from '../../../assets/icons/github.svg';
-import vkSvg from '../../../assets/icons/vk.svg';
-import facebookSvg from '../../../assets/icons/facebook.svg';
-import instagramSvg from '../../../assets/icons/instagram.svg';
-import twitterSvg from '../../../assets/icons/twitter.svg';
-import websiteSvg from '../../../assets/icons/website.svg';
-import youtubeSvg from '../../../assets/icons/youtube.svg';
+import github from '../../../assets/icons/github.svg';
+import vk from '../../../assets/icons/vk.svg';
+import facebook from '../../../assets/icons/facebook.svg';
+import instagram from '../../../assets/icons/instagram.svg';
+import twitter from '../../../assets/icons/twitter.svg';
+import website from '../../../assets/icons/website.svg';
+import youtube from '../../../assets/icons/youtube.svg';
 import userDefaultImage from '../../../assets/userphoto_default.png';
 
 import './ProfileInfo.scss';
@@ -14,13 +14,13 @@ import './ProfileInfo.scss';
 const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, fullName, photos }) => {
 
   const icons = {
-    github: githubSvg,
-    vk: vkSvg,
-    facebook: facebookSvg,
-    instagram: instagramSvg,
-    twitter: twitterSvg,
-    website: websiteSvg,
-    youtube: youtubeSvg
+    github,
+    vk,
+    facebook,
+    instagram,
+    twitter,
+    website,
+    youtube
   };
 
   return (
@@ -35,20 +35,22 @@ const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, ful
         <div className="profile-info__description-about">{about}</div>
         <ul className="profile-info__description-contacts">
           <h3>You can also find me here:</h3>
-          {Object.entries(contacts).map((item, index) => {
-            if (item[1] != null) {
-              return (
-                <li key={index} className="profile-info__description-contacts-item">
-                  <a href={item[1]}>
-                    <img src={Object.entries(icons).filter(icon => icon[0] === item[0])[0][1]} alt={`${item[0]} Icon`} />
-                    {item[1]}
-                  </a>
-                </li>
-              );
-            } else {
-              return null;
-            }
-          })}
+          {
+            Object.entries(contacts).map((item, index) => {
+              if (item[1] != null) {
+                return (
+                  <li key={index} className="profile-info__description-contacts-item">
+                    <a href={item[1]}>
+                      <img src={Object.entries(icons).filter(icon => icon[0] === item[0])[0][1]} alt={`${item[0]} Icon`} />
+                      {item[1]}
+                    </a>
+                  </li>
+                );
+              } else {
+                return null;
+              }
+            })
+          }
         </ul>
       </div>
     </div>
