@@ -1,12 +1,14 @@
 import React from 'react';
 
+import logo from '../../assets/logo.svg';
+
 import './Header.scss';
 
 const Header = () => {
     return (
         <header className='header'>
             <div className="logo">
-                <img src='https://www.freelogodesign.org/Content/img/logo-ex-7.png' alt='bg content' />
+                <img src={logo} alt='Network Logo' />
                 <span>Social Network</span>
             </div>
             <div className="otherside"></div>

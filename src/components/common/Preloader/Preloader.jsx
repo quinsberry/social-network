@@ -5,7 +5,7 @@ import preloaderGif from '../../../assets/preloader.gif';
 
 const Preloader = () => {
   return (
-    <div className="users__preloader">
+    <div className="preloader">
       <img src={preloaderGif} alt="Loading Gif Icon" />
     </div>
   );

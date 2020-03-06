@@ -1,6 +1,9 @@
 const ADD_POST = 'ADD_POST';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const ISFETCHING_TOGGLE = 'ISFETCHING_TOGGLE';
 
 const initialState = {
+  profile: null,
   posts: [
     {
       id: 1,
@@ -17,7 +20,8 @@ const initialState = {
       postMessage: 'Im newbee, Hello!',
       likes: '23'
     },
-  ]
+  ],
+  isFetching: false
 };
 
 
@@ -35,6 +39,16 @@ const profileReducer = (state = initialState, action) => {
         posts: [...state.posts, newPost]
       }
       return newState;
+    case SET_USER_PROFILE:
+      return {
+        ...state,
+        profile: action.profile
+      }
+    case ISFETCHING_TOGGLE:
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }
     default:
       return state;
   }
@@ -46,5 +60,19 @@ export const addPostActionCreactor = (newPostText) => {
     newPostText
   }
 }
+export const setUserProfile = (profile) => {
+  return {
+    type: SET_USER_PROFILE,
+    profile
+  }
+}
+export const setIsFetchingToggle = (isFetching) => {
+  return {
+    type: ISFETCHING_TOGGLE,
+    isFetching
+  }
+}
+
+
 
 export default profileReducer;

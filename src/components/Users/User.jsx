@@ -1,14 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
 import userPhoto from '../../assets/userphoto_default.png';
 
 
-const User = ({ name, id, status, city, country, followed, photo, follow }) => {
+const User = ({ name, id, status, followed, photo, follow }) => {
   return (
     <div className="users__user">
       <div className="users__user-leftside">
-        <img className="user-image" src={photo != null ? photo : userPhoto} alt="User avatar" />
+        <NavLink to={`/profile/${id}`}>
+          <img className="user-image" src={photo != null ? photo : userPhoto} alt="User avatar" />
+        </NavLink>
         <button onClick={() => { follow(id) }} className="follow-btn btn">{followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
       </div>
       <div className="users__user-description">

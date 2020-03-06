@@ -30,6 +30,12 @@ a {
   padding-top: 10px;
 }
 
+.preloader {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .textarea {
   border: 1px solid $texarea-brdr;
   border-radius: 3px;

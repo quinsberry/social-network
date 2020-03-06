@@ -10,7 +10,7 @@ $header-bg: #fff;
   .logo {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 30px;
     span {
       font-size: 20px;
       font-weight: bold;
@@ -18,7 +18,7 @@ $header-bg: #fff;
     }
     img {
       width: 40px;
-      margin-right: 5px;
+      margin-right: 15px;
     }
   }
 }
