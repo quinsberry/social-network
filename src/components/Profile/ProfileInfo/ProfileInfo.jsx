@@ -51,7 +51,7 @@ const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, ful
           })}
         </ul>
       </div>
-    </div >
+    </div>
   );
 };
 
