@@ -21,4 +21,25 @@ $header-bg: #fff;
       margin-right: 15px;
     }
   }
+  .otherside {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .auth {
+      margin-right: 20px;
+      font-size: 18px;
+      a {
+        text-decoration: none;
+      }
+
+      &__authorised {
+        margin: 0;
+        font-weight: normal;
+        h3 {
+          margin: 0;
+        }
+      }
+    }
+  }
 }
