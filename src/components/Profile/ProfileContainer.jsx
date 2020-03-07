@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import * as axios from 'axios';
 import { connect } from 'react-redux';
 import { setUserProfile, setIsFetchingToggle } from '../../redux/reducers/profileReducer';
 
 import Profile from './Profile';
 import { withRouter } from 'react-router-dom';
 
-class ProfileContainer extends Component {
+import { profileAPI } from '../../api/api';
 
-  API_PATH = 'https://social-network.samuraijs.com/api/1.0';
+class ProfileContainer extends Component {
 
   componentDidMount() {
     this.props.setIsFetchingToggle(true);
@@ -16,10 +15,10 @@ class ProfileContainer extends Component {
     if (!userId) {
       userId = 2;
     }
-    axios
-      .get(`${this.API_PATH}/profile/${userId}`)
-      .then(res => {
-        this.props.setUserProfile(res.data);
+
+    profileAPI.getProfile(userId)
+      .then(data => {
+        this.props.setUserProfile(data);
         this.props.setIsFetchingToggle(false);
       });
   }

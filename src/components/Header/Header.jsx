@@ -16,7 +16,7 @@ const Header = ({ userId, email, login, isAuth, isFetching }) => {
                 {!isFetching && (
                     <div className="auth">
                         {isAuth ? (
-                            <h4 className="auth__authorised">Logged: <strong>{login}</strong></h4>
+                            <h4 className="auth__authorised"><strong>{login}</strong></h4>
                         ) : (
                                 <NavLink to={`/login`}>
                                     <h3 className="auth__login">Log In</h3>

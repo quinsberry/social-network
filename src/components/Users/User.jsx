@@ -1,24 +1,24 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
-
 import * as axios from 'axios';
 
 import userPhoto from '../../assets/userphoto_default.png';
 
 
-const User = ({ name, id, status, followed, photo, onFollow }) => {
-  const API_PATH = 'https://social-network.samuraijs.com/api/1.0';
+const User = ({ name, id, status, followed, photo, onFollow, follow, unfollow, onFollowing, setOnFollowing }) => {
+  console.log(onFollowing);
   return (
     <div className="users__user">
       <div className="users__user-leftside">
         <NavLink to={`/profile/${id}`}>
           <img className="user-image" src={photo != null ? photo : userPhoto} alt="User avatar" />
         </NavLink>
-        <button onClick={() => {
+        <button disabled={onFollowing.some(followingId => followingId === id)} onClick={() => {
+          setOnFollowing(true, id);
           if (!followed) {
             axios
-              .post(`${API_PATH}/follow/${id}`, {}, {
+              .post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
                 withCredentials: true,
                 headers: {
                   'API-KEY': '90913beb-1c38-4638-9d50-6c42811abb79'
@@ -27,11 +27,12 @@ const User = ({ name, id, status, followed, photo, onFollow }) => {
               .then(res => {
                 if (res.data.resultCode === 0) {
                   onFollow(id);
+                  setOnFollowing(false, id);
                 }
               });
           } else {
             axios
-              .delete(`${API_PATH}/follow/${id}`, {
+              .delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
                 withCredentials: true,
                 headers: {
                   'API-KEY': '90913beb-1c38-4638-9d50-6c42811abb79'
@@ -40,10 +41,11 @@ const User = ({ name, id, status, followed, photo, onFollow }) => {
               .then(res => {
                 if (res.data.resultCode === 0) {
                   onFollow(id);
+                  setOnFollowing(false, id);
                 }
               });
           }
-        }} className="follow-btn btn">{followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+        }} className={classnames("follow-btn btn", { disabled: onFollowing })}>{followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
       </div>
       <div className="users__user-description">
         <div className="descr-leftside">

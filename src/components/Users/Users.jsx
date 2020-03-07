@@ -4,7 +4,8 @@ import classnames from 'classnames';
 import User from './User';
 import Preloader from '../common/Preloader/Preloader';
 
-const Users = ({ pagesDisplay, onPageChange, currentPage, users, followToggle, isFetching }) => {
+const Users = ({ pagesDisplay, onPageChange, currentPage, users, followToggle, isFetching, follow, unfollow, onFollowing, setOnFollowing }) => {
+
   return (
     <div className="users">
       {isFetching &&
@@ -25,7 +26,7 @@ const Users = ({ pagesDisplay, onPageChange, currentPage, users, followToggle, i
         {
           users &&
           users.map(user => (
-            <User key={user.id} id={user.id} photo={user.photos.small} name={user.name} status={user.status} followed={user.followed} onFollow={followToggle} />
+            <User key={user.id} id={user.id} photo={user.photos.small} name={user.name} status={user.status} followed={user.followed} onFollow={followToggle} follow={follow} unfollow={unfollow} onFollowing={onFollowing} setOnFollowing={setOnFollowing} />
           ))
         }
       </>
