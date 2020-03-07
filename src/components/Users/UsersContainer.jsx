@@ -16,7 +16,12 @@ class UsersContainer extends Component {
     if (this.props.users.length === 0) {
       this.props.setIsFetchingToggle(true);
       axios
-        .get(`${this.API_PATH}/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        .get(`${this.API_PATH}/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+          withCredentials: true,
+          headers: {
+            'API-KEY': '90913beb-1c38-4638-9d50-6c42811abb79'
+          }
+        })
         .then(res => {
           this.props.setUsers(res.data.items);
           this.props.setTotalUsersCount(res.data.totalCount);
@@ -29,7 +34,12 @@ class UsersContainer extends Component {
     this.props.setIsFetchingToggle(true);
     this.props.setCurrentPage(pageNumber);
     axios
-      .get(`${this.API_PATH}/users?page=${pageNumber}&count=${this.props.pageSize}`)
+      .get(`${this.API_PATH}/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+        withCredentials: true,
+        headers: {
+          'API-KEY': '90913beb-1c38-4638-9d50-6c42811abb79'
+        }
+      })
       .then(res => {
         this.props.setUsers(res.data.items);
         this.props.setIsFetchingToggle(false);

@@ -25,7 +25,7 @@ const Users = ({ pagesDisplay, onPageChange, currentPage, users, followToggle, i
         {
           users &&
           users.map(user => (
-            <User key={user.id} id={user.id} photo={user.photos.small} name={user.name} status={user.status} followed={user.followed} follow={followToggle} />
+            <User key={user.id} id={user.id} photo={user.photos.small} name={user.name} status={user.status} followed={user.followed} onFollow={followToggle} />
           ))
         }
       </>

@@ -2,17 +2,48 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
+import * as axios from 'axios';
+
 import userPhoto from '../../assets/userphoto_default.png';
 
 
-const User = ({ name, id, status, followed, photo, follow }) => {
+const User = ({ name, id, status, followed, photo, onFollow }) => {
+  const API_PATH = 'https://social-network.samuraijs.com/api/1.0';
   return (
     <div className="users__user">
       <div className="users__user-leftside">
         <NavLink to={`/profile/${id}`}>
           <img className="user-image" src={photo != null ? photo : userPhoto} alt="User avatar" />
         </NavLink>
-        <button onClick={() => { follow(id) }} className="follow-btn btn">{followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+        <button onClick={() => {
+          if (!followed) {
+            axios
+              .post(`${API_PATH}/follow/${id}`, {}, {
+                withCredentials: true,
+                headers: {
+                  'API-KEY': '90913beb-1c38-4638-9d50-6c42811abb79'
+                }
+              })
+              .then(res => {
+                if (res.data.resultCode === 0) {
+                  onFollow(id);
+                }
+              });
+          } else {
+            axios
+              .delete(`${API_PATH}/follow/${id}`, {
+                withCredentials: true,
+                headers: {
+                  'API-KEY': '90913beb-1c38-4638-9d50-6c42811abb79'
+                }
+              })
+              .then(res => {
+                if (res.data.resultCode === 0) {
+                  onFollow(id);
+                }
+              });
+          }
+        }} className="follow-btn btn">{followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
       </div>
       <div className="users__user-description">
         <div className="descr-leftside">
