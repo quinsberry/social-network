@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { setAuthUserData, setIsFetchingToggle } from '../../redux/reducers/authReducer';
-import { authAPI } from '../../api/api';
+import { getAuthUserDataTC } from '../../redux/reducers/authReducer';
 import Header from './Header';
 
 class HeaderContainer extends Component {
 
   componentDidMount() {
-    if (this.props.isAuth !== true) {
-      this.props.setIsFetchingToggle(true);
-      authAPI.me()
-        .then(res => {
-          if (res.data.resultCode === 0) {
-            const { id, email, login } = res.data.data;
-            this.props.setAuthUserData(id, email, login);
-            this.props.setIsFetchingToggle(false);
-          }
-        });;
-    }
+    this.props.getAuthUserDataTC(this.props.isAuth);
   }
 
   render() {
@@ -41,6 +30,5 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-  setAuthUserData,
-  setIsFetchingToggle
+  getAuthUserDataTC
 })(HeaderContainer);
