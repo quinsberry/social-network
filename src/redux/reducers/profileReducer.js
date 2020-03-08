@@ -1,3 +1,5 @@
+import { profileAPI } from '../../api/api';
+
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const ISFETCHING_TOGGLE = 'ISFETCHING_TOGGLE';
@@ -54,7 +56,7 @@ const profileReducer = (state = initialState, action) => {
   }
 }
 
-export const addPostActionCreactor = (newPostText) => {
+export const addPost = (newPostText) => {
   return {
     type: ADD_POST,
     newPostText
@@ -70,6 +72,24 @@ export const setIsFetchingToggle = (isFetching) => {
   return {
     type: ISFETCHING_TOGGLE,
     isFetching
+  }
+}
+
+
+
+export const getProfileTC = (paramsUserId) => {
+  return (dispatch) => {
+    dispatch(setIsFetchingToggle(true));
+    let userId = paramsUserId;
+    if (!userId) {
+      userId = 2;
+    }
+
+    profileAPI.getProfile(userId)
+      .then(data => {
+        dispatch(setIsFetchingToggle(false));
+        dispatch(setUserProfile(data));
+      });
   }
 }
 

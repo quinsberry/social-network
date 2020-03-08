@@ -34,7 +34,7 @@ const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, ful
         <h2 className="profile-info__description-username">{fullName}</h2>
         <div className="profile-info__description-about">{about}</div>
         <ul className="profile-info__description-contacts">
-          <h3>You can also find me here:</h3>
+          {Object.entries(contacts).every(contact => contact === null) ? null : <h3>You can also find me here:</h3>}
           {
             Object.entries(contacts).map((item, index) => {
               if (item[1] != null) {

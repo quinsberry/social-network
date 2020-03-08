@@ -24,18 +24,13 @@ export const usersAPI = {
   follow(id) {
     return (
       instance
-        .post(`follow/${id}`, {}, {
-          withCredentials: true,
-          headers: {
-            'API-KEY': API_KEY
-          }
-        })
+        .post(`follow/${id}`)
         .then(res => res.data)
     );
   },
   unfollow(id) {
     return (
-      axios
+      instance
         .delete(`follow/${id}`)
         .then(res => res.data)
     );
