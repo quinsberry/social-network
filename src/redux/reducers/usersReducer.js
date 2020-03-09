@@ -60,6 +60,8 @@ const usersReducer = (state = initialState, action) => {
   }
 }
 
+
+
 export const followToggle = (userId) => {
   return {
     type: FOLLOW_TOGGLE,
@@ -102,6 +104,8 @@ export const setOnFollowing = (onFollowing, userId) => {
     userId
   }
 }
+
+
 
 export const getUsersTC = (usersLength, currentPage, pagesSize) => {
   return (dispatch) => {
@@ -154,5 +158,7 @@ export const followingToggleTC = (followed, id) => {
     }
   }
 }
+
+
 
 export default usersReducer;

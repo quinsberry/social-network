@@ -7,6 +7,7 @@ import Preloader from '../common/Preloader/Preloader';
 import './Profile.scss';
 
 const Profile = (props) => {
+
   return (
     <div className="profile-page">
       {!props.profile ? (

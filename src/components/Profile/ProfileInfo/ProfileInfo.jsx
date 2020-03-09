@@ -46,9 +46,8 @@ const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, ful
                     </a>
                   </li>
                 );
-              } else {
-                return null;
               }
+              return null;
             })
           }
         </ul>

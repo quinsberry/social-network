@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Dialog from './Dialog/Dialog';
 import Message from './Messages/Message';
 
 import './Dialogs.scss';
 
-const Dialogs = ({ state, sendMessage }) => {
+const Dialogs = ({ state, sendMessage, isAuth }) => {
 
   const [newMessageText, setNewMessageText] = useState('');
 
@@ -16,6 +17,11 @@ const Dialogs = ({ state, sendMessage }) => {
     }
   }
 
+  if (!isAuth) {
+    return (
+      <Redirect to='/login' />
+    )
+  }
 
   return (
     <div className="dialogs">

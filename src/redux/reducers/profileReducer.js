@@ -2,7 +2,7 @@ import { profileAPI } from '../../api/api';
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const ISFETCHING_TOGGLE = 'ISFETCHING_TOGGLE';
+const IS_FETCHING_TOGGLE = 'IS_FETCHING_TOGGLE';
 
 const initialState = {
   profile: null,
@@ -46,7 +46,7 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         profile: action.profile
       }
-    case ISFETCHING_TOGGLE:
+    case IS_FETCHING_TOGGLE:
       return {
         ...state,
         isFetching: action.isFetching
@@ -70,17 +70,16 @@ export const setUserProfile = (profile) => {
 }
 export const setIsFetchingToggle = (isFetching) => {
   return {
-    type: ISFETCHING_TOGGLE,
+    type: IS_FETCHING_TOGGLE,
     isFetching
   }
 }
 
 
 
-export const getProfileTC = (paramsUserId) => {
+export const getProfileTC = (userId) => {
   return (dispatch) => {
     dispatch(setIsFetchingToggle(true));
-    let userId = paramsUserId;
     if (!userId) {
       userId = 2;
     }

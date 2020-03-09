@@ -19,7 +19,7 @@ const Header = ({ userId, email, login, isAuth, isFetching }) => {
                             <h4 className="auth__authorised"><strong>{login}</strong></h4>
                         ) : (
                                 <NavLink to={`/login`}>
-                                    <h3 className="auth__login">Log In</h3>
+                                    <h3 className="auth__login">Log in</h3>
                                 </NavLink>
                             )}
                     </div>

@@ -7,7 +7,8 @@ import Dialogs from './Dialogs';
 
 const mapStateToProps = (state) => {
   return {
-    state: state.dialogsPage
+    state: state.dialogsPage,
+    isAuth: state.auth.isAuth
   }
 }
 
