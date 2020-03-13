@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import Users from './Users';
 import { getUsersTC, onPageChangeTC, followingToggleTC } from '../../redux/reducers/usersReducer';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
 
 import './Users.scss';
 
@@ -48,9 +50,11 @@ const mapStateToProps = (state) => {
 }
 
 
-
-export default connect(mapStateToProps, {
-  getUsersTC,
-  onPageChangeTC,
-  followingToggleTC
-})(UsersContainer);
+export default compose(
+  connect(mapStateToProps, {
+    getUsersTC,
+    onPageChangeTC,
+    followingToggleTC
+  }),
+  withAuthRedirect
+)(UsersContainer);
