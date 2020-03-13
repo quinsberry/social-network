@@ -1,5 +1,8 @@
 import React from 'react';
 
+import ProfileStatus from './ProfileStatus';
+
+import './ProfileInfo.scss';
 import github from '../../../assets/icons/github.svg';
 import vk from '../../../assets/icons/vk.svg';
 import facebook from '../../../assets/icons/facebook.svg';
@@ -9,9 +12,7 @@ import website from '../../../assets/icons/website.svg';
 import youtube from '../../../assets/icons/youtube.svg';
 import userDefaultImage from '../../../assets/userphoto_default.png';
 
-import './ProfileInfo.scss';
-
-const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, fullName, photos }) => {
+const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, fullName, photos, status }) => {
 
   const icons = {
     github,
@@ -32,7 +33,11 @@ const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, ful
       </div>
       <div className="profile-info__description">
         <h2 className="profile-info__description-username">{fullName}</h2>
-        <div className="profile-info__description-about">{about}</div>
+        <ProfileStatus status={status} />
+        <div className="profile-info__description-about">
+          <h3>About me</h3>
+          <span>{about}</span>
+        </div>
         <ul className="profile-info__description-contacts">
           {Object.entries(contacts).every(contact => contact === null) ? null : <h3>You can also find me here:</h3>}
           {
