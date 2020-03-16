@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import classnames from 'classnames';
 
-const ProfileStatus = ({ status }) => {
+const ProfileStatus = ({ status, updateStatus }) => {
 
   const [editMode, setEditMode] = useState(false);
   const [statusText, editStatusText] = useState(status);
 
+  useEffect(() => {
+    editStatusText(status);
+    console.log('status updated');
+  }, [status]);
+
   return (
     <div className="profile-info__description-status">
-      {!editMode ? (
-        <div>
-          <span onDoubleClick={() => { setEditMode(true) }}>{statusText}</span>
-        </div>
-      ) : (
+      {
+        !editMode ? (
           <div>
-            <input onChange={(e) => editStatusText(e.target.value)} autoFocus onBlur={() => { setEditMode(false) }} type="text" value={statusText} />
+            <span className={classnames({ nostatus: !status })} onDoubleClick={() => { setEditMode(true) }}>{status ? status : 'Tap to add you status'}</span>
           </div>
-        )
+        ) : (
+            <div>
+              <input onChange={(e) => editStatusText(e.target.value)} autoFocus onBlur={() => { setEditMode(false); updateStatus(statusText) }} type="text" value={statusText} />
+            </div>
+          )
       }
     </div>
   );

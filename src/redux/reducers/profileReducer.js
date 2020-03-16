@@ -2,6 +2,7 @@ import { profileAPI } from '../../api/api';
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 const IS_FETCHING_TOGGLE = 'IS_FETCHING_TOGGLE';
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
       likes: '23'
     },
   ],
+  status: "",
   isFetching: false
 };
 
@@ -46,6 +48,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         profile: action.profile
       }
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.status
+      }
     case IS_FETCHING_TOGGLE:
       return {
         ...state,
@@ -68,6 +75,12 @@ export const setUserProfile = (profile) => {
     profile
   }
 }
+export const setProfileStatus = (status) => {
+  return {
+    type: SET_STATUS,
+    status
+  }
+}
 export const setIsFetchingToggle = (isFetching) => {
   return {
     type: IS_FETCHING_TOGGLE,
@@ -77,11 +90,11 @@ export const setIsFetchingToggle = (isFetching) => {
 
 
 
-export const getProfileTC = (userId) => {
+export const getUserProfileTC = (userId) => {
   return (dispatch) => {
     dispatch(setIsFetchingToggle(true));
     if (!userId) {
-      userId = 2;
+      userId = 6206;
     }
 
     profileAPI.getProfile(userId)
@@ -92,6 +105,33 @@ export const getProfileTC = (userId) => {
   }
 }
 
+export const getUserProfileStatusTC = (userId) => {
+  return (dispatch) => {
+    dispatch(setIsFetchingToggle(true));
+    if (!userId) {
+      userId = 6206;
+    }
+    profileAPI.getStatus(userId)
+      .then(data => {
+        dispatch(setIsFetchingToggle(false));
+        dispatch(setProfileStatus(data));
+      });
+  }
+}
+
+export const updateUserProfileStatusTC = (status) => {
+  return (dispatch) => {
+    dispatch(setIsFetchingToggle(true));
+
+    profileAPI.updateStatus(status)
+      .then(res => {
+        dispatch(setIsFetchingToggle(false));
+        if (res.data.resultCode === 0) {
+          dispatch(setProfileStatus(status));
+        }
+      });
+  }
+}
 
 
 export default profileReducer;
