@@ -8,7 +8,6 @@ const ProfileStatus = ({ status, updateStatus }) => {
 
   useEffect(() => {
     editStatusText(status);
-    console.log('status updated');
   }, [status]);
 
   return (
