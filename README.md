@@ -4,7 +4,7 @@ I wanted to build a huge application where I could show all of my skills. <br/>
 This is a social network which will expand as my personal skills growth. <br/>
 <br/>
 Technologies: React + Redux <br/>
-Libraries: react-router, axios, classnames, redux-thunk
+Libraries: react-router, axios, classnames, redux-thunk, redux-form
 
 ## Available Scripts
 

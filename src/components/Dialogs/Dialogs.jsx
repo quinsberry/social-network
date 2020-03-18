@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import Dialog from './Dialog/Dialog';
 import Message from './Messages/Message';
+import NewMessageForm from './Messages/NewMessageForm';
 
 import './Dialogs.scss';
 
 const Dialogs = ({ state, sendMessage, isAuth }) => {
 
-  const [newMessageText, setNewMessageText] = useState('');
-
-  const sendingMessage = () => {
-    if (newMessageText) {
-      sendMessage(newMessageText);
-      setNewMessageText('');
-    }
+  const sendNewMessage = (formData) => {
+    console.log(formData);
+    sendMessage(formData.newMessage);
   }
 
   if (!isAuth) {
@@ -40,12 +37,7 @@ const Dialogs = ({ state, sendMessage, isAuth }) => {
             ))
           )}
         </div>
-        <div className="new-message">
-          <textarea rows="1" onChange={e => setNewMessageText(e.target.value)} placeholder="Tape a message.." className="textarea" value={newMessageText}></textarea>
-          <div className="new-message__buttons">
-            <button onClick={sendingMessage} className="btn">Send</button>
-          </div>
-        </div>
+        <NewMessageForm sendMessage={sendMessage} onSubmit={sendNewMessage} />
       </div>
     </div>
   );
