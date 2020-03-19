@@ -1,0 +1,54 @@
+$text-clr: #252525;
+$texarea-brdr: lighten(#252525, 70%);
+
+
+
+.textarea {
+  border: 1px solid $texarea-brdr;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin: 0;
+  resize: none;
+  outline: none;
+  color: lighten($text-clr, 40%);
+
+  &:focus {
+    border-color: darken($texarea-brdr, 20%);
+    color: $text-clr;
+  }
+
+}
+
+.input {
+  border: 1px solid $texarea-brdr;
+  border-radius: 3px;
+  padding: 5px 10px;
+  outline: none;
+  
+  &:focus {
+    border-color: darken($texarea-brdr, 20%);
+    color: $text-clr;
+  }
+}
+
+.error {
+  width: 100%;
+  position: relative;
+  .textarea, input {
+    border-color: red;
+    &:focus {
+      border-color: lighten(red, 30%);
+      
+    }
+  }
+  span {
+    position: absolute;
+    top: -6px;
+    left: 12px;
+    font-size: 12px;
+    padding: 0px 2px;
+    background: #fff;
+    color: red;
+  }
+
+}
