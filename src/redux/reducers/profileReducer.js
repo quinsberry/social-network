@@ -90,11 +90,11 @@ export const setIsFetchingToggle = (isFetching) => {
 
 
 
-export const getUserProfileTC = (userId) => {
+export const getUserProfileTC = (userId, authorizedUserId) => {
   return (dispatch) => {
     dispatch(setIsFetchingToggle(true));
     if (!userId) {
-      userId = 6206;
+      userId = authorizedUserId;
     }
 
     profileAPI.getProfile(userId)

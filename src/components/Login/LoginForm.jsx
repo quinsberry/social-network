@@ -4,18 +4,31 @@ import { Field, reduxForm } from 'redux-form';
 import { required } from '../../utils/validators';
 import { Input } from '../common/FormsControls/FormsControls';
 
-const LoginForm = ({ handleSubmit }) => {
+const LoginForm = ({ handleSubmit, error }) => {
+  console.log('form: ', error);
   return (
     <form action="" onSubmit={handleSubmit}>
+
       <div className="login__form-input">
-        <Field name={'login'} placeholder="Login" className="input" validate={[required]} component={Input} />
+        <Field name={'email'} placeholder="Email" className="input" validate={[required]} component={Input} />
       </div>
+
       <div className="login__form-input">
-        <Field name={'password'} placeholder="Password" className="input" validate={[required]} component={Input} />
+        <Field name={'password'} type="password" placeholder="Password" className="input" validate={[required]} component={Input} />
       </div>
+
+      {error && (
+        <div className="login__form-error">
+          {error}
+        </div>
+      )}
+
+      <div className="login__form-rememberMe">
+        <Field name={'rememberMe'} type="checkbox" component={Input} extraText={"Remember me"} />
+      </div>
+
       <div className="login__form-submit">
-        <button>Login</button>
-        <Field name={'rememberMe'} type="checkbox" component={Input} /> Remember me
+        <button className="btn loginBtn">Login</button>
       </div>
     </form>
   );

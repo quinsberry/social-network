@@ -20,6 +20,7 @@ $texarea-brdr: lighten(#252525, 70%);
 }
 
 .input {
+  width: 200px;
   border: 1px solid $texarea-brdr;
   border-radius: 3px;
   padding: 5px 10px;
@@ -29,6 +30,12 @@ $texarea-brdr: lighten(#252525, 70%);
     border-color: darken($texarea-brdr, 20%);
     color: $text-clr;
   }
+}
+
+.inputForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .error {

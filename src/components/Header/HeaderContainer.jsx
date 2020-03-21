@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getAuthUserDataTC } from '../../redux/reducers/authReducer';
+import { getAuthUserDataTC, logoutTC } from '../../redux/reducers/authReducer';
 import Header from './Header';
 
 class HeaderContainer extends Component {
@@ -12,7 +12,7 @@ class HeaderContainer extends Component {
 
   render() {
     return (
-      <Header userId={this.props.userId} email={this.props.email} login={this.props.login} isAuth={this.props.isAuth} isFetching={this.props.isFetching} />
+      <Header userId={this.props.userId} email={this.props.email} login={this.props.login} isAuth={this.props.isAuth} isFetching={this.props.isFetching} logout={this.props.logoutTC} />
     );
   }
 };
@@ -30,5 +30,6 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-  getAuthUserDataTC
+  getAuthUserDataTC,
+  logoutTC
 })(HeaderContainer);

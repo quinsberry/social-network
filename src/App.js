@@ -7,7 +7,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import ErrorPage from './components/ErrorPage/ErrorPage';
-import Login from './components/Login/Login';
+import LoginContainer from './components/Login/LoginContainer';
 
 import './App.scss';
 
@@ -22,7 +22,7 @@ const App = () => {
           <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
           <Route path='/dialogs' render={() => <DialogsContainer />} />
           <Route path='/users' render={() => <UsersContainer />} />
-          <Route path='/login' render={() => <Login />} />
+          <Route path='/login' render={() => <LoginContainer />} />
           <Route component={ErrorPage} />
         </Switch>
       </div>

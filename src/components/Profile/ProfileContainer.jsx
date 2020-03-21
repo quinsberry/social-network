@@ -10,12 +10,13 @@ import Profile from './Profile';
 class ProfileContainer extends Component {
 
   componentDidMount() {
-    this.props.getUserProfileTC(this.props.match.params.userId);
+    this.props.getUserProfileTC(this.props.match.params.userId, this.props.authorizedUserId);
     this.props.getUserProfileStatusTC(this.props.match.params.userId);
   }
 
 
   render() {
+
     return (
       <Profile {...this.props} updateStatus={this.props.updateUserProfileStatusTC} />
     );
@@ -28,6 +29,7 @@ const mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     posts: state.profilePage.posts,
     status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
     isFetching: state.profilePage.isFetching
   }
 }

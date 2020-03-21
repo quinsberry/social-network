@@ -3,12 +3,15 @@ import React from 'react';
 import LoginForm from './LoginForm';
 
 import './Login.scss';
+import { Redirect } from 'react-router-dom';
 
 
-const Login = () => {
+const Login = ({ onSubmit, isAuth }) => {
 
-  const onSubmit = (formData) => {
-    console.log(formData);
+  if (isAuth) {
+    return (
+      <Redirect to="/profile" />
+    );
   }
 
   return (
