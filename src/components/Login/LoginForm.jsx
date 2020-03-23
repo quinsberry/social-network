@@ -5,7 +5,6 @@ import { required } from '../../utils/validators';
 import { Input } from '../common/FormsControls/FormsControls';
 
 const LoginForm = ({ handleSubmit, error }) => {
-  console.log('form: ', error);
   return (
     <form action="" onSubmit={handleSubmit}>
 

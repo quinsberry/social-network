@@ -10,8 +10,15 @@ import Profile from './Profile';
 class ProfileContainer extends Component {
 
   componentDidMount() {
-    this.props.getUserProfileTC(this.props.match.params.userId, this.props.authorizedUserId);
-    this.props.getUserProfileStatusTC(this.props.match.params.userId);
+    let userId = this.props.match.params.userId;
+    if (!userId) {
+      userId = this.props.authorizedUserId;
+      if (!userId) {
+        this.props.history.push('/login');
+      }
+    }
+    this.props.getUserProfileTC(userId);
+    this.props.getUserProfileStatusTC(userId);
   }
 
 

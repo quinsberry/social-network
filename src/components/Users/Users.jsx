@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 
 import User from './User';
-import Preloader from '../common/Preloader/Preloader';
 
 const Users = ({ pagesDisplay, onPageChange, currentPage, users, isFetching, onFollowing, followingToggle, isDisabledBtn }) => {
 
@@ -10,7 +9,7 @@ const Users = ({ pagesDisplay, onPageChange, currentPage, users, isFetching, onF
   return (
     <div className="users">
       {isFetching &&
-        <Preloader />
+        null
       }
       <>
         <div className="users__page-numbers">

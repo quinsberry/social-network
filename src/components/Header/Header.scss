@@ -6,7 +6,8 @@ $header-bg: #fff;
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
   z-index: 2;
   display: grid;
-  grid-template-columns: 3fr 10fr;
+  grid-template-columns: 3fr 4fr 3fr;
+  height: 60px;
   .logo {
     display: flex;
     align-items: center;
@@ -21,16 +22,32 @@ $header-bg: #fff;
       margin-right: 15px;
     }
   }
+  .loadingside {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .preloader {
+      position: relative;
+      left: 0;
+      transform: none;
+    }
+  }
   .otherside {
     padding: 10px 20px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     .auth {
+      display: flex;
+      align-items: center;
       margin-right: 20px;
       font-size: 18px;
       a {
         text-decoration: none;
+      }
+      .logout {
+        margin-left: 5px;
       }
 
       &__authorised {
@@ -41,5 +58,15 @@ $header-bg: #fff;
         }
       }
     }
+  }
+}
+
+.logout {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  opacity: .9;
+  &:hover {
+    opacity: .7;
   }
 }

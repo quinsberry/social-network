@@ -55,6 +55,5 @@ export default compose(
     getUsersTC,
     onPageChangeTC,
     followingToggleTC
-  }),
-  withAuthRedirect
+  })
 )(UsersContainer);

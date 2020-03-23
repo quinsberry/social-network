@@ -90,32 +90,32 @@ export const setIsFetchingToggle = (isFetching) => {
 
 
 
-export const getUserProfileTC = (userId, authorizedUserId) => {
+export const getUserProfileTC = (userId) => {
   return (dispatch) => {
-    dispatch(setIsFetchingToggle(true));
-    if (!userId) {
-      userId = authorizedUserId;
+    if (userId) {
+      dispatch(setIsFetchingToggle(true));
+
+      profileAPI.getProfile(userId)
+        .then(data => {
+          dispatch(setIsFetchingToggle(false));
+          dispatch(setUserProfile(data));
+        });
     }
 
-    profileAPI.getProfile(userId)
-      .then(data => {
-        dispatch(setIsFetchingToggle(false));
-        dispatch(setUserProfile(data));
-      });
   }
 }
 
 export const getUserProfileStatusTC = (userId) => {
   return (dispatch) => {
-    dispatch(setIsFetchingToggle(true));
-    if (!userId) {
-      userId = 6206;
+    if (userId) {
+      dispatch(setIsFetchingToggle(true));
+
+      profileAPI.getStatus(userId)
+        .then(data => {
+          dispatch(setIsFetchingToggle(false));
+          dispatch(setProfileStatus(data));
+        });
     }
-    profileAPI.getStatus(userId)
-      .then(data => {
-        dispatch(setIsFetchingToggle(false));
-        dispatch(setProfileStatus(data));
-      });
   }
 }
 

@@ -47,19 +47,20 @@ export const setIsFetchingToggle = (isFetching) => {
 
 
 
-export const getAuthUserDataTC = (isAuth) => {
+export const getAuthUserDataTC = () => {
   return (dispatch) => {
-    if (isAuth !== true) {
-      dispatch(setIsFetchingToggle(true));
-      authAPI.me()
-        .then(res => {
-          if (res.data.resultCode === 0) {
-            const { id, email, login } = res.data.data;
-            dispatch(setAuthUserData(id, email, login, true));
-            dispatch(setIsFetchingToggle(false));
-          }
-        });
-    }
+    dispatch(setIsFetchingToggle(true));
+    return authAPI.me()
+      .then(res => {
+        if (res.data.resultCode === 0) {
+          const { id, email, login } = res.data.data;
+          dispatch(setAuthUserData(id, email, login, true));
+          dispatch(setIsFetchingToggle(false));
+        } else if (res.data.resultCode === 1) {
+          dispatch(setIsFetchingToggle(false));
+          return;
+        }
+      });
   }
 }
 
