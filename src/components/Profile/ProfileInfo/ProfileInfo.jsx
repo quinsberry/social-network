@@ -42,7 +42,7 @@ const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, ful
           {Object.entries(contacts).every(contact => contact === null) ? null : <h3>You can also find me here:</h3>}
           {
             Object.entries(contacts).map((item, index) => {
-              if (item[1] != null) {
+              if (item[1] !== null && item[1] !== "") {
                 return (
                   <li key={index} className="profile-info__description-contacts-item">
                     <a href={item[1]}>
