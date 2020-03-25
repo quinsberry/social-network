@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { getUserProfileTC, getUserProfileStatusTC, updateUserProfileStatusTC } from '../../redux/reducers/profileReducer';
+import { getStatus, getProfile, getPosts, getAuthorizedUserId, getIsFetching } from '../../redux/selectors/profileSelectors';
 import Profile from './Profile';
 
 
@@ -33,11 +34,11 @@ class ProfileContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profilePage.profile,
-    posts: state.profilePage.posts,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isFetching: state.profilePage.isFetching
+    profile: getProfile(state),
+    posts: getPosts(state),
+    status: getStatus(state),
+    authorizedUserId: getAuthorizedUserId(state),
+    isFetching: getIsFetching(state)
   }
 }
 

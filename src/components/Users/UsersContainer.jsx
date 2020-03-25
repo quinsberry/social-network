@@ -3,8 +3,8 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import Users from './Users';
-import { getUsersTC, onPageChangeTC, followingToggleTC } from '../../redux/reducers/usersReducer';
-import withAuthRedirect from '../../hoc/withAuthRedirect';
+import { requestUsersTC, onPageChangeTC, followingToggleTC } from '../../redux/reducers/usersReducer';
+import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getOnFollowing } from '../../redux/selectors/usersSelectors';
 
 import './Users.scss';
 
@@ -12,7 +12,7 @@ import './Users.scss';
 class UsersContainer extends Component {
 
   componentDidMount() {
-    this.props.getUsersTC(this.props.users.length, this.props.currentPage, this.props.pagesSize);
+    this.props.requestUsersTC(this.props.users.length, this.props.currentPage, this.props.pagesSize);
   }
 
   onPageChange = (pageNumber) => {
@@ -38,21 +38,32 @@ class UsersContainer extends Component {
   }
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     users: state.usersPage.users,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersCount: state.usersPage.totalUsersCount,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     onFollowing: state.usersPage.onFollowing
+//   }
+// }
+
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    onFollowing: state.usersPage.onFollowing
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    onFollowing: getOnFollowing(state)
   }
 }
 
 
 export default compose(
   connect(mapStateToProps, {
-    getUsersTC,
+    requestUsersTC,
     onPageChangeTC,
     followingToggleTC
   })

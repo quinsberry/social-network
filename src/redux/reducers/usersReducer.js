@@ -107,7 +107,7 @@ export const setOnFollowing = (onFollowing, userId) => {
 
 
 
-export const getUsersTC = (usersLength, currentPage, pagesSize) => {
+export const requestUsersTC = (usersLength, currentPage, pagesSize) => {
   return (dispatch) => {
     if (usersLength === 0) {
       dispatch(setIsFetchingToggle(true));
