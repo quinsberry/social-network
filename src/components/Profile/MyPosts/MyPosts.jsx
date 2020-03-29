@@ -6,8 +6,6 @@ import NewPostForm from './NewPostForm';
 import './MyPosts.scss';
 
 const MyPosts = ({ posts, addPost }) => {
-
-
   const addNewPost = (formData) => {
     addPost(formData.newPost);
   }
@@ -24,5 +22,6 @@ const MyPosts = ({ posts, addPost }) => {
     </div>
   );
 };
+
 
 export default MyPosts;

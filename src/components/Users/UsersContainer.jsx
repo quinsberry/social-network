@@ -38,16 +38,6 @@ class UsersContainer extends Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     users: state.usersPage.users,
-//     pageSize: state.usersPage.pageSize,
-//     totalUsersCount: state.usersPage.totalUsersCount,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     onFollowing: state.usersPage.onFollowing
-//   }
-// }
 
 const mapStateToProps = (state) => {
   return {

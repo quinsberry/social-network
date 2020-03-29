@@ -1,6 +1,7 @@
 import { profileAPI } from '../../api/api';
 
 const ADD_POST = 'ADD_POST';
+const DELETE_POST = 'DELETE_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const IS_FETCHING_TOGGLE = 'IS_FETCHING_TOGGLE';
@@ -14,12 +15,12 @@ const initialState = {
       likes: '0'
     },
     {
-      id: 1,
+      id: 2,
       postMessage: 'Nice day.',
       likes: '5'
     },
     {
-      id: 1,
+      id: 3,
       postMessage: 'Im newbee, Hello!',
       likes: '23'
     },
@@ -43,6 +44,11 @@ const profileReducer = (state = initialState, action) => {
         posts: [...state.posts, newPost]
       }
       return newState;
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(p => p.id !== action.postId)
+      };
     case SET_USER_PROFILE:
       return {
         ...state,
@@ -67,6 +73,12 @@ export const addPost = (newPostText) => {
   return {
     type: ADD_POST,
     newPostText
+  }
+}
+export const deletePost = (postId) => {
+  return {
+    type: DELETE_POST,
+    postId
   }
 }
 export const setUserProfile = (profile) => {

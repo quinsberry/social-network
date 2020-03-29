@@ -5,7 +5,7 @@ import User from './User';
 
 const Users = ({ pagesDisplay, onPageChange, currentPage, users, isFetching, onFollowing, followingToggle, isDisabledBtn }) => {
 
-
+  console.log('render');
   return (
     <div className="users">
       {isFetching &&

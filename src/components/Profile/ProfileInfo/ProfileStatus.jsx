@@ -10,16 +10,25 @@ const ProfileStatus = ({ status, updateStatus }) => {
     editStatusText(status);
   }, [status]);
 
+  const activateEditMode = () => {
+    setEditMode(true);
+  }
+
+  const deactivateEditMode = () => {
+    setEditMode(false);
+    updateStatus(statusText);
+  }
+
   return (
     <div className="profile-info__description-status">
       {
         !editMode ? (
           <div>
-            <span className={classnames({ nostatus: !status })} onDoubleClick={() => { setEditMode(true) }}>{status ? status : 'Tap to add you status'}</span>
+            <span className={classnames({ nostatus: !status })} onDoubleClick={() => { activateEditMode() }}>{status ? status : 'Tap to add you status'}</span>
           </div>
         ) : (
             <div>
-              <input onChange={(e) => editStatusText(e.target.value)} autoFocus onBlur={() => { setEditMode(false); updateStatus(statusText) }} type="text" value={statusText} />
+              <input onChange={(e) => editStatusText(e.target.value)} autoFocus onBlur={() => { deactivateEditMode() }} type="text" value={statusText} />
             </div>
           )
       }
