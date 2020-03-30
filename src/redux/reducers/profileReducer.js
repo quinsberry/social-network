@@ -103,45 +103,42 @@ export const setIsFetchingToggle = (isFetching) => {
 
 
 export const getUserProfileTC = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     if (userId) {
       dispatch(setIsFetchingToggle(true));
 
-      profileAPI.getProfile(userId)
-        .then(data => {
-          dispatch(setIsFetchingToggle(false));
-          dispatch(setUserProfile(data));
-        });
+      const data = await profileAPI.getProfile(userId);
+
+      dispatch(setIsFetchingToggle(false));
+      dispatch(setUserProfile(data));
     }
 
   }
 }
 
 export const getUserProfileStatusTC = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     if (userId) {
       dispatch(setIsFetchingToggle(true));
 
-      profileAPI.getStatus(userId)
-        .then(data => {
-          dispatch(setIsFetchingToggle(false));
-          dispatch(setProfileStatus(data));
-        });
+      const data = await profileAPI.getStatus(userId);
+
+      dispatch(setIsFetchingToggle(false));
+      dispatch(setProfileStatus(data));
     }
   }
 }
 
 export const updateUserProfileStatusTC = (status) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setIsFetchingToggle(true));
 
-    profileAPI.updateStatus(status)
-      .then(res => {
-        dispatch(setIsFetchingToggle(false));
-        if (res.data.resultCode === 0) {
-          dispatch(setProfileStatus(status));
-        }
-      });
+    const res = await profileAPI.updateStatus(status)
+
+    dispatch(setIsFetchingToggle(false));
+    if (res.data.resultCode === 0) {
+      dispatch(setProfileStatus(status));
+    }
   }
 }
 

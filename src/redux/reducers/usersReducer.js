@@ -108,53 +108,50 @@ export const setOnFollowing = (onFollowing, userId) => {
 
 
 export const requestUsersTC = (usersLength, currentPage, pagesSize) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     if (usersLength === 0) {
       dispatch(setIsFetchingToggle(true));
 
-      usersAPI.getUsers(currentPage, pagesSize)
-        .then(data => {
-          dispatch(setIsFetchingToggle(false));
-          dispatch(setUsers(data.items));
-          dispatch(setTotalUsersCount(data.totalCount));
-        });
+      const data = await usersAPI.getUsers(currentPage, pagesSize)
+
+      dispatch(setIsFetchingToggle(false));
+      dispatch(setUsers(data.items));
+      dispatch(setTotalUsersCount(data.totalCount));
     }
   }
 }
 
 export const onPageChangeTC = (pageNumber, pagesSize) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setIsFetchingToggle(true));
     dispatch(setCurrentPage(pageNumber));
 
-    usersAPI.getUsers(pageNumber, pagesSize)
-      .then(data => {
-        dispatch(setIsFetchingToggle(false));
-        dispatch(setUsers(data.items));
-      });
+    const data = await usersAPI.getUsers(pageNumber, pagesSize)
+
+    dispatch(setIsFetchingToggle(false));
+    dispatch(setUsers(data.items));
   }
 }
 
 export const followingToggleTC = (followed, id) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setOnFollowing(true, id));
 
     if (!followed) {
-      usersAPI.follow(id)
-        .then(data => {
-          if (data.resultCode === 0) {
-            dispatch(followToggle(id));
-            dispatch(setOnFollowing(false, id));
-          }
-        });
-    } else {
-      usersAPI.unfollow(id)
-        .then(data => {
-          if (data.resultCode === 0) {
-            dispatch(followToggle(id));
-            dispatch(setOnFollowing(false, id));
-          }
-        });
+      const data = await usersAPI.follow(id);
+
+      if (data.resultCode === 0) {
+        dispatch(followToggle(id));
+        dispatch(setOnFollowing(false, id));
+
+      }
+
+    }
+    const data = await usersAPI.unfollow(id);
+
+    if (data.resultCode === 0) {
+      dispatch(followToggle(id));
+      dispatch(setOnFollowing(false, id));
     }
   }
 }

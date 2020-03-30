@@ -2,8 +2,8 @@ import { stopSubmit } from 'redux-form';
 
 import { authAPI } from '../../api/api';
 
-const SET_USER_DATA = 'SET_USER_DATA';
-const IS_FETCHING_TOGGLE = 'IS_FETCHING_TOGGLE';
+const SET_USER_DATA = 'auth/SET_USER_DATA';
+const IS_FETCHING_TOGGLE = 'auth/IS_FETCHING_TOGGLE';
 
 
 let initialState = {
@@ -48,46 +48,45 @@ export const setIsFetchingToggle = (isFetching) => {
 
 
 export const getAuthUserDataTC = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setIsFetchingToggle(true));
-    return authAPI.me()
-      .then(res => {
-        if (res.data.resultCode === 0) {
-          const { id, email, login } = res.data.data;
-          dispatch(setAuthUserData(id, email, login, true));
-          dispatch(setIsFetchingToggle(false));
-        } else if (res.data.resultCode === 1) {
-          dispatch(setIsFetchingToggle(false));
-          return;
-        }
-      });
+
+    const res = await authAPI.me();
+
+    if (res.data.resultCode === 0) {
+      const { id, email, login } = res.data.data;
+      dispatch(setAuthUserData(id, email, login, true));
+      dispatch(setIsFetchingToggle(false));
+    } else if (res.data.resultCode === 1) {
+      dispatch(setIsFetchingToggle(false));
+      return;
+    }
   }
 }
 
 export const loginTC = (email, password, rememberMe) => {
-  return (dispatch) => {
+  return async (dispatch) => {
 
-    authAPI.login(email, password, rememberMe)
-      .then(res => {
-        if (res.data.resultCode === 0) {
-          dispatch(getAuthUserDataTC());
-        } else if (res.data.resultCode === 1) {
-          const message = res.data.messages.length !== 0 ? res.data.messages[0] : 'Email or password are wrong';
-          const action = stopSubmit('login', { _error: message });
-          dispatch(action);
-        }
-      });
+    const res = await authAPI.login(email, password, rememberMe);
+
+    if (res.data.resultCode === 0) {
+      dispatch(getAuthUserDataTC());
+    } else if (res.data.resultCode === 1) {
+      const message = res.data.messages.length !== 0 ? res.data.messages[0] : 'Email or password are wrong';
+      const action = stopSubmit('login', { _error: message });
+      dispatch(action);
+    }
   }
 }
 
 export const logoutTC = () => {
-  return (dispatch) => {
-    authAPI.logout()
-      .then(res => {
-        if (res.data.resultCode === 0) {
-          dispatch(setAuthUserData(null, null, null, false));
-        }
-      });
+  return async (dispatch) => {
+
+    const res = await authAPI.logout();
+
+    if (res.data.resultCode === 0) {
+      dispatch(setAuthUserData(null, null, null, false));
+    }
   }
 }
 
