@@ -1,9 +1,9 @@
 import React from 'react';
-import classnames from 'classnames';
 
 import User from './User';
+import Paginator from '../common/Paginator/Paginator';
 
-const Users = ({ pagesDisplay, onPageChange, currentPage, users, isFetching, onFollowing, followingToggle, isDisabledBtn }) => {
+const Users = ({ onPageChange, currentPage, users, isFetching, onFollowing, followingToggle, isDisabledBtn }) => {
 
   console.log('render');
   return (
@@ -12,17 +12,7 @@ const Users = ({ pagesDisplay, onPageChange, currentPage, users, isFetching, onF
         null
       }
       <>
-        <div className="users__page-numbers">
-          {pagesDisplay.map((p, index) => {
-            if (p > 0) {
-              return (
-                <span onClick={() => onPageChange(p)} key={index} className={classnames('select', { selected: currentPage === p })}>{p}</span>
-              );
-            } else {
-              return undefined;
-            }
-          })}
-        </div>
+        <Paginator onPageChange={onPageChange} currentPage={currentPage} />
         {
           users &&
           users.map(user => (

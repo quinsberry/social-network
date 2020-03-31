@@ -12,11 +12,13 @@ import './Users.scss';
 class UsersContainer extends Component {
 
   componentDidMount() {
-    this.props.requestUsersTC(this.props.users.length, this.props.currentPage, this.props.pagesSize);
+    const { users, currentPage, pageSize } = this.props;
+    this.props.requestUsersTC(users.length, currentPage, pageSize);
   }
 
   onPageChange = (pageNumber) => {
-    this.props.onPageChangeTC(pageNumber, this.props.pagesSize);
+    const { pageSize } = this.props;
+    this.props.onPageChangeTC(pageNumber, pageSize);
   }
 
   followingToggle = (followed, id) => {
@@ -30,9 +32,9 @@ class UsersContainer extends Component {
 
 
   render() {
-    let pagesDisplay = [this.props.currentPage - 2, this.props.currentPage - 1, this.props.currentPage, this.props.currentPage + 1, this.props.currentPage + 2];
+
     return (
-      <Users pagesDisplay={pagesDisplay} onPageChange={this.onPageChange
+      <Users onPageChange={this.onPageChange
       } currentPage={this.props.currentPage} users={this.props.users} isFetching={this.props.isFetching} onFollowing={this.props.onFollowing} followingToggle={this.followingToggle} isDisabledBtn={this.isDisabledBtn} />
     );
   }
