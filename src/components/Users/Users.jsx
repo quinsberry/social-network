@@ -5,7 +5,6 @@ import Paginator from '../common/Paginator/Paginator';
 
 const Users = ({ onPageChange, currentPage, users, isFetching, onFollowing, followingToggle, isDisabledBtn }) => {
 
-  console.log('render');
   return (
     <div className="users">
       {isFetching &&

@@ -4,7 +4,7 @@ const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
-const IS_FETCHING_TOGGLE = 'IS_FETCHING_TOGGLE';
+const IS_FETCHING_TOGGLE = 'profile/IS_FETCHING_TOGGLE';
 
 const initialState = {
   profile: null,
@@ -119,11 +119,8 @@ export const getUserProfileTC = (userId) => {
 export const getUserProfileStatusTC = (userId) => {
   return async (dispatch) => {
     if (userId) {
-      dispatch(setIsFetchingToggle(true));
-
       const data = await profileAPI.getStatus(userId);
 
-      dispatch(setIsFetchingToggle(false));
       dispatch(setProfileStatus(data));
     }
   }
