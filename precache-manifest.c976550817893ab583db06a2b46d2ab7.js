@@ -1,43 +1,43 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "47f26051786503c24d8f13339d4bd497",
+    "revision": "6c54ab14087ad2658930ba28d68b7591",
     "url": "/social-network/index.html"
   },
   {
-    "revision": "b1b0fb3fc4dc423d1fdc",
+    "revision": "8039ebad9593cbb5bd03",
     "url": "/social-network/static/css/3.5283b10c.chunk.css"
   },
   {
-    "revision": "67cd675d0d2a822c9196",
+    "revision": "ed100f39731dfb95b966",
     "url": "/social-network/static/css/4.a14e08fa.chunk.css"
   },
   {
-    "revision": "29848375e78746ba91f9",
+    "revision": "a02ed99dbe6e79b0e1f8",
     "url": "/social-network/static/css/main.5e4e1e5a.chunk.css"
   },
   {
-    "revision": "a752f88e81a702204556",
-    "url": "/social-network/static/js/2.8c244309.chunk.js"
+    "revision": "4a41c4c72ff326914af1",
+    "url": "/social-network/static/js/2.234b3e4b.chunk.js"
   },
   {
     "revision": "bf23039b4e70a07c5aeb1b4010df3572",
-    "url": "/social-network/static/js/2.8c244309.chunk.js.LICENSE.txt"
+    "url": "/social-network/static/js/2.234b3e4b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b1b0fb3fc4dc423d1fdc",
-    "url": "/social-network/static/js/3.47412165.chunk.js"
+    "revision": "8039ebad9593cbb5bd03",
+    "url": "/social-network/static/js/3.e82af681.chunk.js"
   },
   {
-    "revision": "67cd675d0d2a822c9196",
-    "url": "/social-network/static/js/4.dcce0ed9.chunk.js"
+    "revision": "ed100f39731dfb95b966",
+    "url": "/social-network/static/js/4.0ee50d61.chunk.js"
   },
   {
-    "revision": "29848375e78746ba91f9",
-    "url": "/social-network/static/js/main.5c6a204a.chunk.js"
+    "revision": "a02ed99dbe6e79b0e1f8",
+    "url": "/social-network/static/js/main.5cab37ab.chunk.js"
   },
   {
-    "revision": "b3137221bf943da9ad0a",
-    "url": "/social-network/static/js/runtime-main.00f9e5d7.js"
+    "revision": "68addee941d01e93c801",
+    "url": "/social-network/static/js/runtime-main.dd67b0ed.js"
   },
   {
     "revision": "01c9ef5c9ed3fbdf9bdde57df2b4db7f",
