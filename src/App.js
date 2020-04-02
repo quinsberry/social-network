@@ -1,10 +1,9 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, lazy } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import HeaderContainer from './components/Header/HeaderContainer';
-import LazyLoadingContainer from './components/Header/LazyLoadingContainer';
 import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import ErrorPage from './components/ErrorPage/ErrorPage';
