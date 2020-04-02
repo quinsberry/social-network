@@ -66,6 +66,7 @@ $header-bg: #fff;
   width: 25px;
   height: 25px;
   opacity: .9;
+  transition: .1s;
   &:hover {
     opacity: .7;
   }

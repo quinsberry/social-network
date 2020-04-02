@@ -2,18 +2,57 @@ $text-clr: #252525;
 $border-clr: lighten($text-clr, 70%);
 
 .paginator {
-    padding: 5px 20px;
-    .select {
-      padding: 3px 7px;
-      margin-right: 3px;
-      background: lighten($border-clr, 10%);
-      color: darken($border-clr, 30%);
-      border-radius: 3px;
-      cursor: pointer;
-      &.selected {
-        font-weight: bold;
-        color: $text-clr;
-        background: $border-clr;
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+
+  .select {
+    padding: 3px 7px;
+    margin-right: 2px;
+    margin-left: 2px;
+    background: lighten($border-clr, 10%);
+    color: darken($border-clr, 30%);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: .1s;
+
+    &:hover {
+      color: $text-clr;
+    }
+
+    &.selected {
+      font-weight: bold;
+      color: $text-clr;
+      background: $border-clr;
+    }
+  }
+
+  &__btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 0px;
+    border-radius: 3px;
+    transition: .1s;
+
+    &.left {
+      padding-right: 2px;
+    }
+
+    &.right {
+      padding-left: 2px;
+    }
+
+    img {
+      height: 20px;
+      width: 20px;
+    }
+
+    &.invisible {
+      img {
+        z-index: -1;
       }
     }
+  }
   }

@@ -3,7 +3,7 @@ import React from 'react';
 import User from './User';
 import Paginator from '../common/Paginator/Paginator';
 
-const Users = ({ onPageChange, currentPage, users, isFetching, onFollowing, followingToggle, isDisabledBtn }) => {
+const Users = ({ totalUsersCount, pageSize, onPageChange, currentPage, users, isFetching, onFollowing, followingToggle, isDisabledBtn }) => {
 
   return (
     <div className="users">
@@ -11,7 +11,7 @@ const Users = ({ onPageChange, currentPage, users, isFetching, onFollowing, foll
         null
       }
       <>
-        <Paginator onPageChange={onPageChange} currentPage={currentPage} />
+        <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} onPageChange={onPageChange} currentPage={currentPage} />
         {
           users &&
           users.map(user => (

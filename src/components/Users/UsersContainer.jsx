@@ -35,7 +35,7 @@ class UsersContainer extends Component {
 
     return (
       <Users onPageChange={this.onPageChange
-      } currentPage={this.props.currentPage} users={this.props.users} isFetching={this.props.isFetching} onFollowing={this.props.onFollowing} followingToggle={this.followingToggle} isDisabledBtn={this.isDisabledBtn} />
+      } currentPage={this.props.currentPage} users={this.props.users} isFetching={this.props.isFetching} onFollowing={this.props.onFollowing} followingToggle={this.followingToggle} isDisabledBtn={this.isDisabledBtn} totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize} />
     );
   }
 }
