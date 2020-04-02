@@ -1,18 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import HeaderContainer from './components/Header/HeaderContainer';
+import LazyLoadingContainer from './components/Header/LazyLoadingContainer';
 import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import UsersContainer from './components/Users/UsersContainer';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import LoginContainer from './components/Login/LoginContainer';
 import { initializeApp } from './redux/reducers/appReducer';
+import { withSuspense } from './hoc/withSuspense';
 
 import './App.scss';
+
+const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
+const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
+
 
 class App extends Component {
 
@@ -33,8 +37,8 @@ class App extends Component {
         <div className="content">
           <Switch>
             <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-            <Route path='/dialogs' render={() => <DialogsContainer />} />
-            <Route path='/users' render={() => <UsersContainer />} />
+            <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
+            <Route path='/users' render={withSuspense(UsersContainer)} />
             <Route path='/login' render={() => <LoginContainer />} />
             <Route component={ErrorPage} />
           </Switch>

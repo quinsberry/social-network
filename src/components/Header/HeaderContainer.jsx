@@ -8,7 +8,7 @@ class HeaderContainer extends PureComponent {
 
   render() {
     return (
-      <Header userId={this.props.userId} email={this.props.email} login={this.props.login} isAuth={this.props.isAuth} isFetching={this.props.isFetching} logout={this.props.logoutTC} />
+      <Header userId={this.props.userId} email={this.props.email} login={this.props.login} isAuth={this.props.isAuth} isFetching={this.props.isFetching} logout={this.props.logoutTC} lazyLoading={this.props.lazyLoading} />
     );
   }
 };
@@ -19,7 +19,8 @@ const mapStateToProps = (state) => {
     email: state.auth.email,
     login: state.auth.login,
     isAuth: state.auth.isAuth,
-    isFetching: state.auth.isFetching
+    isFetching: state.auth.isFetching,
+    lazyLoading: state.app.lazyLoading
   }
 }
 

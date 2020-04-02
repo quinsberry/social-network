@@ -7,7 +7,7 @@ import Preloader from '../common/Preloader/Preloader';
 
 import './Header.scss';
 
-const Header = ({ userId, email, login, isAuth, isFetching, logout, loading }) => {
+const Header = ({ userId, email, login, isAuth, isFetching, logout, lazyLoading }) => {
     return (
         <header className='header'>
             <div className="logo">
@@ -15,7 +15,7 @@ const Header = ({ userId, email, login, isAuth, isFetching, logout, loading }) =
                 <span>Social Network</span>
             </div>
             <div className="loadingside">
-                {isFetching && <Preloader />}
+                {isFetching || lazyLoading && <Preloader />}
             </div>
             <div className="otherside">
                 {!isFetching && (
