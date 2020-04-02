@@ -3,14 +3,14 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { getUserProfileTC, getUserProfileStatusTC, updateUserProfileStatusTC } from '../../redux/reducers/profileReducer';
+import { getUserProfileTC, getUserProfileStatusTC, updateUserProfileStatusTC, savePhotoTC } from '../../redux/reducers/profileReducer';
 import { getStatus, getProfile, getPosts, getAuthorizedUserId, getIsFetching } from '../../redux/selectors/profileSelectors';
 import Profile from './Profile';
 
 
 class ProfileContainer extends Component {
 
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId;
     if (!userId) {
       userId = this.props.authorizedUserId;
@@ -22,11 +22,21 @@ class ProfileContainer extends Component {
     this.props.getUserProfileStatusTC(userId);
   }
 
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.refreshProfile();
+    }
+  }
+
 
   render() {
 
     return (
-      <Profile {...this.props} updateStatus={this.props.updateUserProfileStatusTC} />
+      <Profile {...this.props} isOwner={!this.props.match.params.userId} updateStatus={this.props.updateUserProfileStatusTC} />
     );
   }
 };
@@ -48,7 +58,8 @@ export default compose(
   connect(mapStateToProps, {
     getUserProfileTC,
     getUserProfileStatusTC,
-    updateUserProfileStatusTC
+    updateUserProfileStatusTC,
+    savePhotoTC
   }),
   withRouter,
 )(ProfileContainer);

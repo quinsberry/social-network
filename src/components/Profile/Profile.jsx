@@ -12,7 +12,7 @@ const Profile = (props) => {
         null
       ) : (
           <>
-            <ProfileInfo about={props.profile.aboutMe} contacts={props.profile.contacts} lookingForAJob={props.profile.lookingForAJob} lookingForAJobDescr={props.profile.lookingForAJobDescr} fullName={props.profile.fullName} photos={props.profile.photos} status={props.status} updateStatus={props.updateStatus} />
+            <ProfileInfo isOwner={props.isOwner} about={props.profile.aboutMe} contacts={props.profile.contacts} lookingForAJob={props.profile.lookingForAJob} lookingForAJobDescr={props.profile.lookingForAJobDescr} fullName={props.profile.fullName} photos={props.profile.photos} status={props.status} updateStatus={props.updateStatus} savePhoto={props.savePhotoTC} />
             <MyPostsContainer posts={props.posts} />
           </>
         )}

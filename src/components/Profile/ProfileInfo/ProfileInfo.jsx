@@ -12,7 +12,7 @@ import website from '../../../assets/icons/website.svg';
 import youtube from '../../../assets/icons/youtube.svg';
 import userDefaultImage from '../../../assets/userphoto_default.png';
 
-const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, fullName, photos, status, updateStatus }) => {
+const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, fullName, photos, status, updateStatus, isOwner, savePhoto }) => {
 
   const icons = {
     github,
@@ -24,11 +24,20 @@ const ProfileInfo = ({ about, contacts, lookingForAJob, lookingForAJobDescr, ful
     youtube
   };
 
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length) {
+      savePhoto(e.target.files[0]);
+    }
+  }
+
   return (
     <div className="profile-info">
       <div className="profile-info__avatar">
         <img className="profile-info__avatar-user-img" src={photos.large ? photos.large : userDefaultImage} alt="User avatar" />
-        <span className="profile-info__avatar-user-job">{lookingForAJob ? 'Looking for a job' : 'Working'}</span>
+        {isOwner && (
+          <input type="file" className="profile-info__avatar-user-changeImg" onChange={onMainPhotoSelected} />
+        )}
+        <span className="profile-info__avatar-user-job">{lookingForAJob ? 'Looking for a job' : ''}</span>
         <span className="profile-info__avatar-user-job-descr">{lookingForAJobDescr}</span>
       </div>
       <div className="profile-info__description">
