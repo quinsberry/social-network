@@ -39,7 +39,7 @@ export const validEmail = (email) => {
 
 export const validDomain = (domain) => {
   if (domain) {
-    const re = new RegExp(/^((?:(?:(?:\w[.\-+]?)*)\w)+)((?:(?:(?:\w[.\-+]?){0,62})\w)+)\.(\w{2,6})$/);
+    const re = new RegExp(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/);
     if (domain.match(re)) {
       return undefined;
     }

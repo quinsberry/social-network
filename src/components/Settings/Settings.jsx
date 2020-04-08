@@ -12,11 +12,6 @@ const Settings = ({ profile, savePhoto, onSubmit }) => {
     }
   }
 
-  const init = {
-    aboutMe: "About",
-    fullName: "It's my name"
-  }
-
   return (
     <div className="settings-page">
       {profile && <ProfileEditForm initialValues={profile} profile={profile} onSubmit={onSubmit} />}

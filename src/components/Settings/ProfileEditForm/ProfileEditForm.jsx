@@ -29,10 +29,12 @@ const ProfileEditForm = ({ profile, handleSubmit, pristine, submitting }) => {
     mainLink
   };
 
-  const isContactRight = (item) => {
-    const res = Object.entries(contacts).filter(contact => contact[0] === item);
-    return res[1];
-  }
+  //     There is a code which find the right contact value for each of inputs
+  //
+  // const isContactRight = (item) => {
+  //   const res = Object.entries(contacts).filter(contact => contact[0] === item);
+  //   return res[1];
+  // }
 
   // Object.values(contacts).map(contact => contact !== null && contact !== '') ? isContactRight(icon[0]) :
 
