@@ -6,7 +6,7 @@ import './Login.scss';
 import { Redirect } from 'react-router-dom';
 
 
-const Login = ({ onSubmit, isAuth }) => {
+const Login = ({ onSubmit, isAuth, captchaUrl }) => {
 
   if (isAuth) {
     return (
@@ -18,7 +18,7 @@ const Login = ({ onSubmit, isAuth }) => {
     <div className="login">
       <div className="login__form">
         <h2>Sign in</h2>
-        <LoginForm onSubmit={onSubmit} />
+        <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
       </div>
     </div>
   );
