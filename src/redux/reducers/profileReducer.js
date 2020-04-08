@@ -1,11 +1,14 @@
 import { profileAPI } from '../../api/api';
+import { stopSubmit } from 'redux-form';
 
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const IS_FETCHING_TOGGLE = 'profile/IS_FETCHING_TOGGLE';
+const IS_PROCESSING = 'profile/IS_PROCESSING';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
+const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 
 const initialState = {
   profile: null,
@@ -27,7 +30,8 @@ const initialState = {
     },
   ],
   status: "",
-  isFetching: false
+  isFetching: false,
+  isProcessing: false
 };
 
 
@@ -63,12 +67,21 @@ const profileReducer = (state = initialState, action) => {
     case IS_FETCHING_TOGGLE:
       return {
         ...state,
-        isFetching: action.isFetching
+        isFetching: !state.isFetching
+      }
+    case IS_PROCESSING:
+      return {
+        ...state,
+        isProcessing: !state.isProcessing
       }
     case SAVE_PHOTO_SUCCESS:
       return {
         ...state,
         profile: { ...state.profile, photos: action.photos }
+      }
+    case SAVE_PROFILE_SUCCESS:
+      return {
+        ...state
       }
     default:
       return state;
@@ -99,17 +112,25 @@ export const setProfileStatus = (status) => {
     status
   }
 }
-export const setIsFetchingToggle = (isFetching) => {
+export const setIsProcessing = () => {
   return {
-    type: IS_FETCHING_TOGGLE,
-    isFetching
+    type: IS_PROCESSING
   }
 }
-
+export const setIsFetchingToggle = () => {
+  return {
+    type: IS_FETCHING_TOGGLE
+  }
+}
 export const savePhotoSuccess = (photos) => {
   return {
     type: SAVE_PHOTO_SUCCESS,
     photos
+  }
+}
+export const saveProfileSuccess = () => {
+  return {
+    type: SAVE_PROFILE_SUCCESS
   }
 }
 
@@ -118,11 +139,11 @@ export const savePhotoSuccess = (photos) => {
 export const getUserProfileTC = (userId) => {
   return async (dispatch) => {
     if (userId) {
-      dispatch(setIsFetchingToggle(true));
+      dispatch(setIsFetchingToggle());
 
       const data = await profileAPI.getProfile(userId);
 
-      dispatch(setIsFetchingToggle(false));
+      dispatch(setIsFetchingToggle());
       dispatch(setUserProfile(data));
     }
 
@@ -141,11 +162,11 @@ export const getUserProfileStatusTC = (userId) => {
 
 export const updateUserProfileStatusTC = (status) => {
   return async (dispatch) => {
-    dispatch(setIsFetchingToggle(true));
+    dispatch(setIsFetchingToggle());
 
     const res = await profileAPI.updateStatus(status)
 
-    dispatch(setIsFetchingToggle(false));
+    dispatch(setIsFetchingToggle());
     if (res.data.resultCode === 0) {
       dispatch(setProfileStatus(status));
     }
@@ -159,6 +180,24 @@ export const savePhotoTC = (file) => {
 
     if (res.resultCode === 0) {
       dispatch(savePhotoSuccess(res.data.photos));
+    }
+  }
+}
+
+export const saveProfileTC = (profile) => {
+
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    dispatch(setIsProcessing());
+    const res = await profileAPI.saveProfile(profile);
+    dispatch(setIsProcessing());
+
+    if (res.resultCode === 0) {
+      dispatch(saveProfileSuccess());
+      dispatch(getUserProfileTC(userId));
+    } else {
+      console.log(res);
+      dispatch(stopSubmit('editProfile', { _error: res.messages[0] }));
     }
   }
 }

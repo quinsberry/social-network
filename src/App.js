@@ -15,6 +15,7 @@ import './App.scss';
 
 const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
 const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
+const SettingsContainer = lazy(() => import('./components/Settings/SettingsContainer'));
 
 
 class App extends Component {
@@ -39,6 +40,7 @@ class App extends Component {
             <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
             <Route path='/users' render={withSuspense(UsersContainer)} />
             <Route path='/login' render={() => <LoginContainer />} />
+            <Route path='/settings' render={withSuspense(SettingsContainer)} />
             <Route component={ErrorPage} />
           </Switch>
         </div>

@@ -3,8 +3,8 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { getUserProfileTC, getUserProfileStatusTC, updateUserProfileStatusTC, savePhotoTC } from '../../redux/reducers/profileReducer';
-import { getStatus, getProfile, getPosts, getAuthorizedUserId, getIsFetching } from '../../redux/selectors/profileSelectors';
+import { getUserProfileTC, getUserProfileStatusTC, updateUserProfileStatusTC } from '../../redux/reducers/profileReducer';
+import { getStatus, getProfile, getPosts, getAuthorizedUserId } from '../../redux/selectors/profileSelectors';
 import Profile from './Profile';
 
 
@@ -26,7 +26,7 @@ class ProfileContainer extends Component {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this.refreshProfile();
     }
@@ -47,8 +47,7 @@ const mapStateToProps = (state) => {
     profile: getProfile(state),
     posts: getPosts(state),
     status: getStatus(state),
-    authorizedUserId: getAuthorizedUserId(state),
-    isFetching: getIsFetching(state)
+    authorizedUserId: getAuthorizedUserId(state)
   }
 }
 
@@ -58,8 +57,7 @@ export default compose(
   connect(mapStateToProps, {
     getUserProfileTC,
     getUserProfileStatusTC,
-    updateUserProfileStatusTC,
-    savePhotoTC
+    updateUserProfileStatusTC
   }),
   withRouter,
 )(ProfileContainer);

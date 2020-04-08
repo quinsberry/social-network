@@ -6,6 +6,13 @@ export const required = (value) => {
   return 'Field is required';
 };
 
+export const notEmpty = (value) => {
+  if (value === '') {
+    return value = null;
+  }
+  return undefined;
+};
+
 export const maxLength = (maxLength) => {
   return (value) => {
     if (value && value.length < maxLength) {
@@ -29,3 +36,14 @@ export const validEmail = (email) => {
   }
   return `Your email is not valid`;
 };
+
+export const validDomain = (domain) => {
+  if (domain) {
+    const re = new RegExp(/^((?:(?:(?:\w[.\-+]?)*)\w)+)((?:(?:(?:\w[.\-+]?){0,62})\w)+)\.(\w{2,6})$/);
+    if (domain.match(re)) {
+      return undefined;
+    }
+    return `Your site domain is not valid`;
+  }
+};
+

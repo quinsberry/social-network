@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 
-const ProfileStatus = ({ status, updateStatus }) => {
+import './ProfileStatus.scss';
+
+const ProfileStatus = ({ status, updateStatus, isOwner }) => {
 
   const [editMode, setEditMode] = useState(false);
   const [statusText, editStatusText] = useState(status);
@@ -11,7 +13,9 @@ const ProfileStatus = ({ status, updateStatus }) => {
   }, [status]);
 
   const activateEditMode = () => {
-    setEditMode(true);
+    if (isOwner) {
+      setEditMode(true);
+    }
   }
 
   const deactivateEditMode = () => {
@@ -20,11 +24,11 @@ const ProfileStatus = ({ status, updateStatus }) => {
   }
 
   return (
-    <div className="profile-info__description-status">
+    <div className="status">
       {
         !editMode ? (
           <div>
-            <span className={classnames({ nostatus: !status })} onDoubleClick={() => { activateEditMode() }}>{status ? status : 'Tap to add you status'}</span>
+            <span className={classnames({ nostatus: !status })} onDoubleClick={() => { activateEditMode() }}>{status ? status : (isOwner ? 'Tap to add you status' : 'User has no status')}</span>
           </div>
         ) : (
             <div>
