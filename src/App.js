@@ -1,7 +1,7 @@
 import React, { Component, lazy } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
@@ -36,6 +36,7 @@ class App extends Component {
         <Navbar />
         <div className="content">
           <Switch>
+            <Route exact path='/' render={() => <Redirect to={'/profile'} />} />
             <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
             <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
             <Route path='/users' render={withSuspense(UsersContainer)} />

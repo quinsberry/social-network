@@ -1,8 +1,8 @@
 import { getAuthUserDataTC } from './authReducer';
 
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
-const LAZY_LOADING = 'LAZY_LOADING';
+const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
+const LAZY_LOADING = 'app/LAZY_LOADING';
 
 
 let initialState = {

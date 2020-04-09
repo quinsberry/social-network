@@ -1,14 +1,14 @@
 import { profileAPI } from '../../api/api';
 import { stopSubmit } from 'redux-form';
 
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
+const ADD_POST = 'profile/ADD_POST';
+const DELETE_POST = 'profile/DELETE_POST';
+const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
+const SET_STATUS = 'profile/SET_STATUS';
 const IS_FETCHING_TOGGLE = 'profile/IS_FETCHING_TOGGLE';
 const IS_PROCESSING = 'profile/IS_PROCESSING';
-const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
-const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
+const SAVE_PROFILE_SUCCESS = 'profile/SAVE_PROFILE_SUCCESS';
 
 const initialState = {
   profile: null,

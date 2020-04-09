@@ -1,11 +1,11 @@
 import { usersAPI } from '../../api/api';
 
-const FOLLOW_TOGGLE = 'FOLLOW_TOGGLE';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const FOLLOW_TOGGLE = 'users/FOLLOW_TOGGLE';
+const SET_USERS = 'users/SET_USERS';
+const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
 const IS_FETCHING_TOGGLE = 'users/IS_FETCHING_TOGGLE';
-const ON_FOLLOWING_TOGGLE = 'ON_FOLLOWING_TOGGLE';
+const ON_FOLLOWING_TOGGLE = 'users/ON_FOLLOWING_TOGGLE';
 
 const initialState = {
   users: [],
