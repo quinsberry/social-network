@@ -4,13 +4,26 @@ import { getAuthUserDataTC } from './authReducer';
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
 const LAZY_LOADING = 'app/LAZY_LOADING';
 
+type TInitialState = {
+  initialized: boolean
+  lazyLoading: boolean
+}
 
-let initialState = {
+type TInitializedSuccess = {
+  type: typeof INITIALIZED_SUCCESS
+}
+
+type TLazyLoading = {
+  type: typeof LAZY_LOADING
+}
+
+
+const initialState: TInitialState = {
   initialized: false,
   lazyLoading: false
 }
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): TInitialState => {
   switch (action.type) {
     case INITIALIZED_SUCCESS:
       return {
@@ -27,19 +40,19 @@ const appReducer = (state = initialState, action) => {
   }
 }
 
-export const InitializedSuccess = () => ({
+export const initializedSuccess = (): TInitializedSuccess => ({
   type: INITIALIZED_SUCCESS
 })
 
-export const lazyLoading = () => ({
+export const lazyLoading = (): TLazyLoading => ({
   type: LAZY_LOADING
 })
 
 export const initializeApp = () => {
-  return (dispatch) => {
+  return (dispatch: any) => {
     let promise = dispatch(getAuthUserDataTC());
     promise.then(() => {
-      dispatch(InitializedSuccess());
+      dispatch(initializedSuccess());
     });
   }
 }

@@ -7,22 +7,53 @@ const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS';
 const IS_FETCHING_TOGGLE = 'auth/IS_FETCHING_TOGGLE';
 
 
-let initialState = {
-  userId: null,
-  email: null,
-  login: null,
-  isAuth: false,
-  captchaUrl: null,
-  isFetching: false
+type TInitialState = typeof initialState
+
+type TSetAuthUserDataPayload = {
+  userId: number | null
+  email: string | null
+  login: string | null
+  isAuth: boolean
 }
 
-const authReducer = (state = initialState, action) => {
+type TSetAuthUserData = {
+  type: typeof SET_USER_DATA
+  payload: TSetAuthUserDataPayload
+}
+
+type TGetCaptchaUrlSuccess = {
+  type: typeof GET_CAPTCHA_URL_SUCCESS
+  url: string
+}
+
+type TSetIsFetchingToggle = {
+  type: typeof IS_FETCHING_TOGGLE
+  isFetching: boolean
+}
+
+
+
+
+
+
+
+const initialState = {
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
+  isAuth: false as boolean,
+  captchaUrl: null as string | null,
+  isFetching: false as boolean
+}
+
+const authReducer = (state = initialState, action: any): TInitialState => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
         ...state,
-        ...action.data,
-        captchaUrl: null
+        ...action.payload,
+        captchaUrl: null,
+        asd: 1
       }
     case GET_CAPTCHA_URL_SUCCESS:
       return {
@@ -39,17 +70,17 @@ const authReducer = (state = initialState, action) => {
   }
 }
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): TSetAuthUserData => ({
   type: SET_USER_DATA,
-  data: { userId, email, login, isAuth }
+  payload: { userId, email, login, isAuth }
 })
 
-export const getCaptchaUrlSuccess = (url) => ({
+export const getCaptchaUrlSuccess = (url: string): TGetCaptchaUrlSuccess => ({
   type: GET_CAPTCHA_URL_SUCCESS,
   url
 })
 
-export const setIsFetchingToggle = (isFetching) => {
+export const setIsFetchingToggle = (isFetching: boolean): TSetIsFetchingToggle => {
   return {
     type: IS_FETCHING_TOGGLE,
     isFetching
@@ -61,7 +92,7 @@ export const setIsFetchingToggle = (isFetching) => {
 
 
 export const getAuthUserDataTC = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     dispatch(setIsFetchingToggle(true));
 
     const res = await authAPI.me();
@@ -77,8 +108,8 @@ export const getAuthUserDataTC = () => {
   }
 }
 
-export const loginTC = (email, password, rememberMe, captcha) => {
-  return async (dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string) => {
+  return async (dispatch: any) => {
 
     const res = await authAPI.login(email, password, rememberMe, captcha);
 
@@ -97,7 +128,7 @@ export const loginTC = (email, password, rememberMe, captcha) => {
 }
 
 export const logoutTC = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
 
     const res = await authAPI.logout();
 
@@ -108,7 +139,7 @@ export const logoutTC = () => {
 }
 
 export const getCaptchaUrlTC = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
 
     const res = await securityAPI.getCaptchaUrl();
     const captchaUrl = res.data.url;

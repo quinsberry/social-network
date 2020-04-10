@@ -1,5 +1,22 @@
 const SEND_MESSAGE = 'dialogs/SEND_MESSAGE';
 
+type TInitialState = typeof initialState
+
+type TDialogs = {
+  id: number,
+  name: string
+}
+
+type TMessages = {
+  id: number,
+  message: string
+}
+
+type TSendMessage = {
+  type: typeof SEND_MESSAGE
+  newMessageText: string
+}
+
 const initialState = {
   dialogs: [
     {
@@ -22,7 +39,7 @@ const initialState = {
       id: 5,
       name: 'Kaas'
     },
-  ],
+  ] as Array<TDialogs>,
   messages: [
     {
       id: 1,
@@ -44,27 +61,26 @@ const initialState = {
       id: 5,
       message: 'if you read this you are dumb'
     },
-  ]
+  ] as Array<TMessages>
 }
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: any): TInitialState => {
   switch (action.type) {
     case SEND_MESSAGE:
       let newMessage = {
         id: 5,
         message: action.newMessageText
       };
-      const newState = {
+      return {
         ...state,
-        messages: [...state.messages, newMessage],
-      }
-      return newState;
+        messages: [...state.messages, newMessage]
+      };
     default:
       return state;
   }
 }
 
-export const sendMessage = (newMessageText) => {
+export const sendMessage = (newMessageText: string): TSendMessage => {
   return {
     type: SEND_MESSAGE,
     newMessageText

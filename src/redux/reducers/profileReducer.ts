@@ -1,6 +1,8 @@
 import { profileAPI } from '../../api/api';
 import { stopSubmit } from 'redux-form';
 
+import { TPost, TPhotos, TProfile } from '../../types/types';
+
 const ADD_POST = 'profile/ADD_POST';
 const DELETE_POST = 'profile/DELETE_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -10,33 +12,35 @@ const IS_PROCESSING = 'profile/IS_PROCESSING';
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 const SAVE_PROFILE_SUCCESS = 'profile/SAVE_PROFILE_SUCCESS';
 
+type TInitialState = typeof initialState
+
 const initialState = {
-  profile: null,
+  profile: null as TProfile | null,
   posts: [
     {
       id: 1,
       postMessage: 'Hey everyone!!',
-      likes: '0'
+      likes: 0
     },
     {
       id: 2,
       postMessage: 'Nice day.',
-      likes: '5'
+      likes: 5
     },
     {
       id: 3,
       postMessage: 'Im newbee, Hello!',
-      likes: '23'
+      likes: 23
     },
-  ],
+  ] as Array<TPost>,
   status: "",
-  isFetching: false,
-  isProcessing: false
+  isFetching: false as boolean,
+  isProcessing: false as boolean
 };
 
 
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any): TInitialState => {
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -44,11 +48,10 @@ const profileReducer = (state = initialState, action) => {
         postMessage: action.newPostText,
         likes: 0
       };
-      const newState = {
+      return {
         ...state,
         posts: [...state.posts, newPost]
-      }
-      return newState;
+      };
     case DELETE_POST:
       return {
         ...state,
@@ -77,7 +80,7 @@ const profileReducer = (state = initialState, action) => {
     case SAVE_PHOTO_SUCCESS:
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photos }
+        profile: { ...state.profile, photos: action.photos } as TProfile
       }
     case SAVE_PROFILE_SUCCESS:
       return {
@@ -88,47 +91,77 @@ const profileReducer = (state = initialState, action) => {
   }
 }
 
-export const addPost = (newPostText) => {
+type TAddPost = {
+  type: typeof ADD_POST
+  newPostText: string
+}
+type TDeletePost = {
+  type: typeof DELETE_POST
+  postId: number
+}
+type TSetUserProfile = {
+  type: typeof SET_USER_PROFILE
+  profile: TProfile
+}
+type TSetProfileStatus = {
+  type: typeof SET_STATUS
+  status: string
+}
+type TSetIsProcessing = {
+  type: typeof IS_PROCESSING
+}
+type TSetIsFetchingToggle = {
+  type: typeof IS_FETCHING_TOGGLE
+}
+type TSavePhotoSuccess = {
+  type: typeof SAVE_PHOTO_SUCCESS
+  photos: TPhotos
+}
+type TSaveProfileSuccess = {
+  type: typeof SAVE_PROFILE_SUCCESS
+}
+
+export const addPost = (newPostText: string): TAddPost => {
   return {
     type: ADD_POST,
     newPostText
   }
 }
-export const deletePost = (postId) => {
+export const deletePost = (postId: number): TDeletePost => {
   return {
     type: DELETE_POST,
     postId
   }
 }
-export const setUserProfile = (profile) => {
+export const setUserProfile = (profile: TProfile): TSetUserProfile => {
   return {
     type: SET_USER_PROFILE,
     profile
   }
 }
-export const setProfileStatus = (status) => {
+export const setProfileStatus = (status: string): TSetProfileStatus => {
   return {
     type: SET_STATUS,
     status
   }
 }
-export const setIsProcessing = () => {
+export const setIsProcessing = (): TSetIsProcessing => {
   return {
     type: IS_PROCESSING
   }
 }
-export const setIsFetchingToggle = () => {
+export const setIsFetchingToggle = (): TSetIsFetchingToggle => {
   return {
     type: IS_FETCHING_TOGGLE
   }
 }
-export const savePhotoSuccess = (photos) => {
+export const savePhotoSuccess = (photos: TPhotos): TSavePhotoSuccess => {
   return {
     type: SAVE_PHOTO_SUCCESS,
     photos
   }
 }
-export const saveProfileSuccess = () => {
+export const saveProfileSuccess = (): TSaveProfileSuccess => {
   return {
     type: SAVE_PROFILE_SUCCESS
   }
@@ -136,8 +169,8 @@ export const saveProfileSuccess = () => {
 
 
 
-export const getUserProfileTC = (userId) => {
-  return async (dispatch) => {
+export const getUserProfileTC = (userId: number) => {
+  return async (dispatch: any) => {
     if (userId) {
       dispatch(setIsFetchingToggle());
 
@@ -150,8 +183,8 @@ export const getUserProfileTC = (userId) => {
   }
 }
 
-export const getUserProfileStatusTC = (userId) => {
-  return async (dispatch) => {
+export const getUserProfileStatusTC = (userId: number) => {
+  return async (dispatch: any) => {
     if (userId) {
       const data = await profileAPI.getStatus(userId);
 
@@ -160,8 +193,8 @@ export const getUserProfileStatusTC = (userId) => {
   }
 }
 
-export const updateUserProfileStatusTC = (status) => {
-  return async (dispatch) => {
+export const updateUserProfileStatusTC = (status: string) => {
+  return async (dispatch: any) => {
     dispatch(setIsFetchingToggle());
 
     const res = await profileAPI.updateStatus(status)
@@ -173,8 +206,8 @@ export const updateUserProfileStatusTC = (status) => {
   }
 }
 
-export const savePhotoTC = (file) => {
-  return async (dispatch) => {
+export const savePhotoTC = (file: any) => {
+  return async (dispatch: any) => {
 
     const res = await profileAPI.savePhoto(file);
 
@@ -184,9 +217,9 @@ export const savePhotoTC = (file) => {
   }
 }
 
-export const saveProfileTC = (profile) => {
+export const saveProfileTC = (profile: TProfile) => {
 
-  return async (dispatch, getState) => {
+  return async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId;
     dispatch(setIsProcessing());
     const res = await profileAPI.saveProfile(profile);
@@ -196,7 +229,6 @@ export const saveProfileTC = (profile) => {
       dispatch(saveProfileSuccess());
       dispatch(getUserProfileTC(userId));
     } else {
-      console.log(res);
       dispatch(stopSubmit('editProfile', { _error: res.messages[0] }));
     }
   }
