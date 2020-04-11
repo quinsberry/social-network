@@ -1,9 +1,14 @@
-import React from 'react';
+import React from 'react'
 
-import './Post.scss';
-import authorFace from '../../../../assets/face.jpg';
+import './Post.scss'
+import authorFace from '../../../../assets/face.jpg'
 
-const Post = ({ postMsg, likesCount }) => {
+type Props = {
+  postMsg: string
+  likesCount: number
+}
+
+const Post: React.FC<Props> = ({ postMsg, likesCount }) => {
   return (
     <div className="post">
       <div className="post__author">
@@ -18,7 +23,7 @@ const Post = ({ postMsg, likesCount }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

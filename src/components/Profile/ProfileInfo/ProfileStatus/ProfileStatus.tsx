@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import classnames from 'classnames';
 
 import './ProfileStatus.scss';
 
-const ProfileStatus = ({ status, updateStatus, isOwner }) => {
+type Props = {
+  status: string | null
+  updateStatus: (statusText: string) => void
+  isOwner: number | undefined
+}
+
+const ProfileStatus: React.FC<Props> = ({ status, updateStatus, isOwner }) => {
 
   const [editMode, setEditMode] = useState(false);
-  const [statusText, editStatusText] = useState(status);
+  const [statusText, editStatusText] = useState('');
 
   useEffect(() => {
-    editStatusText(status);
+    if (status) {
+      editStatusText(status);
+    }
   }, [status]);
 
   const activateEditMode = () => {
@@ -23,6 +31,10 @@ const ProfileStatus = ({ status, updateStatus, isOwner }) => {
     updateStatus(statusText);
   }
 
+  const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+    editStatusText(e.target.value)
+  }
+
   return (
     <div className="status">
       {
@@ -32,7 +44,7 @@ const ProfileStatus = ({ status, updateStatus, isOwner }) => {
           </div>
         ) : (
             <div>
-              <input onChange={(e) => editStatusText(e.target.value)} autoFocus onBlur={() => { deactivateEditMode() }} type="text" value={statusText} />
+              <input onChange={onStatusChange} autoFocus onBlur={() => { deactivateEditMode() }} type="text" value={statusText} />
             </div>
           )
       }

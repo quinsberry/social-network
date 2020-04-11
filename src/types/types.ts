@@ -21,7 +21,7 @@ export type TPhotos = {
 }
 
 export type TProfile = {
-  aboutMe: string
+  aboutMe: string | null
   contacts: TContacts
   lookingForAJob: string
   lookingForAJobDescription: string
