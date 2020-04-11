@@ -1,24 +1,25 @@
 import { createSelector } from 'reselect';
+import { TAppState } from '../redux-store';
 
-const getStatusSelector = (state) => {
+const getStatusSelector = (state: TAppState) => {
   return state.profilePage.status;
 }
 
-const getIsFetchingSelector = (state) => {
+const getIsFetchingSelector = (state: TAppState) => {
   return state.profilePage.isFetching;
 }
 
 
 
-export const getProfile = (state) => {
+export const getProfile = (state: TAppState) => {
   return state.profilePage.profile;
 }
 
-export const getPosts = (state) => {
+export const getPosts = (state: TAppState) => {
   return state.profilePage.posts;
 }
 
-export const getAuthorizedUserId = (state) => {
+export const getAuthorizedUserId = (state: TAppState) => {
   return state.auth.userId;
 }
 

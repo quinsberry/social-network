@@ -1,6 +1,6 @@
 import { usersAPI } from '../../api/api';
 
-import { TUsers } from '../../types/types';
+import { TUser } from '../../types/types';
 
 const FOLLOW_TOGGLE = 'users/FOLLOW_TOGGLE';
 const SET_USERS = 'users/SET_USERS';
@@ -12,7 +12,7 @@ const ON_FOLLOWING_TOGGLE = 'users/ON_FOLLOWING_TOGGLE';
 type TInitialState = typeof initialState
 
 const initialState = {
-  users: [] as Array<TUsers>,
+  users: [] as Array<TUser>,
   pageSize: 5 as number,
   totalUsersCount: 20 as number,
   currentPage: 1 as number,
@@ -70,7 +70,7 @@ type TFollowToggle = {
 }
 type TSetUsers = {
   type: typeof SET_USERS
-  users: TUsers
+  users: TUser
 }
 type TSetCurrentPage = {
   type: typeof SET_CURRENT_PAGE
@@ -97,7 +97,7 @@ export const followToggle = (userId: number): TFollowToggle => {
   }
 }
 
-export const setUsers = (users: TUsers): TSetUsers => {
+export const setUsers = (users: TUser): TSetUsers => {
   return {
     type: SET_USERS,
     users

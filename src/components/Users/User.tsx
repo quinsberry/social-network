@@ -4,8 +4,18 @@ import classnames from 'classnames';
 
 import userPhoto from '../../assets/userphoto_default.png';
 
+type Props = {
+  name: string
+  id: number
+  status: string | null
+  followed: boolean
+  photo: string | null
+  onFollowing: Array<number>
+  followingToggle: (followed: boolean, id: number) => void
+  isDisabledBtn: (id: number) => boolean
+}
 
-const User = ({ name, id, status, followed, photo, onFollowing, followingToggle, isDisabledBtn }) => {
+const User: React.FC<Props> = ({ name, id, status, followed, photo, onFollowing, followingToggle, isDisabledBtn }) => {
 
   return (
     <div className="users__user">

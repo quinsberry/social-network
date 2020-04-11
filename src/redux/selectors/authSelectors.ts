@@ -1,15 +1,16 @@
 import { createSelector } from 'reselect';
+import { TAppState } from '../redux-store';
 
 
-const getUserIdSelector = (state) => {
+const getUserIdSelector = (state: TAppState) => {
   return state.auth.userId;
 }
 
-const getIsAuthSelector = (state) => {
+const getIsAuthSelector = (state: TAppState) => {
   return state.auth.isAuth;
 }
 
-const getCaptchaUrlSelector = (state) => {
+const getCaptchaUrlSelector = (state: TAppState) => {
   return state.auth.captchaUrl;
 }
 

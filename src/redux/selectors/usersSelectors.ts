@@ -1,28 +1,29 @@
 import { createSelector } from "reselect";
+import { TAppState } from '../redux-store';
 
-const getUsersSelector = (state) => {
+const getUsersSelector = (state: TAppState) => {
   return state.usersPage.users;
 }
 export const getUsers = createSelector(getUsersSelector, (users) => {
   return users;
 });
 
-export const getPageSize = (state) => {
+export const getPageSize = (state: TAppState) => {
   return state.usersPage.pageSize;
 }
 
-export const getTotalUsersCount = (state) => {
+export const getTotalUsersCount = (state: TAppState) => {
   return state.usersPage.totalUsersCount;
 }
 
-export const getCurrentPage = (state) => {
+export const getCurrentPage = (state: TAppState) => {
   return state.usersPage.currentPage
 }
 
-export const getIsFetching = (state) => {
+export const getIsFetching = (state: TAppState) => {
   return state.usersPage.isFetching
 }
 
-export const getOnFollowing = (state) => {
+export const getOnFollowing = (state: TAppState) => {
   return state.usersPage.onFollowing
 }

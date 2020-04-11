@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
-import classnames from 'classnames';
+import React, { useState } from 'react'
+import classnames from 'classnames'
 
-import './Paginator.scss';
-import caretLeft from '../../../assets/icons/common/caret-left.svg';
-import caretRight from '../../../assets/icons/common/caret-right.svg';
+import './Paginator.scss'
+import caretLeft from '../../../assets/icons/common/caret-left.svg'
+import caretRight from '../../../assets/icons/common/caret-right.svg'
 
-const Paginator = ({ totalItemsCount, pageSize, onPageChange, currentPage, portionSize = 10 }) => {
+type Props = {
+  totalItemsCount: number
+  pageSize: number
+  onPageChange: (pageNumber: number) => void
+  currentPage: number
+  portionSize?: number
+}
 
-  const [portionNumber, setPortionNumber] = useState(1);
+const Paginator: React.FC<Props> = ({ totalItemsCount, pageSize, onPageChange, currentPage, portionSize = 10 }) => {
 
-  const pagesCount = Math.ceil(totalItemsCount / pageSize);
-  const pages = [];
+  const [portionNumber, setPortionNumber] = useState(1)
+
+  const pagesCount = Math.ceil(totalItemsCount / pageSize)
+  const pages: Array<number> = []
   for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
+    pages.push(i)
   }
 
-  const portionCount = Math.ceil(pagesCount / portionSize);
-  let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-  let rightPortionPageNumber = portionNumber * portionSize;
+  const portionCount = Math.ceil(pagesCount / portionSize)
+  let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
+  let rightPortionPageNumber = portionNumber * portionSize
 
 
   return (
@@ -52,4 +60,4 @@ const Paginator = ({ totalItemsCount, pageSize, onPageChange, currentPage, porti
   );
 };
 
-export default Paginator;
+export default Paginator

@@ -30,7 +30,7 @@ export type TProfile = {
   photos: TPhotos
 }
 
-export type TUsers = {
+export type TUser = {
   name: string
   id: number
   uniqueUrlName: string | null
