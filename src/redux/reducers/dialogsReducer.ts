@@ -12,10 +12,6 @@ type TMessages = {
   message: string
 }
 
-type TSendMessage = {
-  type: typeof SEND_MESSAGE
-  newMessageText: string
-}
 
 const initialState = {
   dialogs: [
@@ -64,7 +60,7 @@ const initialState = {
   ] as Array<TMessages>
 }
 
-const dialogsReducer = (state = initialState, action: any): TInitialState => {
+const dialogsReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
     case SEND_MESSAGE:
       let newMessage = {
@@ -78,6 +74,13 @@ const dialogsReducer = (state = initialState, action: any): TInitialState => {
     default:
       return state;
   }
+}
+
+type TActions = TSendMessage
+
+type TSendMessage = {
+  type: typeof SEND_MESSAGE
+  newMessageText: string
 }
 
 export const sendMessage = (newMessageText: string): TSendMessage => {

@@ -1,6 +1,6 @@
 import { usersAPI } from '../../api/api'
 
-import { TAppState, TUser } from '../../types/types'
+import { TAppState, TUser, ResultCodes } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 const FOLLOW_TOGGLE = 'users/FOLLOW_TOGGLE'
@@ -141,7 +141,7 @@ type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
 
 export const requestUsersTC = (usersLength: number, currentPage: number, pagesSize: number): TThunk => {
   return async (dispatch) => {
-    if (usersLength === 0) {
+    if (usersLength === ResultCodes.Success) {
       dispatch(setIsFetchingToggle(true))
 
       const data = await usersAPI.getUsers(currentPage, pagesSize)
@@ -172,7 +172,7 @@ export const followingToggleTC = (followed: boolean, id: number): TThunk => {
     if (!followed) {
       const data = await usersAPI.follow(id)
 
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCodes.Success) {
         dispatch(followToggle(id))
         dispatch(setOnFollowing(false, id))
 
@@ -181,7 +181,7 @@ export const followingToggleTC = (followed: boolean, id: number): TThunk => {
     }
     const data = await usersAPI.unfollow(id)
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodes.Success) {
       dispatch(followToggle(id))
       dispatch(setOnFollowing(false, id))
     }

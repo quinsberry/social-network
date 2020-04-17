@@ -33,14 +33,14 @@ type Props = TMapState & TMapDispatch & TWithRouter
 class ProfileContainer extends PureComponent<Props> {
 
   refreshProfile() {
-    let userIdNumber = Number(this.props.match.params.userId);
+    let userIdNumber = Number(this.props.match.params.userId)
     if (!userIdNumber) {
       if (this.props.authorizedUserId) {
         userIdNumber = this.props.authorizedUserId;
-        if (!userIdNumber) {
-          this.props.history.push('/login');
-        }
+      } else {
+        this.props.history.push('/login')
       }
+
     }
     this.props.getUserProfileTC(userIdNumber);
     this.props.getUserProfileStatusTC(userIdNumber);

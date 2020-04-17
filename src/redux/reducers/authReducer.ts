@@ -2,7 +2,7 @@ import { stopSubmit } from 'redux-form';
 
 import { authAPI, securityAPI } from '../../api/api';
 
-import { TAppState } from '../../types/types'
+import { TAppState, ResultCodes } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
@@ -97,11 +97,11 @@ export const getAuthUserDataTC = (): TThunk => {
 
     const res = await authAPI.me()
 
-    if (res.data.resultCode === 0) {
-      const { id, email, login } = res.data.data;
-      dispatch(setAuthUserData(id, email, login, true));
+    if (res.resultCode === ResultCodes.Success) {
+      const { id, email, login } = res.data
+      dispatch(setAuthUserData(id, email, login, true))
       dispatch(setIsFetchingToggle(false))
-    } else if (res.data.resultCode === 1) {
+    } else if (res.resultCode === 1) {
       dispatch(setIsFetchingToggle(false))
       return
     }
@@ -113,14 +113,14 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
 
     const res = await authAPI.login(email, password, rememberMe, captcha)
 
-    if (res.data.resultCode === 0) {
+    if (res.resultCode === ResultCodes.Success) {
       dispatch(getAuthUserDataTC())
     } else {
-      if (res.data.resultCode === 10) {
+      if (res.resultCode === ResultCodes.CaptchaIsRequired) {
         dispatch(getCaptchaUrlTC())
       }
 
-      const message = res.data.messages.length !== 0 ? res.data.messages[0] : 'Email or password are wrong'
+      const message = res.messages.length !== 0 ? res.messages[0] : 'Email or password are wrong'
       // @ts-ignore
       dispatch(stopSubmit('login', { _error: message }))
     }
@@ -132,7 +132,7 @@ export const logoutTC = (): TThunk => {
 
     const res = await authAPI.logout()
 
-    if (res.data.resultCode === 0) {
+    if (res.resultCode === ResultCodes.Success) {
       dispatch(setAuthUserData(null, null, null, false));
     }
   }
@@ -142,7 +142,7 @@ export const getCaptchaUrlTC = (): TThunk => {
   return async (dispatch) => {
 
     const res = await securityAPI.getCaptchaUrl()
-    const captchaUrl = res.data.url
+    const captchaUrl = res.url
     dispatch(getCaptchaUrlSuccess(captchaUrl))
   }
 }

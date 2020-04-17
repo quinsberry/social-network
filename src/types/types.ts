@@ -1,5 +1,11 @@
 import { TRootReducer } from '../redux/redux-store'
 
+export enum ResultCodes {
+  Success = 0,
+  Error = 1,
+  CaptchaIsRequired = 10
+}
+
 export type TAppState = ReturnType<TRootReducer>
 
 export type TPost = {
