@@ -1,3 +1,7 @@
+import { TRootReducer } from '../redux/redux-store'
+
+export type TAppState = ReturnType<TRootReducer>
+
 export type TPost = {
   id: number
   postMessage: string

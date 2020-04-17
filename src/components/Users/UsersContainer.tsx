@@ -8,8 +8,7 @@ import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetchin
 
 import './Users.scss';
 
-import { TUser } from '../../types/types'
-import { TAppState } from '../../redux/redux-store'
+import { TAppState, TUser } from '../../types/types'
 
 type TMapState = {
   currentPage: number

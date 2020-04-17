@@ -8,8 +8,8 @@ import usersReducer from './reducers/usersReducer'
 import authReducer from './reducers/authReducer'
 import appReducer from './reducers/appReducer'
 
-type TRootReducer = typeof rootReducer
-export type TAppState = ReturnType<TRootReducer>
+export type TRootReducer = typeof rootReducer
+
 
 
 

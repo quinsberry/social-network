@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { TAppState } from '../redux-store';
+import { TAppState } from '../../types/types';
 
 const getUsersSelector = (state: TAppState) => {
   return state.usersPage.users;

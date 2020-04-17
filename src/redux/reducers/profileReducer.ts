@@ -1,7 +1,8 @@
 import { profileAPI } from '../../api/api';
 import { stopSubmit } from 'redux-form';
 
-import { TPost, TPhotos, TProfile } from '../../types/types';
+import { TAppState, TPost, TPhotos, TProfile } from '../../types/types';
+import { ThunkAction } from 'redux-thunk'
 
 const ADD_POST = 'profile/ADD_POST';
 const DELETE_POST = 'profile/DELETE_POST';
@@ -40,7 +41,7 @@ const initialState = {
 
 
 
-const profileReducer = (state = initialState, action: any): TInitialState => {
+const profileReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -90,6 +91,8 @@ const profileReducer = (state = initialState, action: any): TInitialState => {
       return state;
   }
 }
+
+type TActions = TAddPost | TDeletePost | TSetUserProfile | TSetProfileStatus | TSetIsProcessing | TSetIsFetchingToggle | TSavePhotoSuccess | TSaveProfileSuccess
 
 type TAddPost = {
   type: typeof ADD_POST
@@ -167,10 +170,10 @@ export const saveProfileSuccess = (): TSaveProfileSuccess => {
   }
 }
 
+type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
 
-
-export const getUserProfileTC = (userId: number) => {
-  return async (dispatch: any) => {
+export const getUserProfileTC = (userId: number | null): TThunk => {
+  return async (dispatch) => {
     if (userId) {
       dispatch(setIsFetchingToggle());
 
@@ -183,8 +186,8 @@ export const getUserProfileTC = (userId: number) => {
   }
 }
 
-export const getUserProfileStatusTC = (userId: number) => {
-  return async (dispatch: any) => {
+export const getUserProfileStatusTC = (userId: number): TThunk => {
+  return async (dispatch) => {
     if (userId) {
       const data = await profileAPI.getStatus(userId);
 
@@ -193,8 +196,8 @@ export const getUserProfileStatusTC = (userId: number) => {
   }
 }
 
-export const updateUserProfileStatusTC = (status: string) => {
-  return async (dispatch: any) => {
+export const updateUserProfileStatusTC = (status: string): TThunk => {
+  return async (dispatch) => {
     dispatch(setIsFetchingToggle());
 
     const res = await profileAPI.updateStatus(status)
@@ -206,8 +209,8 @@ export const updateUserProfileStatusTC = (status: string) => {
   }
 }
 
-export const savePhotoTC = (file: any) => {
-  return async (dispatch: any) => {
+export const savePhotoTC = (file: any): TThunk => {
+  return async (dispatch) => {
 
     const res = await profileAPI.savePhoto(file);
 
@@ -217,9 +220,9 @@ export const savePhotoTC = (file: any) => {
   }
 }
 
-export const saveProfileTC = (profile: TProfile) => {
+export const saveProfileTC = (profile: TProfile): TThunk => {
 
-  return async (dispatch: any, getState: any) => {
+  return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     dispatch(setIsProcessing());
     const res = await profileAPI.saveProfile(profile);

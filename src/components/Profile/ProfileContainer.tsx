@@ -7,8 +7,7 @@ import { getUserProfileTC, getUserProfileStatusTC, updateUserProfileStatusTC } f
 import { getStatus, getProfile, getAuthorizedUserId } from '../../redux/selectors/profileSelectors'
 import Profile from './Profile'
 
-import { TAppState } from '../../redux/redux-store'
-import { TProfile } from '../../types/types'
+import { TAppState, TProfile } from '../../types/types'
 
 type TMapState = {
   profile: TProfile | null

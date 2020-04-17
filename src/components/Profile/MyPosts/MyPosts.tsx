@@ -7,8 +7,7 @@ import { addPost } from '../../../redux/reducers/profileReducer'
 
 import './MyPosts.scss'
 
-import { TAppState } from '../../../redux/redux-store'
-import { TPost } from '../../../types/types'
+import { TAppState, TPost } from '../../../types/types'
 
 type TMapState = {
   posts: Array<TPost>

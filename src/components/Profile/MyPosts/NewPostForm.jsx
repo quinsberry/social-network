@@ -4,9 +4,11 @@ import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../../common/FormsControls/FormsControls';
 import { required, maxLength } from '../../../utils/validators';
 
-const maxLength10 = maxLength(10);
+const maxLength10 = maxLength(300);
+
 
 const NewPostForm = ({ handleSubmit }) => {
+
   return (
     <form className="myposts__new-post" onSubmit={handleSubmit}>
       <div className="myposts__new-post-area">
