@@ -8,6 +8,13 @@ export enum ResultCodes {
 
 export type TAppState = ReturnType<TRootReducer>
 
+export type TLoginFormValues = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha: null | string
+}
+
 export type TPost = {
   id: number
   postMessage: string
@@ -48,3 +55,38 @@ export type TUser = {
   status: string | null
   followed: boolean
 }
+
+export type TDialogsPage = {
+  dialogs: Array<TDialog>
+  messages: Array<TMessage>
+}
+
+export type TDialog = {
+  id: number,
+  name: string
+}
+
+export type TMessage = {
+  id: number,
+  message: string
+}
+
+export type TNewMessageFromValue = {
+  newMessage: string
+}
+
+// Header
+export type TDataProcessing = {
+  isFetchingAuth: boolean
+  isProcessing: boolean
+  lazyLoading: boolean
+  isFetchingUsers: boolean
+  isFetchingProfile: boolean
+}
+
+// Profile
+export type TNewPostFormValue = {
+  newPost: string
+}
+
+export type TFieldValidator = (value: string) => string | undefined

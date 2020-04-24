@@ -7,7 +7,7 @@ import { addPost } from '../../../redux/reducers/profileReducer'
 
 import './MyPosts.scss'
 
-import { TAppState, TPost } from '../../../types/types'
+import { TAppState, TNewPostFormValue, TPost } from '../../../types/types'
 
 type TMapState = {
   posts: Array<TPost>
@@ -20,7 +20,7 @@ type TMapDispatch = {
 type Props = TMapState & TMapDispatch
 
 const MyPosts: React.FC<Props> = ({ posts, addPost }) => {
-  const addNewPost = (formData: any) => {
+  const addNewPost = (formData: TNewPostFormValue) => {
     const { newPost } = formData
     addPost(newPost)
   }

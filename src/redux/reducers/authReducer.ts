@@ -108,7 +108,7 @@ export const getAuthUserDataTC = (): TThunk => {
   }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): TThunk => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string | null): TThunk => {
   return async (dispatch) => {
 
     const res = await authAPI.login(email, password, rememberMe, captcha)

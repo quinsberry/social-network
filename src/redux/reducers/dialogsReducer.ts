@@ -1,16 +1,8 @@
+import { TDialog, TMessage } from '../../types/types'
+
 const SEND_MESSAGE = 'dialogs/SEND_MESSAGE';
 
 type TInitialState = typeof initialState
-
-type TDialogs = {
-  id: number,
-  name: string
-}
-
-type TMessages = {
-  id: number,
-  message: string
-}
 
 
 const initialState = {
@@ -35,7 +27,7 @@ const initialState = {
       id: 5,
       name: 'Kaas'
     },
-  ] as Array<TDialogs>,
+  ] as Array<TDialog>,
   messages: [
     {
       id: 1,
@@ -57,7 +49,7 @@ const initialState = {
       id: 5,
       message: 'if you read this you are dumb'
     },
-  ] as Array<TMessages>
+  ] as Array<TMessage>
 }
 
 const dialogsReducer = (state = initialState, action: TActions): TInitialState => {

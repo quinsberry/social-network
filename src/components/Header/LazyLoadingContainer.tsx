@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 
 import { lazyLoading } from '../../redux/reducers/appReducer';
 
-class LazyLoadingContainer extends Component {
+import { TAppState } from '../../types/types';
+
+
+type TMapDispatch = {
+  lazyLoading: () => void
+}
+
+type Props = TMapDispatch
+
+class LazyLoadingContainer extends Component<Props> {
 
   componentDidMount() {
     this.props.lazyLoading();
@@ -20,6 +29,6 @@ class LazyLoadingContainer extends Component {
   }
 }
 
-export default connect(null, {
+export default connect<{}, TMapDispatch, {}, TAppState>(null, {
   lazyLoading
 })(LazyLoadingContainer);

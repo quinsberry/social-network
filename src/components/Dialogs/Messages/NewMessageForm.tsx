@@ -1,8 +1,13 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
+import { TNewMessageFromValue } from '../../../types/types'
 
-const NewMessageForm = ({ handleSubmit }) => {
+type Props = {
+
+}
+
+const NewMessageForm: React.FC<InjectedFormProps<TNewMessageFromValue> & Props> = ({ handleSubmit }) => {
 
   return (
     <form action="" onSubmit={handleSubmit} className="new-message">
@@ -14,7 +19,7 @@ const NewMessageForm = ({ handleSubmit }) => {
   );
 };
 
-const NewMessageReduxForm = reduxForm({
+const NewMessageReduxForm = reduxForm<TNewMessageFromValue, Props>({
   form: 'newMessage'
 })(NewMessageForm)
 

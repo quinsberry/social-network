@@ -7,7 +7,20 @@ import Preloader from '../common/Preloader/Preloader';
 
 import './Header.scss';
 
-const Header = ({ userId, email, login, isAuth, isFetching, logout, isDataProcessing, dataProcessing }) => {
+import { TDataProcessing } from '../../types/types'
+
+type Props = {
+    userId: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+    dataProcessing: TDataProcessing
+
+    logout: () => void
+    isDataProcessing: (dataProcessing: TDataProcessing) => boolean
+}
+
+const Header: React.FC<Props> = ({ userId, email, login, isAuth, logout, isDataProcessing, dataProcessing }) => {
 
     return (
         <header className='header'>
@@ -19,7 +32,7 @@ const Header = ({ userId, email, login, isAuth, isFetching, logout, isDataProces
                 {isDataProcessing(dataProcessing) === true && <Preloader />}
             </div>
             <div className="otherside">
-                {!isFetching && (
+                {!dataProcessing.isFetchingAuth && (
                     <div className="auth">
                         {isAuth ? (
                             <>

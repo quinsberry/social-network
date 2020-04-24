@@ -7,9 +7,17 @@ import NewMessageForm from './Messages/NewMessageForm';
 
 import './Dialogs.scss';
 
-const Dialogs = ({ state, sendMessage, isAuth }) => {
+import { TDialogsPage, TNewMessageFromValue } from '../../types/types'
 
-  const sendNewMessage = (formData) => {
+type Props = {
+  state: TDialogsPage
+  isAuth: boolean
+  sendMessage: (newMessage: string) => void
+}
+
+const Dialogs: React.FC<Props> = ({ state, sendMessage, isAuth }) => {
+
+  const sendNewMessage = (formData: TNewMessageFromValue) => {
     console.log(formData);
     sendMessage(formData.newMessage);
   }
@@ -37,7 +45,7 @@ const Dialogs = ({ state, sendMessage, isAuth }) => {
             ))
           )}
         </div>
-        <NewMessageForm sendMessage={sendMessage} onSubmit={sendNewMessage} />
+        <NewMessageForm onSubmit={sendNewMessage} />
       </div>
     </div>
   );
