@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { Input, Textarea } from '../../common//FormsControls/FormsControls';
 import { validDomain } from '../../../utils/validators';
 
@@ -14,7 +14,13 @@ import mainLink from '../../../assets/icons/website.svg';
 
 import './ProfileEditForm.scss';
 
-const ProfileEditForm = ({ profile, handleSubmit, pristine, submitting }) => {
+import { TProfile, TProfileEditFormValue } from '../../../types/types';
+
+type Props = {
+  profile: TProfile
+}
+
+const ProfileEditForm: React.FC<InjectedFormProps<TProfileEditFormValue> & Props> = ({ profile, handleSubmit, pristine, submitting }) => {
 
   const { aboutMe, contacts, lookingForAJobDescription, fullName } = profile;
 
@@ -29,7 +35,7 @@ const ProfileEditForm = ({ profile, handleSubmit, pristine, submitting }) => {
     mainLink
   };
 
-  //     There is a code which find the right contact value for each of inputs
+  //     There is a code for finding the right contact value for each of inputs
   //
   // const isContactRight = (item) => {
   //   const res = Object.entries(contacts).filter(contact => contact[0] === item);
@@ -81,7 +87,7 @@ const ProfileEditForm = ({ profile, handleSubmit, pristine, submitting }) => {
 };
 
 
-const ProfileEditFormReduxForm = reduxForm({
+const ProfileEditFormReduxForm = reduxForm<TProfileEditFormValue, Props>({
   form: 'editProfile',
   enableReinitialize: true
 })(ProfileEditForm);

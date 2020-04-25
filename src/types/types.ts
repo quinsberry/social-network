@@ -89,4 +89,7 @@ export type TNewPostFormValue = {
   newPost: string
 }
 
+// Settings 
+export type TProfileEditFormValue = TProfile
+
 export type TFieldValidator = (value: string) => string | undefined
