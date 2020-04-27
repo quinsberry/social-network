@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 
-import { sendMessage } from '../../redux/reducers/dialogsReducer';
+import { sendMessageTC } from '../../redux/reducers/dialogsReducer';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
 import Dialogs from './Dialogs';
 
@@ -13,7 +13,7 @@ type TMapState = {
 }
 
 type TMapDispatch = {
-  sendMessage: (newMessage: string) => void
+  sendMessageTC: (newMessage: string) => void
 }
 
 const mapStateToProps = (state: TAppState): TMapState => {
@@ -24,7 +24,7 @@ const mapStateToProps = (state: TAppState): TMapState => {
 
 export default compose(
   connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
-    sendMessage
+    sendMessageTC
   }),
   withAuthRedirect
 )(Dialogs);

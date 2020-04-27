@@ -12,14 +12,13 @@ import { TDialogsPage, TNewMessageFromValue } from '../../types/types'
 type Props = {
   state: TDialogsPage
   isAuth: boolean
-  sendMessage: (newMessage: string) => void
+  sendMessageTC: (newMessage: string) => void
 }
 
-const Dialogs: React.FC<Props> = ({ state, sendMessage, isAuth }) => {
+const Dialogs: React.FC<Props> = ({ state, sendMessageTC, isAuth }) => {
 
   const sendNewMessage = (formData: TNewMessageFromValue) => {
-    console.log(formData);
-    sendMessage(formData.newMessage);
+    sendMessageTC(formData.newMessage);
   }
 
   if (!isAuth) {

@@ -1,6 +1,6 @@
 import { getAuthUserDataTC } from './authReducer'
 
-import { TAppState } from '../../types/types'
+import { TAppState, TInferActions } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS'
@@ -35,31 +35,28 @@ const appReducer = (state = initialState, action: TActions): TInitialState => {
   }
 }
 
-type TActions = TInitializedSuccess | TLazyLoading
+type TActions = TInferActions<typeof actions>
 
-type TInitializedSuccess = {
-  type: typeof INITIALIZED_SUCCESS
+export const actions = {
+  initializedSuccess: () => ({ type: INITIALIZED_SUCCESS } as const),
+  lazyLoading: () => ({ type: LAZY_LOADING } as const)
 }
 
-type TLazyLoading = {
-  type: typeof LAZY_LOADING
-}
 
-export const initializedSuccess = (): TInitializedSuccess => ({
-  type: INITIALIZED_SUCCESS
-})
-
-export const lazyLoading = (): TLazyLoading => ({
-  type: LAZY_LOADING
-})
 
 type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
+
+export const lazyLoadingTC = (): TThunk => {
+  return async (dispatch) => {
+    dispatch(actions.lazyLoading())
+  }
+}
 
 export const initializeApp = (): TThunk => {
   return async (dispatch) => {
     let promise = dispatch(getAuthUserDataTC())
     promise.then(() => {
-      dispatch(initializedSuccess())
+      dispatch(actions.initializedSuccess())
     });
   }
 }

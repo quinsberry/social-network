@@ -2,7 +2,7 @@ import { stopSubmit } from 'redux-form';
 
 import { authAPI, securityAPI } from '../../api/api';
 
-import { TAppState, ResultCodes } from '../../types/types'
+import { TAppState, TInferActions, ResultCodes } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
@@ -12,12 +12,6 @@ const IS_FETCHING_TOGGLE = 'auth/IS_FETCHING_TOGGLE';
 
 type TInitialState = typeof initialState
 
-type TSetAuthUserDataPayload = {
-  userId: number | null
-  email: string | null
-  login: string | null
-  isAuth: boolean
-}
 
 
 
@@ -53,56 +47,31 @@ const authReducer = (state = initialState, action: TActions): TInitialState => {
   }
 }
 
-type TActions = TSetAuthUserData | TGetCaptchaUrlSuccess | TSetIsFetchingToggle
 
-type TSetAuthUserData = {
-  type: typeof SET_USER_DATA
-  payload: TSetAuthUserDataPayload
+type TActions = TInferActions<typeof actions>
+
+export const actions = {
+  setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } } as const),
+  getCaptchaUrlSuccess: (url: string) => ({ type: GET_CAPTCHA_URL_SUCCESS, url } as const),
+  setIsFetchingToggle: (isFetching: boolean) => ({ type: IS_FETCHING_TOGGLE, isFetching } as const)
 }
 
-type TGetCaptchaUrlSuccess = {
-  type: typeof GET_CAPTCHA_URL_SUCCESS
-  url: string
-}
-
-type TSetIsFetchingToggle = {
-  type: typeof IS_FETCHING_TOGGLE
-  isFetching: boolean
-}
-
-export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): TSetAuthUserData => ({
-  type: SET_USER_DATA,
-  payload: { userId, email, login, isAuth }
-})
-
-export const getCaptchaUrlSuccess = (url: string): TGetCaptchaUrlSuccess => ({
-  type: GET_CAPTCHA_URL_SUCCESS,
-  url
-})
-
-export const setIsFetchingToggle = (isFetching: boolean): TSetIsFetchingToggle => {
-  return {
-    type: IS_FETCHING_TOGGLE,
-    isFetching
-  }
-}
 
 
 type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
 
-
 export const getAuthUserDataTC = (): TThunk => {
   return async (dispatch) => {
-    dispatch(setIsFetchingToggle(true))
+    dispatch(actions.setIsFetchingToggle(true))
 
     const res = await authAPI.me()
 
     if (res.resultCode === ResultCodes.Success) {
       const { id, email, login } = res.data
-      dispatch(setAuthUserData(id, email, login, true))
-      dispatch(setIsFetchingToggle(false))
+      dispatch(actions.setAuthUserData(id, email, login, true))
+      dispatch(actions.setIsFetchingToggle(false))
     } else if (res.resultCode === 1) {
-      dispatch(setIsFetchingToggle(false))
+      dispatch(actions.setIsFetchingToggle(false))
       return
     }
   }
@@ -133,7 +102,7 @@ export const logoutTC = (): TThunk => {
     const res = await authAPI.logout()
 
     if (res.resultCode === ResultCodes.Success) {
-      dispatch(setAuthUserData(null, null, null, false));
+      dispatch(actions.setAuthUserData(null, null, null, false));
     }
   }
 }
@@ -143,7 +112,7 @@ export const getCaptchaUrlTC = (): TThunk => {
 
     const res = await securityAPI.getCaptchaUrl()
     const captchaUrl = res.url
-    dispatch(getCaptchaUrlSuccess(captchaUrl))
+    dispatch(actions.getCaptchaUrlSuccess(captchaUrl))
   }
 }
 

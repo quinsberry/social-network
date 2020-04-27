@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Post from './Post/Post'
 import NewPostForm from './NewPostForm'
-import { addPost } from '../../../redux/reducers/profileReducer'
+import { addPostTC } from '../../../redux/reducers/profileReducer'
 
 import './MyPosts.scss'
 
@@ -14,15 +14,16 @@ type TMapState = {
 }
 
 type TMapDispatch = {
-  addPost: (newPost: string) => void
+  addPostTC: (newPost: string) => void
 }
 
 type Props = TMapState & TMapDispatch
 
-const MyPosts: React.FC<Props> = ({ posts, addPost }) => {
+const MyPosts: React.FC<Props> = ({ posts, addPostTC }) => {
+
   const addNewPost = (formData: TNewPostFormValue) => {
     const { newPost } = formData
-    addPost(newPost)
+    addPostTC(newPost)
   }
 
   return (
@@ -45,7 +46,7 @@ const mapStateToProps = (state: TAppState): TMapState => {
 }
 
 export default connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
-  addPost
+  addPostTC
 })(MyPosts)
 
 

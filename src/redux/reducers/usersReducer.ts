@@ -1,6 +1,6 @@
 import { usersAPI } from '../../api/api'
 
-import { TAppState, TUser, ResultCodes } from '../../types/types'
+import { TAppState, TInferActions, TUser, ResultCodes } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
 const FOLLOW_TOGGLE = 'users/FOLLOW_TOGGLE'
@@ -10,14 +10,16 @@ const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT'
 const IS_FETCHING_TOGGLE = 'users/IS_FETCHING_TOGGLE'
 const ON_FOLLOWING_TOGGLE = 'users/ON_FOLLOWING_TOGGLE'
 
+
+
 type TInitialState = typeof initialState
 
 const initialState = {
   users: [] as Array<TUser>,
-  pageSize: 5 as number,
-  totalUsersCount: 20 as number,
-  currentPage: 1 as number,
-  isFetching: false as boolean,
+  pageSize: 5,
+  totalUsersCount: 20,
+  currentPage: 1,
+  isFetching: false,
   onFollowing: [] as Array<number> // array of users ids
 }
 
@@ -65,76 +67,21 @@ const usersReducer = (state = initialState, action: TActions): TInitialState => 
   }
 }
 
-type TActions = TFollowToggle | TSetUsers | TSetCurrentPage | TSetTotalUsersCount | TSetIsFetchingToggle | TSetOnFollowing
+type TActions = TInferActions<typeof actions>
 
-type TFollowToggle = {
-  type: typeof FOLLOW_TOGGLE
-  userId: number
-}
-type TSetUsers = {
-  type: typeof SET_USERS
-  users: Array<TUser>
-}
-type TSetCurrentPage = {
-  type: typeof SET_CURRENT_PAGE
-  currentPage: number
-}
-type TSetTotalUsersCount = {
-  type: typeof SET_TOTAL_USERS_COUNT
-  totalCount: number
-}
-type TSetIsFetchingToggle = {
-  type: typeof IS_FETCHING_TOGGLE
-  isFetching: boolean
-}
-type TSetOnFollowing = {
-  type: typeof ON_FOLLOWING_TOGGLE
-  onFollowing: boolean
-  userId: number
+export const actions = {
+  followToggle: (userId: number) => ({ type: FOLLOW_TOGGLE, userId } as const),
+  setUsers: (users: Array<TUser>) => ({ type: SET_USERS, users } as const),
+  setCurrentPage: (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage } as const),
+  setTotalUsersCount: (totalCount: number) => ({ type: SET_TOTAL_USERS_COUNT, totalCount } as const),
+  setIsFetchingToggle: (isFetching: boolean) => ({ type: IS_FETCHING_TOGGLE, isFetching } as const),
+  setOnFollowing: (onFollowing: boolean, userId: number) => ({ type: ON_FOLLOWING_TOGGLE, onFollowing, userId } as const)
 }
 
-export const followToggle = (userId: number): TFollowToggle => {
-  return {
-    type: FOLLOW_TOGGLE,
-    userId
-  }
-}
 
-export const setUsers = (users: Array<TUser>): TSetUsers => {
-  return {
-    type: SET_USERS,
-    users
-  }
-}
 
-export const setCurrentPage = (currentPage: number): TSetCurrentPage => {
-  return {
-    type: SET_CURRENT_PAGE,
-    currentPage
-  }
-}
 
-export const setTotalUsersCount = (totalCount: number): TSetTotalUsersCount => {
-  return {
-    type: SET_TOTAL_USERS_COUNT,
-    totalCount
-  }
-}
 
-export const setIsFetchingToggle = (isFetching: boolean): TSetIsFetchingToggle => {
-  return {
-    type: IS_FETCHING_TOGGLE,
-    isFetching
-  }
-}
-
-export const setOnFollowing = (onFollowing: boolean, userId: number): TSetOnFollowing => {
-  return {
-    type: ON_FOLLOWING_TOGGLE,
-    onFollowing,
-    userId
-  }
-}
 
 type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
 
@@ -142,39 +89,39 @@ type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
 export const requestUsersTC = (usersLength: number, currentPage: number, pagesSize: number): TThunk => {
   return async (dispatch) => {
     if (usersLength === ResultCodes.Success) {
-      dispatch(setIsFetchingToggle(true))
+      dispatch(actions.setIsFetchingToggle(true))
 
       const data = await usersAPI.getUsers(currentPage, pagesSize)
 
-      dispatch(setIsFetchingToggle(false))
-      dispatch(setUsers(data.items))
-      dispatch(setTotalUsersCount(data.totalCount))
+      dispatch(actions.setIsFetchingToggle(false))
+      dispatch(actions.setUsers(data.items))
+      dispatch(actions.setTotalUsersCount(data.totalCount))
     }
   }
 }
 
 export const onPageChangeTC = (pageNumber: number, pagesSize: number): TThunk => {
   return async (dispatch) => {
-    dispatch(setIsFetchingToggle(true))
-    dispatch(setCurrentPage(pageNumber))
+    dispatch(actions.setIsFetchingToggle(true))
+    dispatch(actions.setCurrentPage(pageNumber))
 
     const data = await usersAPI.getUsers(pageNumber, pagesSize)
 
-    dispatch(setIsFetchingToggle(false))
-    dispatch(setUsers(data.items))
+    dispatch(actions.setIsFetchingToggle(false))
+    dispatch(actions.setUsers(data.items))
   }
 }
 
 export const followingToggleTC = (followed: boolean, id: number): TThunk => {
   return async (dispatch) => {
-    dispatch(setOnFollowing(true, id))
+    dispatch(actions.setOnFollowing(true, id))
 
     if (!followed) {
       const data = await usersAPI.follow(id)
 
       if (data.resultCode === ResultCodes.Success) {
-        dispatch(followToggle(id))
-        dispatch(setOnFollowing(false, id))
+        dispatch(actions.followToggle(id))
+        dispatch(actions.setOnFollowing(false, id))
 
       }
 
@@ -182,8 +129,8 @@ export const followingToggleTC = (followed: boolean, id: number): TThunk => {
     const data = await usersAPI.unfollow(id)
 
     if (data.resultCode === ResultCodes.Success) {
-      dispatch(followToggle(id))
-      dispatch(setOnFollowing(false, id))
+      dispatch(actions.followToggle(id))
+      dispatch(actions.setOnFollowing(false, id))
     }
   }
 }

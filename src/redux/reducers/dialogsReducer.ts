@@ -1,4 +1,5 @@
-import { TDialog, TMessage } from '../../types/types'
+import { TAppState, TInferActions, TDialog, TMessage } from '../../types/types'
+import { ThunkAction } from 'redux-thunk'
 
 const SEND_MESSAGE = 'dialogs/SEND_MESSAGE';
 
@@ -68,18 +69,19 @@ const dialogsReducer = (state = initialState, action: TActions): TInitialState =
   }
 }
 
-type TActions = TSendMessage
+type TActions = TInferActions<typeof actions>
 
-type TSendMessage = {
-  type: typeof SEND_MESSAGE
-  newMessageText: string
+export const actions = {
+  sendMessage: (newMessageText: string) => ({ type: SEND_MESSAGE, newMessageText } as const)
 }
 
-export const sendMessage = (newMessageText: string): TSendMessage => {
-  return {
-    type: SEND_MESSAGE,
-    newMessageText
+type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
+
+export const sendMessageTC = (newMessageText: string): TThunk => {
+  return async (dispatch) => {
+    dispatch(actions.sendMessage(newMessageText))
   }
 }
+
 
 export default dialogsReducer;

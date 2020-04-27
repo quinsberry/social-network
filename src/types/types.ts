@@ -1,12 +1,21 @@
 import { TRootReducer } from '../redux/redux-store'
 
+// ------------ GENERAL TYPES ------------
+//
+export type TAppState = ReturnType<TRootReducer>
+
+type TProperties<T> = T extends { [keys: string]: infer U } ? U : never
+export type TInferActions<T extends { [keys: string]: (...args: any[]) => any }> = ReturnType<TProperties<T>>
+
+// -------------------------------
+
+
 export enum ResultCodes {
   Success = 0,
   Error = 1,
   CaptchaIsRequired = 10
 }
 
-export type TAppState = ReturnType<TRootReducer>
 
 export type TLoginFormValues = {
   email: string
