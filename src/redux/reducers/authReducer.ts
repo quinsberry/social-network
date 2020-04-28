@@ -10,10 +10,10 @@ const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS';
 const IS_FETCHING_TOGGLE = 'auth/IS_FETCHING_TOGGLE';
 
 
+
+
+
 type TInitialState = typeof initialState
-
-
-
 
 const initialState = {
   userId: null as number | null,

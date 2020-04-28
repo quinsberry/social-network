@@ -13,6 +13,9 @@ const IS_PROCESSING = 'profile/IS_PROCESSING';
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 const SAVE_PROFILE_SUCCESS = 'profile/SAVE_PROFILE_SUCCESS';
 
+
+
+
 type TInitialState = typeof initialState
 
 const initialState = {

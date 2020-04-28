@@ -6,14 +6,12 @@ import { ThunkAction } from 'redux-thunk'
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS'
 const LAZY_LOADING = 'app/LAZY_LOADING'
 
-type TInitialState = {
-  initialized: boolean
-  lazyLoading: boolean
-}
 
 
 
-const initialState: TInitialState = {
+type TInitialState = typeof initialState
+
+const initialState = {
   initialized: false,
   lazyLoading: false
 }

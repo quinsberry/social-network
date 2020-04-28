@@ -3,8 +3,11 @@ import { ThunkAction } from 'redux-thunk'
 
 const SEND_MESSAGE = 'dialogs/SEND_MESSAGE';
 
-type TInitialState = typeof initialState
 
+
+
+
+type TInitialState = typeof initialState
 
 const initialState = {
   dialogs: [

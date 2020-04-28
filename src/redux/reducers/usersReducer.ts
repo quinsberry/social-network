@@ -12,6 +12,7 @@ const ON_FOLLOWING_TOGGLE = 'users/ON_FOLLOWING_TOGGLE'
 
 
 
+
 type TInitialState = typeof initialState
 
 const initialState = {
