@@ -10,8 +10,6 @@ type TLoginData = {
   userId: number
 }
 
-type TLogoutData = {}
-
 
 export const authAPI = {
   me() {
@@ -31,7 +29,7 @@ export const authAPI = {
   logout() {
     return (
       instance
-        .delete<TServerResponse<TLogoutData>>(`auth/login`)
+        .delete<TServerResponse>(`auth/login`)
         .then(res => res.data)
     )
   }

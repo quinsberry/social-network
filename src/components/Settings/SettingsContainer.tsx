@@ -18,7 +18,7 @@ type TMapState = {
 
 type TMapDispatch = {
   getUserProfileTC: (userId: number | null) => void
-  savePhotoTC: (file: any) => void
+  savePhotoTC: (file: File) => void
   saveProfileTC: (data: TProfileEditFormValue) => void
 }
 

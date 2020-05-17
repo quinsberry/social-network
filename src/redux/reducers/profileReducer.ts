@@ -1,19 +1,7 @@
 import { profileAPI } from '../../api/profile-api'
-import { stopSubmit } from 'redux-form'
+import { stopSubmit, FormAction } from 'redux-form'
 
-import { TAppState, TInferActions, TPost, TPhotos, TProfile, ResultCodes } from '../../types/types'
-import { ThunkAction } from 'redux-thunk'
-
-const ADD_POST = 'profile/ADD_POST'
-const DELETE_POST = 'profile/DELETE_POST'
-const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
-const SET_STATUS = 'profile/SET_STATUS'
-const IS_FETCHING_TOGGLE = 'profile/IS_FETCHING_TOGGLE'
-const IS_PROCESSING = 'profile/IS_PROCESSING'
-const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
-const SAVE_PROFILE_SUCCESS = 'profile/SAVE_PROFILE_SUCCESS'
-
-
+import { TBaseThunk, TInferActions, TPost, TPhotos, TProfile, ResultCodes } from '../../types/types'
 
 
 type TInitialState = typeof initialState
@@ -38,15 +26,15 @@ const initialState = {
     },
   ] as Array<TPost>,
   status: "" as string | null,
-  isFetching: false as boolean,
-  isProcessing: false as boolean
-};
+  isFetching: false,
+  isProcessing: false
+}
 
 
 
 const profileReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
-    case ADD_POST:
+    case 'PROFILE/ADD_POST':
       let newPost = {
         id: 5,
         postMessage: action.newPostText,
@@ -56,42 +44,42 @@ const profileReducer = (state = initialState, action: TActions): TInitialState =
         ...state,
         posts: [...state.posts, newPost]
       };
-    case DELETE_POST:
+    case 'PROFILE/DELETE_POST':
       return {
         ...state,
         posts: state.posts.filter(p => p.id !== action.postId)
       };
-    case SET_USER_PROFILE:
+    case 'PROFILE/SET_USER_PROFILE':
       return {
         ...state,
         profile: action.profile
       }
-    case SET_STATUS:
+    case 'PROFILE/SET_STATUS':
       return {
         ...state,
         status: action.status
       }
-    case IS_FETCHING_TOGGLE:
+    case 'PROFILE/IS_FETCHING_TOGGLE':
       return {
         ...state,
         isFetching: !state.isFetching
       }
-    case IS_PROCESSING:
+    case 'PROFILE/IS_PROCESSING':
       return {
         ...state,
         isProcessing: !state.isProcessing
       }
-    case SAVE_PHOTO_SUCCESS:
+    case 'PROFILE/SAVE_PHOTO_SUCCESS':
       return {
         ...state,
         profile: { ...state.profile, photos: action.photos } as TProfile
       }
-    case SAVE_PROFILE_SUCCESS:
+    case 'PROFILE/SAVE_PROFILE_SUCCESS':
       return {
         ...state
       }
     default:
-      return state;
+      return state
   }
 }
 
@@ -99,19 +87,19 @@ type TActions = TInferActions<typeof actions>
 
 
 export const actions = {
-  addPost: (newPostText: string) => ({ type: ADD_POST, newPostText } as const),
-  deletePost: (postId: number) => ({ type: DELETE_POST, postId } as const),
-  setUserProfile: (profile: TProfile) => ({ type: SET_USER_PROFILE, profile } as const),
-  setProfileStatus: (status: string | null) => ({ type: SET_STATUS, status } as const),
-  setIsProcessing: () => ({ type: IS_PROCESSING } as const),
-  setIsFetchingToggle: () => ({ type: IS_FETCHING_TOGGLE } as const),
-  savePhotoSuccess: (photos: TPhotos) => ({ type: SAVE_PHOTO_SUCCESS, photos } as const),
-  saveProfileSuccess: () => ({ type: SAVE_PROFILE_SUCCESS } as const)
+  addPost: (newPostText: string) => ({ type: 'PROFILE/ADD_POST', newPostText } as const),
+  deletePost: (postId: number) => ({ type: 'PROFILE/DELETE_POST', postId } as const),
+  setUserProfile: (profile: TProfile) => ({ type: 'PROFILE/SET_USER_PROFILE', profile } as const),
+  setProfileStatus: (status: string | null) => ({ type: 'PROFILE/SET_STATUS', status } as const),
+  setIsFetchingToggle: () => ({ type: 'PROFILE/IS_FETCHING_TOGGLE' } as const),
+  setIsProcessing: () => ({ type: 'PROFILE/IS_PROCESSING' } as const),
+  savePhotoSuccess: (photos: TPhotos) => ({ type: 'PROFILE/SAVE_PHOTO_SUCCESS', photos } as const),
+  saveProfileSuccess: () => ({ type: 'PROFILE/SAVE_PROFILE_SUCCESS' } as const)
 }
 
 
 
-type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
+type TThunk = TBaseThunk<TActions | FormAction>
 
 export const addPostTC = (newPostText: string): TThunk => {
   return async (dispatch) => {
@@ -162,7 +150,7 @@ export const updateUserProfileStatusTC = (status: string): TThunk => {
   }
 }
 
-export const savePhotoTC = (file: any): TThunk => {
+export const savePhotoTC = (file: File): TThunk => {
   return async (dispatch) => {
 
     const res = await profileAPI.savePhoto(file)

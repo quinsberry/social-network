@@ -1,17 +1,9 @@
-import { stopSubmit } from 'redux-form'
+import { stopSubmit, FormAction } from 'redux-form'
 
 import { authAPI } from '../../api/auth-api'
 import { securityAPI } from '../../api/security-api'
 
-import { TAppState, TInferActions, ResultCodes } from '../../types/types'
-import { ThunkAction } from 'redux-thunk'
-
-const SET_USER_DATA = 'auth/SET_USER_DATA'
-const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
-const IS_FETCHING_TOGGLE = 'auth/IS_FETCHING_TOGGLE'
-
-
-
+import { TBaseThunk, TInferActions, ResultCodes } from '../../types/types'
 
 
 type TInitialState = typeof initialState
@@ -27,18 +19,18 @@ const initialState = {
 
 const authReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
-    case SET_USER_DATA:
+    case 'AUTH/SET_USER_DATA':
       return {
         ...state,
         ...action.payload,
         captchaUrl: null
       }
-    case GET_CAPTCHA_URL_SUCCESS:
+    case 'AUTH/GET_CAPTCHA_URL_SUCCESS':
       return {
         ...state,
         captchaUrl: action.url
       }
-    case IS_FETCHING_TOGGLE:
+    case 'AUTH/IS_FETCHING_TOGGLE':
       return {
         ...state,
         isFetching: action.isFetching
@@ -52,14 +44,14 @@ const authReducer = (state = initialState, action: TActions): TInitialState => {
 type TActions = TInferActions<typeof actions>
 
 export const actions = {
-  setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } } as const),
-  getCaptchaUrlSuccess: (url: string) => ({ type: GET_CAPTCHA_URL_SUCCESS, url } as const),
-  setIsFetchingToggle: (isFetching: boolean) => ({ type: IS_FETCHING_TOGGLE, isFetching } as const)
+  setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({ type: 'AUTH/SET_USER_DATA', payload: { userId, email, login, isAuth } } as const),
+  getCaptchaUrlSuccess: (url: string) => ({ type: 'AUTH/GET_CAPTCHA_URL_SUCCESS', url } as const),
+  setIsFetchingToggle: (isFetching: boolean) => ({ type: 'AUTH/IS_FETCHING_TOGGLE', isFetching } as const)
 }
 
 
 
-type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
+type TThunk = TBaseThunk<TActions | FormAction>
 
 export const getAuthUserDataTC = (): TThunk => {
   return async (dispatch) => {
@@ -91,7 +83,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
       }
 
       const message = res.messages.length !== 0 ? res.messages[0] : 'Email or password are wrong'
-      // @ts-ignore
       dispatch(stopSubmit('login', { _error: message }))
     }
   }

@@ -1,10 +1,4 @@
-import { TAppState, TInferActions, TDialog, TMessage } from '../../types/types'
-import { ThunkAction } from 'redux-thunk'
-
-const SEND_MESSAGE = 'dialogs/SEND_MESSAGE'
-
-
-
+import { TBaseThunk, TInferActions, TDialog, TMessage } from '../../types/types'
 
 
 type TInitialState = typeof initialState
@@ -58,7 +52,7 @@ const initialState = {
 
 const dialogsReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
-    case SEND_MESSAGE:
+    case 'DIALOGS/SEND_MESSAGE':
       let newMessage = {
         id: 5,
         message: action.newMessageText
@@ -75,10 +69,10 @@ const dialogsReducer = (state = initialState, action: TActions): TInitialState =
 type TActions = TInferActions<typeof actions>
 
 export const actions = {
-  sendMessage: (newMessageText: string) => ({ type: SEND_MESSAGE, newMessageText } as const)
+  sendMessage: (newMessageText: string) => ({ type: 'DIALOGS/SEND_MESSAGE', newMessageText } as const)
 }
 
-type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
+type TThunk = TBaseThunk<TActions>
 
 export const sendMessageTC = (newMessageText: string): TThunk => {
   return async (dispatch) => {

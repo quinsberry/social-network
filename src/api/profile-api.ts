@@ -28,12 +28,12 @@ export const profileAPI = {
   updateStatus(status: string | null) {
     return (
       instance
-        .put<TServerResponse<{}>>(`profile/status`, { status })
+        .put<TServerResponse>(`profile/status`, { status })
         .then(res => res.data)
     )
   },
-  savePhoto(photoFile: any) {
-    const formData = new FormData();
+  savePhoto(photoFile: File) {
+    const formData = new FormData()
     formData.append('image', photoFile)
     return (
       instance
@@ -48,7 +48,7 @@ export const profileAPI = {
   saveProfile(profile: TProfile) {
     return (
       instance
-        .put<TServerResponse<{}>>(`profile`, profile)
+        .put<TServerResponse>(`profile`, profile)
         .then(res => res.data)
     )
   }

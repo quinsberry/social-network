@@ -1,11 +1,16 @@
 import { TRootReducer } from '../redux/redux-store'
+import { ThunkAction } from 'redux-thunk'
+import { Action } from 'redux'
 
 // ------------ GENERAL TYPES ------------
 //
 export type TAppState = ReturnType<TRootReducer>
 
 type TProperties<T> = T extends { [keys: string]: infer U } ? U : never
+
 export type TInferActions<T extends { [keys: string]: (...args: any[]) => any }> = ReturnType<TProperties<T>>
+
+export type TBaseThunk<A extends Action = Action, R = Promise<void>> = ThunkAction<R, TAppState, unknown, A>
 
 // -------------------------------
 

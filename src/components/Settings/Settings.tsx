@@ -8,7 +8,7 @@ import { TProfile, TProfileEditFormValue } from '../../types/types'
 
 type Props = {
   profile: TProfile | null
-  savePhoto: (file: any) => void
+  savePhoto: (file: File) => void
   onSubmit: (data: TProfileEditFormValue) => void
 }
 

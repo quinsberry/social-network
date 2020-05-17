@@ -1,16 +1,6 @@
 import { usersAPI } from '../../api/users-api'
 
-import { TAppState, TInferActions, TUser, ResultCodes } from '../../types/types'
-import { ThunkAction } from 'redux-thunk'
-
-const FOLLOW_TOGGLE = 'users/FOLLOW_TOGGLE'
-const SET_USERS = 'users/SET_USERS'
-const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE'
-const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT'
-const IS_FETCHING_TOGGLE = 'users/IS_FETCHING_TOGGLE'
-const ON_FOLLOWING_TOGGLE = 'users/ON_FOLLOWING_TOGGLE'
-
-
+import { TBaseThunk, TInferActions, TUser, ResultCodes } from '../../types/types'
 
 
 type TInitialState = typeof initialState
@@ -28,7 +18,7 @@ const initialState = {
 
 const usersReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
-    case FOLLOW_TOGGLE:
+    case 'USERS/FOLLOW_TOGGLE':
       return {
         ...state,
         users: state.users.map(user => {
@@ -38,45 +28,45 @@ const usersReducer = (state = initialState, action: TActions): TInitialState => 
           return user
         })
       }
-    case SET_USERS:
+    case 'USERS/SET_USERS':
       return {
         ...state,
         users: action.users
       }
-    case SET_CURRENT_PAGE:
+    case 'USERS/SET_CURRENT_PAGE':
       return {
         ...state,
         currentPage: action.currentPage
       }
-    case SET_TOTAL_USERS_COUNT:
+    case 'USERS/SET_TOTAL_USERS_COUNT':
       return {
         ...state,
         totalUsersCount: action.totalCount
       }
-    case IS_FETCHING_TOGGLE:
+    case 'USERS/IS_FETCHING_TOGGLE':
       return {
         ...state,
         isFetching: action.isFetching
       }
-    case ON_FOLLOWING_TOGGLE:
+    case 'USERS/ON_FOLLOWING_TOGGLE':
       return {
         ...state,
         onFollowing: action.onFollowing ? [...state.onFollowing, action.userId] : state.onFollowing.filter(id => id !== action.userId)
       }
     default:
-      return state;
+      return state
   }
 }
 
 type TActions = TInferActions<typeof actions>
 
 export const actions = {
-  followToggle: (userId: number) => ({ type: FOLLOW_TOGGLE, userId } as const),
-  setUsers: (users: Array<TUser>) => ({ type: SET_USERS, users } as const),
-  setCurrentPage: (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage } as const),
-  setTotalUsersCount: (totalCount: number) => ({ type: SET_TOTAL_USERS_COUNT, totalCount } as const),
-  setIsFetchingToggle: (isFetching: boolean) => ({ type: IS_FETCHING_TOGGLE, isFetching } as const),
-  setOnFollowing: (onFollowing: boolean, userId: number) => ({ type: ON_FOLLOWING_TOGGLE, onFollowing, userId } as const)
+  followToggle: (userId: number) => ({ type: 'USERS/FOLLOW_TOGGLE', userId } as const),
+  setUsers: (users: Array<TUser>) => ({ type: 'USERS/SET_USERS', users } as const),
+  setCurrentPage: (currentPage: number) => ({ type: 'USERS/SET_CURRENT_PAGE', currentPage } as const),
+  setTotalUsersCount: (totalCount: number) => ({ type: 'USERS/SET_TOTAL_USERS_COUNT', totalCount } as const),
+  setIsFetchingToggle: (isFetching: boolean) => ({ type: 'USERS/IS_FETCHING_TOGGLE', isFetching } as const),
+  setOnFollowing: (onFollowing: boolean, userId: number) => ({ type: 'USERS/ON_FOLLOWING_TOGGLE', onFollowing, userId } as const)
 }
 
 
@@ -84,7 +74,7 @@ export const actions = {
 
 
 
-type TThunk = ThunkAction<Promise<void>, TAppState, unknown, TActions>
+type TThunk = TBaseThunk<TActions>
 
 
 export const requestUsersTC = (usersLength: number, currentPage: number, pagesSize: number): TThunk => {
