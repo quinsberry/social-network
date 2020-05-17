@@ -6,9 +6,8 @@ import { Action } from 'redux'
 //
 export type TAppState = ReturnType<TRootReducer>
 
-type TProperties<T> = T extends { [keys: string]: infer U } ? U : never
 
-export type TInferActions<T extends { [keys: string]: (...args: any[]) => any }> = ReturnType<TProperties<T>>
+export type TInferActions<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 
 export type TBaseThunk<A extends Action = Action, R = Promise<void>> = ThunkAction<R, TAppState, unknown, A>
 
@@ -27,6 +26,10 @@ export type TLoginFormValues = {
   password: string
   rememberMe: boolean
   captcha: null | string
+}
+
+export type TNewMessageFormValue = {
+  newMessage: string
 }
 
 export type TPost = {
@@ -76,17 +79,13 @@ export type TDialogsPage = {
 }
 
 export type TDialog = {
-  id: number,
+  id: number
   name: string
 }
 
 export type TMessage = {
-  id: number,
+  id: number
   message: string
-}
-
-export type TNewMessageFromValue = {
-  newMessage: string
 }
 
 // Header

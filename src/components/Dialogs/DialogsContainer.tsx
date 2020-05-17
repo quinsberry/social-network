@@ -1,10 +1,10 @@
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 
-import { sendMessageTC } from '../../redux/reducers/dialogsReducer';
-import withAuthRedirect from '../../hoc/withAuthRedirect';
-import Dialogs from './Dialogs';
+import { sendMessageTC } from '../../redux/reducers/dialogsReducer'
+import withAuthRedirect from '../../hoc/withAuthRedirect'
+import Dialogs from './Dialogs'
 
 import { TAppState, TDialogsPage } from '../../types/types'
 
@@ -22,9 +22,9 @@ const mapStateToProps = (state: TAppState): TMapState => {
   }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
   connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
     sendMessageTC
   }),
   withAuthRedirect
-)(Dialogs);
+)(Dialogs)

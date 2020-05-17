@@ -1,8 +1,8 @@
-import React from 'react';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import React from 'react'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 
-import { required } from '../../utils/validators';
-import { Input } from '../common/FormsControls/FormsControls';
+import { required } from '../../utils/validators'
+import { Input } from '../common/FormsControls/FormsControls'
 
 import { TLoginFormValues } from '../../types/types'
 
@@ -43,11 +43,11 @@ const LoginForm: React.FC<InjectedFormProps<TLoginFormValues> & Props> = ({ hand
         <button className="btn loginBtn">Login</button>
       </div>
     </form>
-  );
-};
+  )
+}
 
 const LoginReduxForm = reduxForm<TLoginFormValues, Props>({
   form: 'login'
-})(LoginForm);
+})(LoginForm)
 
-export default LoginReduxForm;
+export default LoginReduxForm

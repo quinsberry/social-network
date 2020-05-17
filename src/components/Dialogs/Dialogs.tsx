@@ -1,30 +1,23 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react'
+import { Redirect } from 'react-router-dom'
 
-import Dialog from './Dialog/Dialog';
-import Message from './Messages/Message';
-import NewMessageForm from './Messages/NewMessageForm';
+import Dialog from './Dialog/Dialog'
+import Message from './Messages/Message'
+import NewMessageForm from './Messages/NewMessageForm'
 
-import './Dialogs.scss';
+import './Dialogs.scss'
 
-import { TDialogsPage, TNewMessageFromValue } from '../../types/types'
+import { TDialogsPage, TNewMessageFormValue } from '../../types/types'
 
 type Props = {
   state: TDialogsPage
-  isAuth: boolean
   sendMessageTC: (newMessage: string) => void
 }
 
-const Dialogs: React.FC<Props> = ({ state, sendMessageTC, isAuth }) => {
+const Dialogs: React.FC<Props> = ({ state, sendMessageTC }) => {
 
-  const sendNewMessage = (formData: TNewMessageFromValue) => {
-    sendMessageTC(formData.newMessage);
-  }
-
-  if (!isAuth) {
-    return (
-      <Redirect to='/login' />
-    )
+  const sendNewMessage = (formData: TNewMessageFormValue) => {
+    sendMessageTC(formData.newMessage)
   }
 
   return (
@@ -47,7 +40,7 @@ const Dialogs: React.FC<Props> = ({ state, sendMessageTC, isAuth }) => {
         <NewMessageForm onSubmit={sendNewMessage} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dialogs;
+export default Dialogs

@@ -76,7 +76,7 @@ const mapStateToProps = (state: TAppState): TMapState => {
 
 
 
-export default compose(
+export default compose<React.ComponentType>(
   connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
     getUserProfileTC,
     getUserProfileStatusTC,
