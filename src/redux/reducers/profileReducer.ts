@@ -1,17 +1,17 @@
-import { profileAPI } from '../../api/api';
-import { stopSubmit } from 'redux-form';
+import { profileAPI } from '../../api/profile-api'
+import { stopSubmit } from 'redux-form'
 
-import { TAppState, TInferActions, TPost, TPhotos, TProfile, ResultCodes } from '../../types/types';
+import { TAppState, TInferActions, TPost, TPhotos, TProfile, ResultCodes } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
-const ADD_POST = 'profile/ADD_POST';
-const DELETE_POST = 'profile/DELETE_POST';
-const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
-const SET_STATUS = 'profile/SET_STATUS';
-const IS_FETCHING_TOGGLE = 'profile/IS_FETCHING_TOGGLE';
-const IS_PROCESSING = 'profile/IS_PROCESSING';
-const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
-const SAVE_PROFILE_SUCCESS = 'profile/SAVE_PROFILE_SUCCESS';
+const ADD_POST = 'profile/ADD_POST'
+const DELETE_POST = 'profile/DELETE_POST'
+const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
+const SET_STATUS = 'profile/SET_STATUS'
+const IS_FETCHING_TOGGLE = 'profile/IS_FETCHING_TOGGLE'
+const IS_PROCESSING = 'profile/IS_PROCESSING'
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
+const SAVE_PROFILE_SUCCESS = 'profile/SAVE_PROFILE_SUCCESS'
 
 
 

@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import classnames from 'classnames';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import classnames from 'classnames'
 
-import userPhoto from '../../assets/userphoto_default.png';
+import userPhoto from '../../assets/userphoto_default.png'
 
 type Props = {
   name: string
@@ -24,7 +24,7 @@ const User: React.FC<Props> = ({ name, id, status, followed, photo, onFollowing,
           <img className="user-image" src={photo != null ? photo : userPhoto} alt="User avatar" />
         </NavLink>
         <button disabled={isDisabledBtn(id)} onClick={() => {
-          followingToggle(followed, id);
+          followingToggle(followed, id)
 
         }} className={classnames("follow-btn btn", { disabled: onFollowing })}>{followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
       </div>
@@ -41,7 +41,7 @@ const User: React.FC<Props> = ({ name, id, status, followed, photo, onFollowing,
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default User;
+export default User

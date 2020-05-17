@@ -1,4 +1,4 @@
-import { usersAPI } from '../../api/api'
+import { usersAPI } from '../../api/users-api'
 
 import { TAppState, TInferActions, TUser, ResultCodes } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
@@ -123,7 +123,7 @@ export const followingToggleTC = (followed: boolean, id: number): TThunk => {
       if (data.resultCode === ResultCodes.Success) {
         dispatch(actions.followToggle(id))
         dispatch(actions.setOnFollowing(false, id))
-
+        return
       }
 
     }

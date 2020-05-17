@@ -1,13 +1,14 @@
-import { stopSubmit } from 'redux-form';
+import { stopSubmit } from 'redux-form'
 
-import { authAPI, securityAPI } from '../../api/api';
+import { authAPI } from '../../api/auth-api'
+import { securityAPI } from '../../api/security-api'
 
 import { TAppState, TInferActions, ResultCodes } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
-const SET_USER_DATA = 'auth/SET_USER_DATA';
-const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS';
-const IS_FETCHING_TOGGLE = 'auth/IS_FETCHING_TOGGLE';
+const SET_USER_DATA = 'auth/SET_USER_DATA'
+const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
+const IS_FETCHING_TOGGLE = 'auth/IS_FETCHING_TOGGLE'
 
 
 
@@ -70,7 +71,7 @@ export const getAuthUserDataTC = (): TThunk => {
       const { id, email, login } = res.data
       dispatch(actions.setAuthUserData(id, email, login, true))
       dispatch(actions.setIsFetchingToggle(false))
-    } else if (res.resultCode === 1) {
+    } else if (res.resultCode === ResultCodes.Error) {
       dispatch(actions.setIsFetchingToggle(false))
       return
     }

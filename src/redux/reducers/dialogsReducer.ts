@@ -1,7 +1,7 @@
 import { TAppState, TInferActions, TDialog, TMessage } from '../../types/types'
 import { ThunkAction } from 'redux-thunk'
 
-const SEND_MESSAGE = 'dialogs/SEND_MESSAGE';
+const SEND_MESSAGE = 'dialogs/SEND_MESSAGE'
 
 
 
