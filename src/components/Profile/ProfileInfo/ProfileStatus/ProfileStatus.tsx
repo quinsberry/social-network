@@ -1,34 +1,34 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
-import classnames from 'classnames';
+import React, { useState, useEffect, ChangeEvent } from 'react'
+import classnames from 'classnames'
 
-import './ProfileStatus.scss';
+import './ProfileStatus.scss'
 
 type Props = {
   status: string | null
   updateStatus: (statusText: string) => void
-  isOwner: number | undefined
+  isOwner: boolean
 }
 
 const ProfileStatus: React.FC<Props> = ({ status, updateStatus, isOwner }) => {
 
-  const [editMode, setEditMode] = useState(false);
-  const [statusText, editStatusText] = useState('');
+  const [editMode, setEditMode] = useState(false)
+  const [statusText, editStatusText] = useState('')
 
   useEffect(() => {
     if (status) {
-      editStatusText(status);
+      editStatusText(status)
     }
-  }, [status]);
+  }, [status])
 
   const activateEditMode = () => {
     if (isOwner) {
-      setEditMode(true);
+      setEditMode(true)
     }
   }
 
   const deactivateEditMode = () => {
-    setEditMode(false);
-    updateStatus(statusText);
+    setEditMode(false)
+    updateStatus(statusText)
   }
 
   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ const ProfileStatus: React.FC<Props> = ({ status, updateStatus, isOwner }) => {
           )
       }
     </div>
-  );
-};
+  )
+}
 
-export default ProfileStatus;
+export default ProfileStatus

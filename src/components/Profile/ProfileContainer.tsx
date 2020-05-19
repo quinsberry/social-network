@@ -36,23 +36,23 @@ class ProfileContainer extends PureComponent<Props> {
     let userIdNumber = Number(this.props.match.params.userId)
     if (!userIdNumber) {
       if (this.props.authorizedUserId) {
-        userIdNumber = this.props.authorizedUserId;
+        userIdNumber = this.props.authorizedUserId
       } else {
         this.props.history.push('/login')
       }
 
     }
-    this.props.getUserProfileTC(userIdNumber);
-    this.props.getUserProfileStatusTC(userIdNumber);
+    this.props.getUserProfileTC(userIdNumber)
+    this.props.getUserProfileStatusTC(userIdNumber)
   }
 
   componentDidMount() {
-    this.refreshProfile();
+    this.refreshProfile()
   }
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
-      this.refreshProfile();
+      this.refreshProfile()
     }
   }
 

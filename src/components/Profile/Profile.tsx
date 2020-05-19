@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPosts from './MyPosts/MyPosts'
@@ -27,4 +27,4 @@ const Profile: React.FC<Props> = ({ profile, status, updateStatus, isOwner }) =>
   )
 }
 
-export default memo(Profile)
+export default Profile

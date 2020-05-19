@@ -31,7 +31,7 @@ const MyPosts: React.FC<Props> = ({ posts, addPostTC }) => {
       <h3>My posts</h3>
       <NewPostForm onSubmit={addNewPost} />
       {posts && (
-        posts.map((post, index) => (
+        posts.reverse().map((post, index) => (
           <Post key={index} postMsg={post.postMessage} likesCount={post.likes} />
         ))
       )}
@@ -45,9 +45,11 @@ const mapStateToProps = (state: TAppState): TMapState => {
   }
 }
 
-export default connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
+const MyPostWithConnect = connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
   addPostTC
 })(MyPosts)
+
+export default React.memo(MyPostWithConnect)
 
 
 

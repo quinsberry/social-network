@@ -1,12 +1,12 @@
-import React from 'react';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import React from 'react'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 
-import { Textarea } from '../../common/FormsControls/FormsControls';
-import { required, maxLength } from '../../../utils/validators';
+import { Textarea } from '../../common/FormsControls/FormsControls'
+import { required, maxLength } from '../../../utils/validators'
 
 import { TNewPostFormValue } from '../../../types/types'
 
-const maxLength300 = maxLength(300);
+const maxLength300 = maxLength(300)
 
 type Props = {
 
@@ -30,4 +30,4 @@ const NewPostReduxForm = reduxForm<TNewPostFormValue, Props>({
   form: 'newPost'
 })(NewPostForm)
 
-export default NewPostReduxForm;
+export default NewPostReduxForm

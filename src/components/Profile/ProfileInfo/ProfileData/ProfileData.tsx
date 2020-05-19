@@ -1,21 +1,29 @@
-import React from 'react';
+import React from 'react'
 
-import ProfileStatus from '../ProfileStatus/ProfileStatus';
+import ProfileStatus from '../ProfileStatus/ProfileStatus'
 
 
-import './ProfileData.scss';
-import github from '../../../../assets/icons/github.svg';
-import vk from '../../../../assets/icons/vk.svg';
-import facebook from '../../../../assets/icons/facebook.svg';
-import instagram from '../../../../assets/icons/instagram.svg';
-import twitter from '../../../../assets/icons/twitter.svg';
-import website from '../../../../assets/icons/website.svg';
-import youtube from '../../../../assets/icons/youtube.svg';
-import mainLink from '../../../../assets/icons/website.svg';
+import './ProfileData.scss'
+import github from '../../../../assets/icons/github.svg'
+import vk from '../../../../assets/icons/vk.svg'
+import facebook from '../../../../assets/icons/facebook.svg'
+import instagram from '../../../../assets/icons/instagram.svg'
+import twitter from '../../../../assets/icons/twitter.svg'
+import website from '../../../../assets/icons/website.svg'
+import youtube from '../../../../assets/icons/youtube.svg'
+import mainLink from '../../../../assets/icons/website.svg'
+import { TProfile } from '../../../../types/types'
 
-const ProfileData = ({ profile, status, updateStatus, isOwner }) => {
+type Props = {
+  profile: TProfile
+  status: string | null
+  updateStatus: (statusText: string) => void
+  isOwner: boolean
+}
 
-  const { aboutMe, contacts, fullName } = profile;
+const ProfileData: React.FC<Props> = ({ profile, status, updateStatus, isOwner }) => {
+
+  const { aboutMe, contacts, fullName } = profile
 
   const icons = {
     github,
@@ -26,7 +34,7 @@ const ProfileData = ({ profile, status, updateStatus, isOwner }) => {
     website,
     youtube,
     mainLink
-  };
+  }
 
   return (
     <div className="profile-info__description">
@@ -54,14 +62,14 @@ const ProfileData = ({ profile, status, updateStatus, isOwner }) => {
                 </li>
               );
             }
-            return null;
+            return null
           })
         }
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default ProfileData;
+export default ProfileData
 
 
