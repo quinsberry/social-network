@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 
-import { getUserProfileTC, savePhotoTC, saveProfileTC } from '../../redux/reducers/profileReducer'
-import { getProfile, getIsFetching } from '../../redux/selectors/profileSelectors'
-import { getUserId } from '../../redux/selectors/authSelectors'
+import { getUserProfileTC, savePhotoTC, saveProfileTC } from '../../store/reducers/profileReducer'
+import { getProfile, getIsFetching } from '../../store/selectors/profileSelectors'
+import { getUserId } from '../../store/selectors/authSelectors'
 import withAuthRedirect from '../../hoc/withAuthRedirect'
 import Settings from './Settings'
 
@@ -25,7 +25,6 @@ type TMapDispatch = {
 type Props = TMapState & TMapDispatch
 
 class SettingsContainer extends Component<Props> {
-
   componentDidMount() {
     this.props.userId && this.props.getUserProfileTC(this.props.userId)
   }
@@ -35,29 +34,29 @@ class SettingsContainer extends Component<Props> {
   }
 
   render() {
-
     return (
-      <Settings profile={this.props.profile} savePhoto={this.props.savePhotoTC} onSubmit={this.onSubmit} />
+      <Settings
+        profile={this.props.profile}
+        savePhoto={this.props.savePhotoTC}
+        onSubmit={this.onSubmit}
+      />
     )
   }
 }
-
 
 const mapStateToProps = (state: TAppState): TMapState => {
   return {
     profile: getProfile(state),
     isFetching: getIsFetching(state),
-    userId: getUserId(state)
+    userId: getUserId(state),
   }
 }
-
-
 
 export default compose<React.ComponentType>(
   connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
     getUserProfileTC,
     savePhotoTC,
-    saveProfileTC
+    saveProfileTC,
   }),
-  withAuthRedirect
+  withAuthRedirect,
 )(SettingsContainer)

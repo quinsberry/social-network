@@ -1,4 +1,4 @@
-import { TRootReducer } from '../redux/redux-store'
+import { TRootReducer } from '../store/store'
 import { ThunkAction } from 'redux-thunk'
 import { Action } from 'redux'
 
@@ -6,20 +6,22 @@ import { Action } from 'redux'
 //
 export type TAppState = ReturnType<TRootReducer>
 
-
 export type TInferActions<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 
-export type TBaseThunk<A extends Action = Action, R = Promise<void>> = ThunkAction<R, TAppState, unknown, A>
+export type TBaseThunk<A extends Action = Action, R = Promise<void>> = ThunkAction<
+  R,
+  TAppState,
+  unknown,
+  A
+>
 
 // -------------------------------
-
 
 export enum ResultCodes {
   Success = 0,
   Error = 1,
-  CaptchaIsRequired = 10
+  CaptchaIsRequired = 10,
 }
-
 
 export type TLoginFormValues = {
   email: string
@@ -102,7 +104,7 @@ export type TNewPostFormValue = {
   newPost: string
 }
 
-// Settings 
+// Settings
 export type TProfileEditFormValue = TProfile
 
 export type TFieldValidator = (value: string) => string | undefined

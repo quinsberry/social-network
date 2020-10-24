@@ -3,8 +3,12 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 
-import { getUserProfileTC, getUserProfileStatusTC, updateUserProfileStatusTC } from '../../redux/reducers/profileReducer'
-import { getStatus, getProfile, getAuthorizedUserId } from '../../redux/selectors/profileSelectors'
+import {
+  getUserProfileTC,
+  getUserProfileStatusTC,
+  updateUserProfileStatusTC,
+} from '../../store/reducers/profileReducer'
+import { getStatus, getProfile, getAuthorizedUserId } from '../../store/selectors/profileSelectors'
 import Profile from './Profile'
 
 import { TAppState, TProfile } from '../../types/types'
@@ -27,11 +31,9 @@ type TParams = {
 
 type TWithRouter = RouteComponentProps<TParams>
 
-
 type Props = TMapState & TMapDispatch & TWithRouter
 
 class ProfileContainer extends PureComponent<Props> {
-
   refreshProfile() {
     let userIdNumber = Number(this.props.match.params.userId)
     if (!userIdNumber) {
@@ -40,7 +42,6 @@ class ProfileContainer extends PureComponent<Props> {
       } else {
         this.props.history.push('/login')
       }
-
     }
     this.props.getUserProfileTC(userIdNumber)
     this.props.getUserProfileStatusTC(userIdNumber)
@@ -56,31 +57,30 @@ class ProfileContainer extends PureComponent<Props> {
     }
   }
 
-
   render() {
-
     return (
-      <Profile {...this.props} isOwner={!this.props.match.params.userId} updateStatus={this.props.updateUserProfileStatusTC} />
+      <Profile
+        {...this.props}
+        isOwner={!this.props.match.params.userId}
+        updateStatus={this.props.updateUserProfileStatusTC}
+      />
     )
   }
 }
-
 
 const mapStateToProps = (state: TAppState): TMapState => {
   return {
     profile: getProfile(state),
     status: getStatus(state),
-    authorizedUserId: getAuthorizedUserId(state)
+    authorizedUserId: getAuthorizedUserId(state),
   }
 }
-
-
 
 export default compose<React.ComponentType>(
   connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
     getUserProfileTC,
     getUserProfileStatusTC,
-    updateUserProfileStatusTC
+    updateUserProfileStatusTC,
   }),
   withRouter,
 )(ProfileContainer)

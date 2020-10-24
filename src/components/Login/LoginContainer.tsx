@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-
-import { loginTC } from '../../redux/reducers/authReducer'
-import { getIsAuth, getCaptchaUrl } from '../../redux/selectors/authSelectors'
-import Login from './Login';
+import { loginTC } from '../../store/reducers/authReducer'
+import { getIsAuth, getCaptchaUrl } from '../../store/selectors/authSelectors'
+import Login from './Login'
 
 import { TAppState, TLoginFormValues } from '../../types/types'
 
@@ -19,27 +18,22 @@ type TMapDispatch = {
 
 type Props = TMapState & TMapDispatch
 
-
-
 const LoginContainer: React.FC<Props> = ({ isAuth, captchaUrl, loginTC }) => {
-
   const onSubmit = (formData: TLoginFormValues) => {
     const { email, password, rememberMe, captcha } = formData
     loginTC(email, password, rememberMe, captcha)
   }
 
-  return (
-    <Login onSubmit={onSubmit} isAuth={isAuth} captchaUrl={captchaUrl} />
-  )
+  return <Login onSubmit={onSubmit} isAuth={isAuth} captchaUrl={captchaUrl} />
 }
 
 const mapStateToProps = (state: TAppState): TMapState => {
   return {
     isAuth: getIsAuth(state),
-    captchaUrl: getCaptchaUrl(state)
+    captchaUrl: getCaptchaUrl(state),
   }
 }
 
 export default connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
-  loginTC
+  loginTC,
 })(LoginContainer)

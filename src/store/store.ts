@@ -10,25 +10,22 @@ import appReducer from './reducers/appReducer'
 
 export type TRootReducer = typeof rootReducer
 
-
-
-
 const rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   usersPage: usersReducer,
   app: appReducer,
   auth: authReducer,
-  form: formReducer
+  form: formReducer,
 })
 
-// @ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
+  }
+}
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
-// @ts-ignore
-window.store = store
+const composeEnhancers =
+  (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
-
-
-export default store
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))

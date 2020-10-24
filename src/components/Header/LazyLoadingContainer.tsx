@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import { lazyLoadingTC } from '../../redux/reducers/appReducer';
+import { lazyLoadingTC } from '../../store/reducers/appReducer'
 
-import { TAppState } from '../../types/types';
-
+import { TAppState } from '../../types/types'
 
 type TMapDispatch = {
   lazyLoadingTC: () => void
@@ -13,22 +12,19 @@ type TMapDispatch = {
 type Props = TMapDispatch
 
 class LazyLoadingContainer extends Component<Props> {
-
   componentDidMount() {
-    this.props.lazyLoadingTC();
+    this.props.lazyLoadingTC()
   }
 
   componentWillUnmount() {
-    this.props.lazyLoadingTC();
+    this.props.lazyLoadingTC()
   }
 
   render() {
-    return (
-      <div></div>
-    )
+    return <div></div>
   }
 }
 
 export default connect<{}, TMapDispatch, {}, TAppState>(null, {
-  lazyLoadingTC
-})(LazyLoadingContainer);
+  lazyLoadingTC,
+})(LazyLoadingContainer)

@@ -1,8 +1,7 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 
-
-import { sendMessageTC } from '../../redux/reducers/dialogsReducer'
+import { sendMessageTC } from '../../store/reducers/dialogsReducer'
 import withAuthRedirect from '../../hoc/withAuthRedirect'
 import Dialogs from './Dialogs'
 
@@ -18,13 +17,13 @@ type TMapDispatch = {
 
 const mapStateToProps = (state: TAppState): TMapState => {
   return {
-    state: state.dialogsPage
+    state: state.dialogsPage,
   }
 }
 
 export default compose<React.ComponentType>(
   connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
-    sendMessageTC
+    sendMessageTC,
   }),
-  withAuthRedirect
+  withAuthRedirect,
 )(Dialogs)

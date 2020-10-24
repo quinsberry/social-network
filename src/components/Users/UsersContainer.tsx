@@ -3,10 +3,21 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 
 import Users from './Users'
-import { requestUsersTC, onPageChangeTC, followingToggleTC } from '../../redux/reducers/usersReducer'
-import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getOnFollowing } from '../../redux/selectors/usersSelectors'
+import {
+  requestUsersTC,
+  onPageChangeTC,
+  followingToggleTC,
+} from '../../store/reducers/usersReducer'
+import {
+  getUsers,
+  getPageSize,
+  getTotalUsersCount,
+  getCurrentPage,
+  getIsFetching,
+  getOnFollowing,
+} from '../../store/selectors/usersSelectors'
 
-import './Users.scss';
+import './Users.scss'
 
 import { TAppState, TUser } from '../../types/types'
 
@@ -28,16 +39,15 @@ type TMapDispatch = {
 type Props = TMapState & TMapDispatch
 
 class UsersContainer extends PureComponent<Props> {
-
   componentDidMount() {
-    const { users, currentPage, pageSize } = this.props;
+    const { users, currentPage, pageSize } = this.props
     const usersLength = users.length
-    this.props.requestUsersTC(usersLength, currentPage, pageSize);
+    this.props.requestUsersTC(usersLength, currentPage, pageSize)
   }
 
   onPageChange = (pageNumber: number) => {
-    const { pageSize } = this.props;
-    this.props.onPageChangeTC(pageNumber, pageSize);
+    const { pageSize } = this.props
+    this.props.onPageChangeTC(pageNumber, pageSize)
   }
 
   followingToggle = (followed: boolean, id: number) => {
@@ -45,20 +55,25 @@ class UsersContainer extends PureComponent<Props> {
   }
 
   isDisabledBtn = (id: number) => {
-    return this.props.onFollowing.some(followingId => followingId === id)
+    return this.props.onFollowing.some((followingId) => followingId === id)
   }
-
-
 
   render() {
-
     return (
-      <Users onPageChange={this.onPageChange
-      } currentPage={this.props.currentPage} users={this.props.users} isFetching={this.props.isFetching} onFollowing={this.props.onFollowing} followingToggle={this.followingToggle} isDisabledBtn={this.isDisabledBtn} totalUsersCount={this.props.totalUsersCount} pageSize={this.props.pageSize} />
-    );
+      <Users
+        onPageChange={this.onPageChange}
+        currentPage={this.props.currentPage}
+        users={this.props.users}
+        isFetching={this.props.isFetching}
+        onFollowing={this.props.onFollowing}
+        followingToggle={this.followingToggle}
+        isDisabledBtn={this.isDisabledBtn}
+        totalUsersCount={this.props.totalUsersCount}
+        pageSize={this.props.pageSize}
+      />
+    )
   }
 }
-
 
 const mapStateToProps = (state: TAppState): TMapState => {
   return {
@@ -67,15 +82,14 @@ const mapStateToProps = (state: TAppState): TMapState => {
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
     isFetching: getIsFetching(state),
-    onFollowing: getOnFollowing(state)
+    onFollowing: getOnFollowing(state),
   }
 }
-
 
 export default compose<React.ComponentType>(
   connect<TMapState, TMapDispatch, {}, TAppState>(mapStateToProps, {
     requestUsersTC,
     onPageChangeTC,
-    followingToggleTC
-  })
-)(UsersContainer);
+    followingToggleTC,
+  }),
+)(UsersContainer)
