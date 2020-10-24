@@ -2,21 +2,21 @@ import React, { lazy, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 
-import HeaderContainer from './components/Header/HeaderContainer'
-import Navbar from './components/Navbar/Navbar'
-import ProfileContainer from './components/Profile/ProfileContainer'
-import ErrorPage from './components/ErrorPage/ErrorPage'
-import LoginContainer from './components/Login/LoginContainer'
-import { initializeApp } from './store/reducers/appReducer'
-import { withSuspense } from './hoc/withSuspense'
+import HeaderContainer from '@components/Header/HeaderContainer'
+import Navbar from '@components/Navbar/Navbar'
+import ProfileContainer from '@components/Profile/ProfileContainer'
+import ErrorPage from '@components/ErrorPage/ErrorPage'
+import LoginContainer from '@components/Login/LoginContainer'
+import { initializeApp } from '@store/reducers/appReducer'
+import { withSuspense } from '@hoc/withSuspense'
 
 import './App.scss'
 
-import { TAppState } from './types/types'
+import { TAppState } from '@typings/types'
 
-const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'))
-const UsersContainer = lazy(() => import('./components/Users/UsersContainer'))
-const SettingsContainer = lazy(() => import('./components/Settings/SettingsContainer'))
+const DialogsContainer = lazy(() => import('@components/Dialogs/DialogsContainer'))
+const UsersContainer = lazy(() => import('@components/Users/UsersContainer'))
+const SettingsContainer = lazy(() => import('@components/Settings/SettingsContainer'))
 
 interface SelectorProps {
   initialized: boolean
