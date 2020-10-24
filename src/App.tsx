@@ -15,7 +15,7 @@ import './App.scss'
 import { TAppState } from '@typings/types'
 
 const DialogsContainer = lazy(() => import('@components/Dialogs/DialogsContainer'))
-const UsersContainer = lazy(() => import('@components/Users/UsersContainer'))
+const UsersContainer = lazy(() => import('@components/Users/Users'))
 const SettingsContainer = lazy(() => import('@components/Settings/SettingsContainer'))
 
 interface SelectorProps {

@@ -8,22 +8,22 @@ export const getUsers = createSelector(getUsersSelector, (users) => {
   return users
 })
 
-export const getPageSize = (state: TAppState) => {
+export const getPageSize = (state: TAppState): number => {
   return state.usersPage.pageSize
 }
 
-export const getTotalUsersCount = (state: TAppState) => {
+export const getTotalUsersCount = (state: TAppState): number => {
   return state.usersPage.totalUsersCount
 }
 
-export const getCurrentPage = (state: TAppState) => {
+export const getCurrentPage = (state: TAppState): number => {
   return state.usersPage.currentPage
 }
 
-export const getIsFetching = (state: TAppState) => {
+export const getIsFetching = (state: TAppState): boolean => {
   return state.usersPage.isFetching
 }
 
-export const getOnFollowing = (state: TAppState) => {
+export const getOnFollowing = (state: TAppState): number[] => {
   return state.usersPage.onFollowing
 }
