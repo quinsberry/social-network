@@ -2,7 +2,7 @@ import { usersAPI } from '@api/users-api'
 
 import { TBaseThunk, TInferActions, TUser, ResultCodes } from '@typings/types'
 
-type TInitialState = typeof initialState
+export type UsersInitialState = typeof initialState
 
 const initialState = {
   users: [] as Array<TUser>,
@@ -13,7 +13,7 @@ const initialState = {
   onFollowing: [] as Array<number>, // array of users ids
 }
 
-const usersReducer = (state = initialState, action: TActions): TInitialState => {
+export const usersReducer = (state = initialState, action: TActions): UsersInitialState => {
   switch (action.type) {
     case 'USERS/FOLLOW_TOGGLE':
       return {
@@ -125,5 +125,3 @@ export const followingToggleTC = (followed: boolean, id: number): TThunk => {
     }
   }
 }
-
-export default usersReducer

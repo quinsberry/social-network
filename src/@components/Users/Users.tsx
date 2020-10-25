@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import User from './User'
@@ -27,6 +28,14 @@ const Users: React.FC<UsersProps> = () => {
   const currentPage = useSelector(getCurrentPage)
   const isFetching = useSelector(getIsFetching)
   const onFollowing = useSelector(getOnFollowing)
+
+  const history = useHistory()
+
+  // useEffect(() => {
+  //   history.push({
+
+  //   })
+  // }, [filters])
 
   useEffect(() => {
     const usersLength = users.length

@@ -1,21 +1,26 @@
-import React from 'react';
+import React from 'react'
 import { create, act } from 'react-test-renderer'
 
 import ProfileStatus from './ProfileStatus'
 
-
-
 describe('ProfileStatus component', () => {
+  const mockUpdateStatus = (text: string) => {
+    console.log(text)
+  }
 
   test('Status should be in the props', () => {
-    let component = create(<ProfileStatus status={'testing'} updateStatus={} isOwner={1} />)
+    let component = create(
+      <ProfileStatus status={'testing'} updateStatus={mockUpdateStatus} isOwner={true} />,
+    )
     const tree = component.toTree()
 
     expect(tree!.props.status).toBe('testing')
   })
 
   test('After creating <span> should be displayed', () => {
-    let component = create(<ProfileStatus status={'testing'} updateStatus={} isOwner={1} />)
+    let component = create(
+      <ProfileStatus status={'testing'} updateStatus={mockUpdateStatus} isOwner={true} />,
+    )
     const root = component.root
 
     const span = root.findByType('span')
@@ -23,7 +28,9 @@ describe('ProfileStatus component', () => {
   })
 
   test('After creating <input> should not be displayed', () => {
-    let component = create(<ProfileStatus status={'testing'} updateStatus={} isOwner={1} />)
+    let component = create(
+      <ProfileStatus status={'testing'} updateStatus={mockUpdateStatus} isOwner={true} />,
+    )
     const root = component.root
 
     expect(() => {
@@ -32,7 +39,9 @@ describe('ProfileStatus component', () => {
   })
 
   test('After creating <span> should be displayed with correct status', () => {
-    let component = create(<ProfileStatus status={'testing'} updateStatus={} isOwner={1} />)
+    let component = create(
+      <ProfileStatus status={'testing'} updateStatus={mockUpdateStatus} isOwner={true} />,
+    )
     const root = component.root
 
     const span = root.findByType('span')
@@ -40,7 +49,9 @@ describe('ProfileStatus component', () => {
   })
 
   test('Input should be displayed in editMode instead of span', () => {
-    let component = create(<ProfileStatus status={'testing'} updateStatus={} isOwner={1} />)
+    let component = create(
+      <ProfileStatus status={'testing'} updateStatus={mockUpdateStatus} isOwner={true} />,
+    )
     const root = component.root
 
     const span = root.findByType('span')
@@ -50,5 +61,4 @@ describe('ProfileStatus component', () => {
     const input = root.findByType('input')
     expect(input.props.value).toBe('testing')
   })
-
 })
