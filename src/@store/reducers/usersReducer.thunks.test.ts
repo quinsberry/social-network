@@ -14,7 +14,7 @@ const result: TServerResponse = {
 
 userAPIMock.follow.mockReturnValue(Promise.resolve(result))
 
-it('testing follow/unfollow thunks', async () => {
+it('testing follow/unfollow thunk', async () => {
   const thunk = followingToggleTC(true, 1)
   const dispatchMock = jest.fn()
   const getStateMock = jest.fn()

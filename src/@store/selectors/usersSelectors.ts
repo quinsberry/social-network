@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { TAppState } from '@typings/types'
+import { FilterType } from '@store/reducers/usersReducer'
 
 const getUsersSelector = (state: TAppState) => {
   return state.usersPage.users
@@ -10,6 +11,10 @@ export const getUsers = createSelector(getUsersSelector, (users) => {
 
 export const getPageSize = (state: TAppState): number => {
   return state.usersPage.pageSize
+}
+
+export const getFilter = (state: TAppState): FilterType => {
+  return state.usersPage.filter
 }
 
 export const getTotalUsersCount = (state: TAppState): number => {

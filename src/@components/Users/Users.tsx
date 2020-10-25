@@ -3,26 +3,34 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import User from './User'
+import { UsersSearchForm } from './UsersSearchForm'
 import Paginator from '@components/common/Paginator/Paginator'
 
 import {
   getCurrentPage,
+  getFilter,
   getIsFetching,
   getOnFollowing,
   getPageSize,
   getTotalUsersCount,
   getUsers,
 } from '@store/selectors/usersSelectors'
-import { followingToggleTC, onPageChangeTC, requestUsersTC } from '@store/reducers/usersReducer'
+import {
+  FilterType,
+  followingToggleTC,
+  onPageChangeTC,
+  requestUsersTC,
+} from '@store/reducers/usersReducer'
 
 import './Users.scss'
 
 interface UsersProps {}
 
-const Users: React.FC<UsersProps> = () => {
+function Users(): React.ReactElement {
   const dispatch = useDispatch()
 
   const users = useSelector(getUsers)
+  const filter = useSelector(getFilter)
   const pageSize = useSelector(getPageSize)
   const totalUsersCount = useSelector(getTotalUsersCount)
   const currentPage = useSelector(getCurrentPage)
@@ -38,12 +46,11 @@ const Users: React.FC<UsersProps> = () => {
   // }, [filters])
 
   useEffect(() => {
-    const usersLength = users.length
-    dispatch(requestUsersTC(usersLength, currentPage, pageSize))
+    dispatch(requestUsersTC(currentPage, pageSize, filter))
   }, [])
 
   const onPageChange = (pageNumber: number) => {
-    dispatch(onPageChangeTC(pageNumber, pageSize))
+    dispatch(onPageChangeTC(pageNumber, pageSize, filter))
   }
 
   const followingToggle = (followed: boolean, id: number) => {
@@ -54,31 +61,33 @@ const Users: React.FC<UsersProps> = () => {
     return onFollowing.some((followingId) => followingId === id)
   }
 
+  const onFilterChange = (filter: FilterType) => {
+    dispatch(requestUsersTC(1, pageSize, filter))
+  }
+
   return (
     <div className="users">
       {isFetching && null}
-      <>
-        <Paginator
-          totalItemsCount={totalUsersCount}
-          pageSize={pageSize}
-          onPageChange={onPageChange}
-          currentPage={currentPage}
+      <UsersSearchForm onFilterChange={onFilterChange} />
+      <Paginator
+        totalItemsCount={totalUsersCount}
+        pageSize={pageSize}
+        onPageChange={onPageChange}
+        currentPage={currentPage}
+      />
+      {users?.map((user) => (
+        <User
+          key={user.id}
+          id={user.id}
+          photo={user.photos.small}
+          name={user.name}
+          status={user.status}
+          followed={user.followed}
+          onFollowing={onFollowing}
+          followingToggle={followingToggle}
+          isDisabledBtn={isDisabledBtn}
         />
-        {users &&
-          users.map((user) => (
-            <User
-              key={user.id}
-              id={user.id}
-              photo={user.photos.small}
-              name={user.name}
-              status={user.status}
-              followed={user.followed}
-              onFollowing={onFollowing}
-              followingToggle={followingToggle}
-              isDisabledBtn={isDisabledBtn}
-            />
-          ))}
-      </>
+      ))}
     </div>
   )
 }

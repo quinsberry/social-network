@@ -3,6 +3,7 @@ import { usersAPI } from '@api/users-api'
 import { TBaseThunk, TInferActions, TUser, ResultCodes } from '@typings/types'
 
 export type UsersInitialState = typeof initialState
+export type FilterType = typeof initialState.filter
 
 const initialState = {
   users: [] as Array<TUser>,
@@ -11,6 +12,10 @@ const initialState = {
   currentPage: 1,
   isFetching: false,
   onFollowing: [] as Array<number>, // array of users ids
+  filter: {
+    term: '',
+    friend: null as boolean | null,
+  },
 }
 
 export const usersReducer = (state = initialState, action: TActions): UsersInitialState => {
@@ -29,6 +34,11 @@ export const usersReducer = (state = initialState, action: TActions): UsersIniti
       return {
         ...state,
         users: action.users,
+      }
+    case 'USERS/SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
       }
     case 'USERS/SET_CURRENT_PAGE':
       return {
@@ -62,6 +72,7 @@ type TActions = TInferActions<typeof actions>
 export const actions = {
   followToggle: (userId: number) => ({ type: 'USERS/FOLLOW_TOGGLE', userId } as const),
   setUsers: (users: Array<TUser>) => ({ type: 'USERS/SET_USERS', users } as const),
+  setFilter: (filter: FilterType) => ({ type: 'USERS/SET_FILTER', payload: filter } as const),
   setCurrentPage: (currentPage: number) =>
     ({ type: 'USERS/SET_CURRENT_PAGE', currentPage } as const),
   setTotalUsersCount: (totalCount: number) =>
@@ -75,29 +86,33 @@ export const actions = {
 type TThunk = TBaseThunk<TActions>
 
 export const requestUsersTC = (
-  usersLength: number,
   currentPage: number,
   pagesSize: number,
+  filter: FilterType,
 ): TThunk => {
   return async (dispatch) => {
-    if (usersLength === ResultCodes.Success) {
-      dispatch(actions.setIsFetchingToggle(true))
+    dispatch(actions.setIsFetchingToggle(true))
+    dispatch(actions.setFilter(filter))
 
-      const data = await usersAPI.getUsers(currentPage, pagesSize)
+    const data = await usersAPI.getUsers(currentPage, pagesSize, filter.term, filter.friend)
 
-      dispatch(actions.setIsFetchingToggle(false))
-      dispatch(actions.setUsers(data.items))
-      dispatch(actions.setTotalUsersCount(data.totalCount))
-    }
+    dispatch(actions.setIsFetchingToggle(false))
+    dispatch(actions.setCurrentPage(currentPage))
+    dispatch(actions.setUsers(data.items))
+    dispatch(actions.setTotalUsersCount(data.totalCount))
   }
 }
 
-export const onPageChangeTC = (pageNumber: number, pagesSize: number): TThunk => {
+export const onPageChangeTC = (
+  pageNumber: number,
+  pagesSize: number,
+  filter: FilterType,
+): TThunk => {
   return async (dispatch) => {
     dispatch(actions.setIsFetchingToggle(true))
     dispatch(actions.setCurrentPage(pageNumber))
 
-    const data = await usersAPI.getUsers(pageNumber, pagesSize)
+    const data = await usersAPI.getUsers(pageNumber, pagesSize, filter.term, filter.friend)
 
     dispatch(actions.setIsFetchingToggle(false))
     dispatch(actions.setUsers(data.items))
