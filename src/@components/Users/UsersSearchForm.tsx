@@ -8,6 +8,10 @@ const UsersSearchFormValidate = (values: FormValuesTypes) => {
 }
 
 interface SearchFormProps {
+  filter: {
+    term: string
+    friend: boolean | null
+  }
   onFilterChange: (filter: FilterType) => void
 }
 
@@ -16,34 +20,39 @@ interface FormValuesTypes {
   friend: 'true' | 'false' | 'null'
 }
 
-export const UsersSearchForm: React.FC<SearchFormProps> = ({ onFilterChange }): React.ReactElement => {
-  const submit = (values: FormValuesTypes, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
-    const filter = {
-      term: values.term,
-      friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false,
+export const UsersSearchForm: React.FC<SearchFormProps> = React.memo(
+  ({ filter, onFilterChange }): React.ReactElement => {
+    const submit = (values: FormValuesTypes, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }): void => {
+      const filter = {
+        term: values.term,
+        friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false,
+      }
+      onFilterChange(filter)
+      setSubmitting(false)
     }
-    console.log(filter)
-    onFilterChange(filter)
-    setSubmitting(false)
-  }
 
-  return (
-    <div>
-      <Formik initialValues={{ term: '', friend: 'null' } as FormValuesTypes} validate={UsersSearchFormValidate} onSubmit={submit}>
-        {({ isSubmitting }) => (
-          <Form>
-            <Field type="text" name="term" />
-            <Field name="friend" as="select">
-              <option value="null">All</option>
-              <option value="true">Only followed</option>
-              <option value="false">Only unfollowed</option>
-            </Field>
-            <button type="submit" disabled={isSubmitting}>
-              Find
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
-  )
-}
+    return (
+      <div>
+        <Formik
+          enableReinitialize
+          initialValues={{ term: filter.term, friend: String(filter.friend) } as FormValuesTypes}
+          validate={UsersSearchFormValidate}
+          onSubmit={submit}>
+          {({ isSubmitting }) => (
+            <Form>
+              <Field type="text" name="term" />
+              <Field name="friend" as="select">
+                <option value="null">All</option>
+                <option value="true">Only followed</option>
+                <option value="false">Only unfollowed</option>
+              </Field>
+              <button type="submit" disabled={isSubmitting}>
+                Find
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    )
+  },
+)

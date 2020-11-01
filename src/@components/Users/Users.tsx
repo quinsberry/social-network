@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import queryString from 'querystring'
 
 import { User } from './User'
 import { UsersSearchForm } from './UsersSearchForm'
@@ -10,6 +11,7 @@ import { getCurrentPage, getFilter, getIsFetching, getOnFollowing, getPageSize, 
 import { FilterType, followingToggleTC, onPageChangeTC, requestUsersTC } from '@store/reducers/usersReducer'
 
 import './Users.scss'
+import { BooleanParam, NumberParam, StringParam, useQueryParams } from 'use-query-params'
 
 interface UsersProps {}
 
@@ -26,36 +28,45 @@ const Users: React.FC<UsersProps> = (): React.ReactElement => {
 
   const history = useHistory()
 
-  // useEffect(() => {
-  //   history.push({
-
-  //   })
-  // }, [filters])
+  const [query, setQuery] = useQueryParams({
+    term: StringParam,
+    friend: BooleanParam,
+    page: NumberParam,
+  })
+  console.log('query: ', query)
 
   useEffect(() => {
-    dispatch(requestUsersTC(currentPage, pageSize, filter))
+    const parsed = queryString.parse(history.location.search.substr(1))
+    dispatch(requestUsersTC(query.page || 1, pageSize, { term: query.term || '', friend: query.friend || null }))
   }, [])
 
-  const onPageChange = (pageNumber: number) => {
+  useEffect(() => {
+    setQuery({
+      term: filter.term,
+      friend: filter.friend,
+      page: currentPage,
+    })
+  }, [filter, currentPage])
+  const onPageChange = (pageNumber: number): void => {
     dispatch(onPageChangeTC(pageNumber, pageSize, filter))
   }
 
-  const followingToggle = (followed: boolean, id: number) => {
+  const followingToggle = (followed: boolean, id: number): void => {
     dispatch(followingToggleTC(followed, id))
   }
 
-  const isDisabledBtn = (id: number) => {
+  const isDisabledBtn = (id: number): boolean => {
     return onFollowing.some((followingId) => followingId === id)
   }
 
-  const onFilterChange = (filter: FilterType) => {
+  const onFilterChange = (filter: FilterType): void => {
     dispatch(requestUsersTC(1, pageSize, filter))
   }
 
   return (
     <div className="users">
       {isFetching && null}
-      <UsersSearchForm onFilterChange={onFilterChange} />
+      <UsersSearchForm filter={filter} onFilterChange={onFilterChange} />
       <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} onPageChange={onPageChange} currentPage={currentPage} />
       {users?.map((user) => (
         <User
