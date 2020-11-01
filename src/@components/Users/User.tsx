@@ -15,16 +15,7 @@ type Props = {
   isDisabledBtn: (id: number) => boolean
 }
 
-const User: React.FC<Props> = ({
-  name,
-  id,
-  status,
-  followed,
-  photo,
-  onFollowing,
-  followingToggle,
-  isDisabledBtn,
-}) => {
+export const User: React.FC<Props> = ({ name, id, status, followed, photo, onFollowing, followingToggle, isDisabledBtn }): React.ReactElement => {
   return (
     <div className="users__user">
       <div className="users__user-leftside">
@@ -45,9 +36,7 @@ const User: React.FC<Props> = ({
           <NavLink to={`/profile/${id}`}>
             <h3 className="descr-leftside__username">{name}</h3>
           </NavLink>
-          <span className={classnames('descr-leftside__status', { active: status })}>
-            {status ? status : 'This user has no status'}
-          </span>
+          <span className={classnames('descr-leftside__status', { active: status })}>{status ? status : 'This user has no status'}</span>
         </div>
         <div className="descr-rightside">
           <h3 className="descr-rightside__country">Here should be a county, </h3>
@@ -57,5 +46,3 @@ const User: React.FC<Props> = ({
     </div>
   )
 }
-
-export default User

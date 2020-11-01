@@ -16,13 +16,8 @@ interface FormValuesTypes {
   friend: 'true' | 'false' | 'null'
 }
 
-export const UsersSearchForm: React.FC<SearchFormProps> = ({
-  onFilterChange,
-}): React.ReactElement => {
-  const submit = (
-    values: FormValuesTypes,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
-  ) => {
+export const UsersSearchForm: React.FC<SearchFormProps> = ({ onFilterChange }): React.ReactElement => {
+  const submit = (values: FormValuesTypes, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     const filter = {
       term: values.term,
       friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false,
@@ -34,10 +29,7 @@ export const UsersSearchForm: React.FC<SearchFormProps> = ({
 
   return (
     <div>
-      <Formik
-        initialValues={{ term: '', friend: 'null' } as FormValuesTypes}
-        validate={UsersSearchFormValidate}
-        onSubmit={submit}>
+      <Formik initialValues={{ term: '', friend: 'null' } as FormValuesTypes} validate={UsersSearchFormValidate} onSubmit={submit}>
         {({ isSubmitting }) => (
           <Form>
             <Field type="text" name="term" />

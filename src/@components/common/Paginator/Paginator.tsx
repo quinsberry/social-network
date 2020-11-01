@@ -13,13 +13,7 @@ type Props = {
   portionSize?: number
 }
 
-const Paginator: React.FC<Props> = ({
-  totalItemsCount,
-  pageSize,
-  onPageChange,
-  currentPage,
-  portionSize = 10,
-}) => {
+export const Paginator: React.FC<Props> = ({ totalItemsCount, pageSize, onPageChange, currentPage, portionSize = 10 }) => {
   const [portionNumber, setPortionNumber] = useState(1)
 
   const pagesCount = Math.ceil(totalItemsCount / pageSize)
@@ -51,10 +45,7 @@ const Paginator: React.FC<Props> = ({
         .filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
         .map((p) => {
           return (
-            <span
-              key={p}
-              onClick={() => onPageChange(p)}
-              className={classnames('select', { selected: p === currentPage })}>
+            <span key={p} onClick={() => onPageChange(p)} className={classnames('select', { selected: p === currentPage })}>
               {p}
             </span>
           )
@@ -68,5 +59,3 @@ const Paginator: React.FC<Props> = ({
     </div>
   )
 }
-
-export default Paginator

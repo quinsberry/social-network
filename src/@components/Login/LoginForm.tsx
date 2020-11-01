@@ -10,32 +10,15 @@ type Props = {
   captchaUrl: string | null
 }
 
-const LoginForm: React.FC<InjectedFormProps<TLoginFormValues> & Props> = ({
-  handleSubmit,
-  error,
-  captchaUrl,
-}) => {
+const Form: React.FC<InjectedFormProps<TLoginFormValues> & Props> = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form action="" onSubmit={handleSubmit}>
       <div className="login__form-input">
-        <Field
-          name={'email'}
-          placeholder="Email"
-          className="input"
-          validate={[required]}
-          component={Input}
-        />
+        <Field name={'email'} placeholder="Email" className="input" validate={[required]} component={Input} />
       </div>
 
       <div className="login__form-input">
-        <Field
-          name={'password'}
-          type="password"
-          placeholder="Password"
-          className="input"
-          validate={[required]}
-          component={Input}
-        />
+        <Field name={'password'} type="password" placeholder="Password" className="input" validate={[required]} component={Input} />
       </div>
 
       {error && <div className="login__form-error">{error}</div>}
@@ -47,13 +30,7 @@ const LoginForm: React.FC<InjectedFormProps<TLoginFormValues> & Props> = ({
       {captchaUrl && (
         <div className="login__form-captcha">
           <img src={captchaUrl} alt="Captcha icon" />
-          <Field
-            name={'captcha'}
-            placeholder="Enter the captcha"
-            className="input"
-            validate={[required]}
-            component={Input}
-          />
+          <Field name={'captcha'} placeholder="Enter the captcha" className="input" validate={[required]} component={Input} />
         </div>
       )}
 
@@ -64,8 +41,6 @@ const LoginForm: React.FC<InjectedFormProps<TLoginFormValues> & Props> = ({
   )
 }
 
-const LoginReduxForm = reduxForm<TLoginFormValues, Props>({
+export const LoginForm = reduxForm<TLoginFormValues, Props>({
   form: 'login',
-})(LoginForm)
-
-export default LoginReduxForm
+})(Form)

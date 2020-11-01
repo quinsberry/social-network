@@ -6,7 +6,7 @@ import HeaderContainer from '@components/Header/HeaderContainer'
 import Navbar from '@components/Navbar/Navbar'
 import ProfileContainer from '@components/Profile/ProfileContainer'
 import ErrorPage from '@components/ErrorPage/ErrorPage'
-import LoginContainer from '@components/Login/LoginContainer'
+import { LoginPage } from '@components/Login/LoginPage'
 import { initializeApp } from '@store/reducers/appReducer'
 import { withSuspense } from '@hoc/withSuspense'
 
@@ -49,7 +49,7 @@ const App: React.FC = () => {
           <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
           <Route path="/dialogs" render={() => <SuspendedDialogs />} />
           <Route path="/users" render={() => <SuspendedUsers />} />
-          <Route path="/login" render={() => <LoginContainer />} />
+          <Route path="/login" render={() => <LoginPage />} />
           <Route path="/settings" render={() => <SuspendedSettings />} />
           <Route component={ErrorPage} />
         </Switch>

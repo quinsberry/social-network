@@ -2,31 +2,18 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import User from './User'
+import { User } from './User'
 import { UsersSearchForm } from './UsersSearchForm'
-import Paginator from '@components/common/Paginator/Paginator'
+import { Paginator } from '@components/common'
 
-import {
-  getCurrentPage,
-  getFilter,
-  getIsFetching,
-  getOnFollowing,
-  getPageSize,
-  getTotalUsersCount,
-  getUsers,
-} from '@store/selectors/usersSelectors'
-import {
-  FilterType,
-  followingToggleTC,
-  onPageChangeTC,
-  requestUsersTC,
-} from '@store/reducers/usersReducer'
+import { getCurrentPage, getFilter, getIsFetching, getOnFollowing, getPageSize, getTotalUsersCount, getUsers } from '@store/selectors/usersSelectors'
+import { FilterType, followingToggleTC, onPageChangeTC, requestUsersTC } from '@store/reducers/usersReducer'
 
 import './Users.scss'
 
 interface UsersProps {}
 
-function Users(): React.ReactElement {
+const Users: React.FC<UsersProps> = (): React.ReactElement => {
   const dispatch = useDispatch()
 
   const users = useSelector(getUsers)
@@ -69,12 +56,7 @@ function Users(): React.ReactElement {
     <div className="users">
       {isFetching && null}
       <UsersSearchForm onFilterChange={onFilterChange} />
-      <Paginator
-        totalItemsCount={totalUsersCount}
-        pageSize={pageSize}
-        onPageChange={onPageChange}
-        currentPage={currentPage}
-      />
+      <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} onPageChange={onPageChange} currentPage={currentPage} />
       {users?.map((user) => (
         <User
           key={user.id}
