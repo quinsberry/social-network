@@ -41,6 +41,5 @@ const Form: React.FC<InjectedFormProps<TLoginFormValues> & Props> = ({ handleSub
   )
 }
 
-export const LoginForm = reduxForm<TLoginFormValues, Props>({
-  form: 'login',
-})(Form)
+//@ts-ignore
+export const LoginForm = reduxForm<TLoginFormValues, Props>({ form: 'login' })(Form)

@@ -8,20 +8,6 @@ $header-bg: #fff;
   display: grid;
   grid-template-columns: 3fr 4fr 3fr;
   height: 60px;
-  .logo {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px 10px 30px;
-    span {
-      font-size: 20px;
-      font-weight: bold;
-      opacity: .9;
-    }
-    img {
-      width: 40px;
-      margin-right: 15px;
-    }
-  }
   .loadingside {
     position: relative;
     display: flex;
@@ -38,26 +24,38 @@ $header-bg: #fff;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    .auth {
-      display: flex;
-      align-items: center;
-      margin-right: 20px;
-      font-size: 18px;
-      a {
-        text-decoration: none;
-      }
-      .logout {
-        margin-left: 5px;
-      }
+  }
+}
 
-      &__authorised {
-        margin: 0;
-        font-weight: normal;
-        h3 {
-          margin: 0;
-        }
-      }
-    }
+.auth {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 18px;
+  a {
+    text-decoration: none;
+  }
+  .logout {
+    margin-left: 5px;
+  }
+
+  .signedIn_block {
+    height: 100%;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  span {
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.9;
+  }
+  img {
+    width: 40px;
+    margin-right: 15px;
   }
 }
 
@@ -65,9 +63,9 @@ $header-bg: #fff;
   cursor: pointer;
   width: 25px;
   height: 25px;
-  opacity: .9;
-  transition: .1s;
+  opacity: 0.9;
+  transition: 0.1s;
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
   }
 }

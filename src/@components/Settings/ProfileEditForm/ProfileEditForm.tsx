@@ -20,12 +20,7 @@ type Props = {
   profile: TProfile
 }
 
-const ProfileEditForm: React.FC<InjectedFormProps<TProfileEditFormValue> & Props> = ({
-  profile,
-  handleSubmit,
-  pristine,
-  submitting,
-}) => {
+const ProfileEditForm: React.FC<InjectedFormProps<TProfileEditFormValue> & Props> = ({ profile, handleSubmit, pristine, submitting }) => {
   const { aboutMe, contacts, lookingForAJobDescription, fullName } = profile
 
   const icons = {
@@ -101,14 +96,7 @@ const ProfileEditForm: React.FC<InjectedFormProps<TProfileEditFormValue> & Props
           <h3>Looking for a job</h3>
           <div className="profile-edit-form__lookingForAJob__isLooking">
             <h5>Are you looking a job?</h5>
-            <Field
-              name={'lookingForAJob'}
-              extracn={'lookingForAJob'}
-              className="input"
-              validate={[]}
-              component={Input}
-              type="checkbox"
-            />
+            <Field name={'lookingForAJob'} extracn={'lookingForAJob'} className="input" validate={[]} component={Input} type="checkbox" />
           </div>
           <div className="profile-edit-form__lookingForAJob__isLooking-descr">
             <h5>Describe you professional skills</h5>
@@ -130,6 +118,7 @@ const ProfileEditForm: React.FC<InjectedFormProps<TProfileEditFormValue> & Props
 const ProfileEditFormReduxForm = reduxForm<TProfileEditFormValue, Props>({
   form: 'editProfile',
   enableReinitialize: true,
+  //@ts-ignore
 })(ProfileEditForm)
 
 export default ProfileEditFormReduxForm

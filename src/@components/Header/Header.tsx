@@ -1,63 +1,58 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { getEmail, getIsAuth, getLogin, getUserId } from '@store/selectors/authSelectors'
+import { logoutTC } from '@store/reducers/authReducer'
+
+import { Layout, Menu, Avatar, Row, Col, Button } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
 import logoSvg from '@assets/logo.svg'
-import logoutSvg from '@assets//icons/common/logout.svg'
-import Preloader from '@components/common/Preloader/Preloader'
-
 import './Header.scss'
 
-import { TDataProcessing } from '@typings/types'
+interface HeaderProps {}
 
-type Props = {
-  userId: number | null
-  email: string | null
-  login: string | null
-  isAuth: boolean
-  dataProcessing: TDataProcessing
+export const Header: React.FC<HeaderProps> = () => {
+  const dispatch = useDispatch()
 
-  logout: () => void
-  isDataProcessing: (dataProcessing: TDataProcessing) => boolean
-}
+  const userId = useSelector(getUserId)
+  const email = useSelector(getEmail)
+  const login = useSelector(getLogin)
+  const isAuth = useSelector(getIsAuth)
 
-const Header: React.FC<Props> = ({
-  userId,
-  email,
-  login,
-  isAuth,
-  logout,
-  isDataProcessing,
-  dataProcessing,
-}) => {
+  const logout = () => {
+    dispatch(logoutTC())
+  }
+
   return (
-    <header className="header">
+    <Layout.Header style={{ display: 'flex', alignItems: 'center', background: '#fff' }}>
       <div className="logo">
         <img src={logoSvg} alt="Network Logo" />
         <span>Social Network</span>
       </div>
-      <div className="loadingside">
-        {isDataProcessing(dataProcessing) === true && <Preloader />}
-      </div>
-      <div className="otherside">
-        {!dataProcessing.isFetchingAuth && (
+      <Row style={{ flex: 1 }}>
+        <Col span={20}>
+          <Menu theme="light" mode="horizontal">
+            <Menu.Item key="1">
+              <Link to="/developers">Developers</Link>
+            </Menu.Item>
+          </Menu>
+        </Col>
+        <Col span={4}>
           <div className="auth">
             {isAuth ? (
-              <>
-                <h4 className="auth__authorised">
-                  <strong>{login}</strong>
-                </h4>
-                <img className="logout" onClick={logout} src={logoutSvg} alt="Logout svg Icon" />
-              </>
+              <div className="signedIn_block">
+                <Avatar style={{ marginRight: 10 }} icon={<UserOutlined />} />
+                <Button onClick={logout}>Sign out</Button>
+              </div>
             ) : (
               <NavLink to={`/login`}>
-                <h3 className="auth__login">Log in</h3>
+                <Button onClick={logout}>Sign in</Button>
               </NavLink>
             )}
           </div>
-        )}
-      </div>
-    </header>
+        </Col>
+      </Row>
+    </Layout.Header>
   )
 }
-
-export default Header

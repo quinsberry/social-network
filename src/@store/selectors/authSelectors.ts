@@ -1,24 +1,19 @@
-import { createSelector } from 'reselect'
 import { TAppState } from '@typings/types'
 
-const getUserIdSelector = (state: TAppState) => {
+export const getUserId = (state: TAppState) => {
   return state.auth.userId
 }
+export const getEmail = (state: TAppState) => {
+  return state.auth.email
+}
+export const getLogin = (state: TAppState) => {
+  return state.auth.login
+}
 
-const getIsAuthSelector = (state: TAppState) => {
+export const getIsAuth = (state: TAppState) => {
   return state.auth.isAuth
 }
 
-const getCaptchaUrlSelector = (state: TAppState) => {
+export const getCaptchaUrl = (state: TAppState) => {
   return state.auth.captchaUrl
 }
-
-export const getCaptchaUrl = createSelector(getCaptchaUrlSelector, (captchaUrl) => {
-  return captchaUrl
-})
-export const getUserId = createSelector(getUserIdSelector, (userId) => {
-  return userId
-})
-export const getIsAuth = createSelector(getIsAuthSelector, (isAuth) => {
-  return isAuth
-})
