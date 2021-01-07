@@ -17,7 +17,7 @@
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux-form": "^8.2.3",
     "antd": "^4.7.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
