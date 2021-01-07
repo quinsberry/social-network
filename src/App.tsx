@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Route, Switch, withRouter, Redirect, Link } from 'react-router-dom'
 
 import { Header } from '@components/Header/Header'
-import Navbar from '@components/Navbar/Navbar'
 import ProfileContainer from '@components/Profile/ProfileContainer'
 import ErrorPage from '@components/ErrorPage/ErrorPage'
 import { LoginPage } from '@components/Login/LoginPage'
@@ -11,18 +10,18 @@ import { initializeApp } from '@store/reducers/appReducer'
 import { withSuspense } from '@hoc/withSuspense'
 
 import { Layout, Menu, Breadcrumb } from 'antd'
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons'
+import { UserOutlined, LaptopOutlined } from '@ant-design/icons'
 
 import './App.scss'
 import { getInitializedSelector } from '@store/selectors/appSelectors'
 
-const DialogsContainer = lazy(() => import('@components/Dialogs/DialogsContainer'))
-const UsersContainer = lazy(() => import('@components/Users/Users'))
-const SettingsContainer = lazy(() => import('@components/Settings/SettingsContainer'))
+const Dialogs = lazy(() => import('@components/Dialogs/DialogsContainer'))
+const Users = lazy(() => import('@components/Users/Users'))
+const Settings = lazy(() => import('@components/Settings/SettingsContainer'))
 
-const SuspendedDialogs = withSuspense(DialogsContainer)
-const SuspendedUsers = withSuspense(UsersContainer)
-const SuspendedSettings = withSuspense(SettingsContainer)
+const SuspendedDialogs = withSuspense(Dialogs)
+const SuspendedUsers = withSuspense(Users)
+const SuspendedSettings = withSuspense(Settings)
 
 const { SubMenu } = Menu
 const { Content, Footer, Sider } = Layout

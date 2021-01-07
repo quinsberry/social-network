@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import queryString from 'querystring'
 
 import { User } from './User'
 import { UsersSearchForm } from './UsersSearchForm'
 import { Paginator } from '@components/common'
 
-import { getCurrentPage, getFilter, getIsFetching, getOnFollowing, getPageSize, getTotalUsersCount, getUsers } from '@store/selectors/usersSelectors'
+import {
+  getCurrentPage,
+  getFilter,
+  getIsFetching,
+  getOnFollowing,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
+} from '@store/selectors/usersSelectors'
 import { FilterType, followingToggleTC, onPageChangeTC, requestUsersTC } from '@store/reducers/usersReducer'
 
 import './Users.scss'
@@ -26,8 +32,6 @@ const Users: React.FC<UsersProps> = (): React.ReactElement => {
   const isFetching = useSelector(getIsFetching)
   const onFollowing = useSelector(getOnFollowing)
 
-  const history = useHistory()
-
   const [query, setQuery] = useQueryParams({
     term: StringParam,
     friend: BooleanParam,
@@ -36,7 +40,6 @@ const Users: React.FC<UsersProps> = (): React.ReactElement => {
   console.log('query: ', query)
 
   useEffect(() => {
-    const parsed = queryString.parse(history.location.search.substr(1))
     dispatch(requestUsersTC(query.page || 1, pageSize, { term: query.term || '', friend: query.friend || null }))
   }, [])
 
@@ -67,7 +70,12 @@ const Users: React.FC<UsersProps> = (): React.ReactElement => {
     <div className="users">
       {isFetching && null}
       <UsersSearchForm filter={filter} onFilterChange={onFilterChange} />
-      <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} onPageChange={onPageChange} currentPage={currentPage} />
+      <Paginator
+        totalItemsCount={totalUsersCount}
+        pageSize={pageSize}
+        onPageChange={onPageChange}
+        currentPage={currentPage}
+      />
       {users?.map((user) => (
         <User
           key={user.id}
