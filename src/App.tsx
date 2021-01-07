@@ -10,7 +10,7 @@ import { initializeApp } from '@store/reducers/appReducer'
 import { withSuspense } from '@hoc/withSuspense'
 
 import { Layout, Menu, Breadcrumb } from 'antd'
-import { UserOutlined, LaptopOutlined } from '@ant-design/icons'
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons'
 
 import './App.scss'
 import { getInitializedSelector } from '@store/selectors/appSelectors'
@@ -18,10 +18,12 @@ import { getInitializedSelector } from '@store/selectors/appSelectors'
 const Dialogs = lazy(() => import('@components/Dialogs/DialogsContainer'))
 const Users = lazy(() => import('@components/Users/Users'))
 const Settings = lazy(() => import('@components/Settings/SettingsContainer'))
+const ChatPage = lazy(() => import('@pages/Chat/ChatPage'))
 
 const SuspendedDialogs = withSuspense(Dialogs)
 const SuspendedUsers = withSuspense(Users)
 const SuspendedSettings = withSuspense(Settings)
+const SuspendedChatPage = withSuspense(ChatPage)
 
 const { SubMenu } = Menu
 const { Content, Footer, Sider } = Layout
@@ -79,6 +81,14 @@ const App: React.FC = () => {
                     <Link to="/news">News</Link>
                   </Menu.Item>
                 </SubMenu>
+                <SubMenu key="dialogs" icon={<NotificationOutlined />} title="Dialogs">
+                  <Menu.Item key="7">
+                    <Link to="/chat">Chat</Link>
+                  </Menu.Item>
+                  <Menu.Item key="8">
+                    <Link to="/news">asd</Link>
+                  </Menu.Item>
+                </SubMenu>
               </Menu>
             </Sider>
             <Content style={{ padding: '0 24px', minHeight: 280 }}>
@@ -88,8 +98,9 @@ const App: React.FC = () => {
                 <Route path="/dialogs" render={() => <SuspendedDialogs />} />
                 <Route path="/developers" render={() => <SuspendedUsers />} />
                 <Route path="/login" render={() => <LoginPage />} />
+                <Route path="/chat" render={() => <SuspendedChatPage />} />
                 <Route path="/settings" render={() => <SuspendedSettings />} />
-                <Route component={ErrorPage} />
+                <Route path="*" component={ErrorPage} />
               </Switch>
             </Content>
           </Layout>
