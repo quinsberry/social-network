@@ -9,7 +9,7 @@ const initialState = {
   lazyLoading: false,
 }
 
-const appReducer = (state = initialState, action: TActions): TInitialState => {
+export const appReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
     case 'APP/INITIALIZED_SUCCESS':
       return {
@@ -51,5 +51,3 @@ export const initializeApp = (): TThunk => {
     })
   }
 }
-
-export default appReducer

@@ -16,7 +16,7 @@ const initialState = {
   isFetching: false as boolean,
 }
 
-const authReducer = (state = initialState, action: TActions): TInitialState => {
+export const authReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
     case 'AUTH/SET_USER_DATA':
       return {
@@ -42,10 +42,15 @@ const authReducer = (state = initialState, action: TActions): TInitialState => {
 type TActions = TInferActions<typeof actions>
 
 export const actions = {
-  setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
-    ({ type: 'AUTH/SET_USER_DATA', payload: { userId, email, login, isAuth } } as const),
+  setAuthUserData: (
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean,
+  ) => ({ type: 'AUTH/SET_USER_DATA', payload: { userId, email, login, isAuth } } as const),
   getCaptchaUrlSuccess: (url: string) => ({ type: 'AUTH/GET_CAPTCHA_URL_SUCCESS', url } as const),
-  setIsFetchingToggle: (isFetching: boolean) => ({ type: 'AUTH/IS_FETCHING_TOGGLE', isFetching } as const),
+  setIsFetchingToggle: (isFetching: boolean) =>
+    ({ type: 'AUTH/IS_FETCHING_TOGGLE', isFetching } as const),
 }
 
 type TThunk = TBaseThunk<TActions | FormAction>
@@ -67,7 +72,12 @@ export const getAuthUserDataTC = (): TThunk => {
   }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string | null): TThunk => {
+export const loginTC = (
+  email: string,
+  password: string,
+  rememberMe: boolean,
+  captcha: string | null,
+): TThunk => {
   return async (dispatch) => {
     const res = await authAPI.login(email, password, rememberMe, captcha)
 
@@ -101,5 +111,3 @@ export const getCaptchaUrlTC = (): TThunk => {
     dispatch(actions.getCaptchaUrlSuccess(captchaUrl))
   }
 }
-
-export default authReducer

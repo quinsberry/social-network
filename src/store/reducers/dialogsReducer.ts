@@ -49,7 +49,7 @@ const initialState = {
   ] as Array<TMessage>,
 }
 
-const dialogsReducer = (state = initialState, action: TActions): TInitialState => {
+export const dialogsReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
     case 'DIALOGS/SEND_MESSAGE':
       let newMessage = {
@@ -79,5 +79,3 @@ export const sendMessageTC = (newMessageText: string): TThunk => {
     dispatch(actions.sendMessage(newMessageText))
   }
 }
-
-export default dialogsReducer

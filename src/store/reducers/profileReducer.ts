@@ -29,7 +29,7 @@ const initialState = {
   isProcessing: false,
 }
 
-const profileReducer = (state = initialState, action: TActions): TInitialState => {
+export const profileReducer = (state = initialState, action: TActions): TInitialState => {
   switch (action.type) {
     case 'PROFILE/ADD_POST':
       let newPost = {
@@ -168,5 +168,3 @@ export const saveProfileTC = (profile: TProfile): TThunk => {
     }
   }
 }
-
-export default profileReducer

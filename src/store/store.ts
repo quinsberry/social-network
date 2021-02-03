@@ -2,11 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 
-import profileReducer from './reducers/profileReducer'
-import dialogsReducer from './reducers/dialogsReducer'
+import { profileReducer } from './reducers/profileReducer'
+import { dialogsReducer } from './reducers/dialogsReducer'
 import { usersReducer } from './reducers/usersReducer'
-import authReducer from './reducers/authReducer'
-import appReducer from './reducers/appReducer'
+import { authReducer } from './reducers/authReducer'
+import { appReducer } from './reducers/appReducer'
+import { chatReducer } from './reducers/chatReducer'
 
 export type TRootReducer = typeof rootReducer
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   form: formReducer,
+  chat: chatReducer,
 })
 
 declare global {
