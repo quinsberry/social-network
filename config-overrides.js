@@ -9,6 +9,7 @@ module.exports = override(
     '@pages': path.resolve(__dirname, './src/pages'),
     '@utils': path.resolve(__dirname, './src/utils'),
     '@hoc': path.resolve(__dirname, './src/hoc'),
+    '@hooks': path.resolve(__dirname, './src/hooks'),
     '@store': path.resolve(__dirname, './src/store'),
     '@typings': path.resolve(__dirname, './src/typings'),
   }),

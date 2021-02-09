@@ -36,7 +36,8 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "typescript": "^3.8.3",
-    "use-query-params": "^1.1.8"
+    "use-query-params": "^1.1.8",
+    "uuid": "^3.4.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -62,6 +63,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.0",
     "customize-cra": "^1.0.0",
     "react-app-rewire-alias": "^0.1.9",
     "react-app-rewired": "^2.1.8"

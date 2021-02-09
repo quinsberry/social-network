@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
-import { IChatMessage } from '@api/chat.api'
-import { startMessagesListening, stopMessagesListening, sendMessage } from '@store/reducers/chatReducer'
+import { useTypedSelector } from '@hooks/useTypedSelector'
 
-import { TAppState } from '@typings/types'
+import {
+  startMessagesListening,
+  stopMessagesListening,
+  sendMessage,
+  WSStatus,
+} from '@store/reducers/chatReducer'
 
-interface ChatPageProps { }
+interface ChatPageProps {}
 export const ChatPage: React.FC<ChatPageProps> = (): React.ReactElement => {
   return (
     <div>
@@ -15,9 +19,11 @@ export const ChatPage: React.FC<ChatPageProps> = (): React.ReactElement => {
   )
 }
 
-interface ChatProps { }
+interface ChatProps {}
 export const Chat: React.FC<ChatProps> = (): React.ReactElement => {
   const dispatch = useDispatch()
+
+  const status = useTypedSelector((state) => state.chat.status)
 
   useEffect(() => {
     dispatch(startMessagesListening())
@@ -29,27 +35,40 @@ export const Chat: React.FC<ChatProps> = (): React.ReactElement => {
 
   return (
     <div>
+      {status === WSStatus.error ? <div>Error. Please refresh page</div> : undefined}
       <Messages />
       <AddMessageForm />
     </div>
   )
 }
 
-interface MessagesProps {
-}
+interface MessagesProps {}
 export const Messages: React.FC<MessagesProps> = (): React.ReactElement => {
-  const messages = useSelector((state: TAppState) => state.chat.messages)
+  const messages = useTypedSelector((state) => state.chat.messages)
+  const messagesAnchorRef = useRef<HTMLDivElement>(null)
+  const [autoScrollIsActive, setAutoScrollIsActive] = useState(true)
+
+  useEffect(() => {
+    if (autoScrollIsActive) {
+      messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages])
+
+  const handleOnScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const el = e.currentTarget
+    if (Math.abs(el.scrollHeight - el.scrollTop - el.clientHeight) < 50) {
+      !autoScrollIsActive && setAutoScrollIsActive(true)
+    } else {
+      autoScrollIsActive && setAutoScrollIsActive(false)
+    }
+  }
 
   return (
-    <div style={{ height: 400, overflowY: 'auto' }}>
-      {messages.map((m, idx) => (
-        <Message
-          key={`${idx}-${m.userId}`}
-          photoUrl={m.photo}
-          author={m.username}
-          text={m.message}
-        />
+    <div style={{ height: 400, overflowY: 'auto' }} onScroll={handleOnScroll}>
+      {messages.map((m) => (
+        <Message key={m.id} photoUrl={m.photo} author={m.username} text={m.message} />
       ))}
+      <div ref={messagesAnchorRef}></div>
     </div>
   )
 }
@@ -59,30 +78,33 @@ interface MessageProps {
   author: string
   text: string
 }
-export const Message: React.FC<MessageProps> = ({ photoUrl, author, text }): React.ReactElement => {
-  return (
-    <div>
-      <img style={{ width: 30 }} src={photoUrl} alt="Message img" />
-      <b>{author}</b>
-      <br />
-      {text}
-      <hr />
-    </div>
-  )
-}
+export const Message: React.FC<MessageProps> = React.memo(
+  ({ photoUrl, author, text }): React.ReactElement => {
+    console.log('aa')
+    return (
+      <div>
+        <img style={{ width: 30 }} src={photoUrl} alt="Message img" />
+        <b>{author}</b>
+        <br />
+        {text}
+        <hr />
+      </div>
+    )
+  },
+)
 
-interface AddMessageFormProps {
-}
+interface AddMessageFormProps {}
 export const AddMessageForm: React.FC<AddMessageFormProps> = (): React.ReactElement => {
   const dispatch = useDispatch()
 
   const [message, setMessage] = useState('')
-  const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
 
+  const status = useTypedSelector((state) => state.chat.status)
 
   const handleSend = () => {
     if (message.length > 0) {
       dispatch(sendMessage(message))
+      setMessage('')
     }
   }
 
@@ -94,7 +116,7 @@ export const AddMessageForm: React.FC<AddMessageFormProps> = (): React.ReactElem
         <textarea onChange={handleTextareaChange} value={message}></textarea>
       </div>
       <div>
-        <button onClick={handleSend}>
+        <button disabled={status !== WSStatus.ready} onClick={handleSend}>
           send
         </button>
       </div>
